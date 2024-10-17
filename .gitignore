@@ -1,2 +1,6 @@
 *.tar.gz
 ./data
+./Computer\ Vision/project/model
+*.index
+*.pb
+*.data*
