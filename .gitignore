@@ -3,3 +3,4 @@ Computer Vision/project/datasets
 Computer Vision/project/model
 Computer Vision/project/runs
 Computer Vision/*.pt
+__pycache__/
