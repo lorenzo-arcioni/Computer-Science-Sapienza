@@ -59,7 +59,6 @@ class LogisticRegression:
         Returns:
             gradient: the gradient of the log likelihood.
         """
-        gradient = np.mean((y - preds)[:, None] * x, axis=0)
+        gradient = np.mean(x.T * (y - preds), axis=1)
+
         return gradient
-
-
