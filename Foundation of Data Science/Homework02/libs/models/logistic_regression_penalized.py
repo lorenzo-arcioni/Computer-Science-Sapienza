@@ -17,8 +17,4 @@ class LogisticRegressionPenalized(LogisticRegression):
         Returns:
             None
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
-        pass
-    
+        self.parameters += lr * (gradient - self.lambda_  * self.parameters)

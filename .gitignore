@@ -5,3 +5,5 @@ Computer Vision/project/runs
 Computer Vision/*.pt
 __pycache__/
 pothole-segmentation-for-road-damage-assessment.ipynb
+Foundation of Data Science/Homework02/assets/cifar10
+Foundation of Data Science/Homework02/data

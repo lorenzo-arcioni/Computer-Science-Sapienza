@@ -11,10 +11,10 @@ class PoorPerformingCNN(nn.Module):
         self.relu1 = nn.ReLU()
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
 
-        self.conv2 = nn.Conv2d(5, 8, kernel_size=3, stride=1, padding=1)
+        self.conv2 = nn.Conv2d(4, 8, kernel_size=3, stride=1, padding=1)
         self.relu2 = nn.ReLU()
 
-        self.fc1 = nn.Linear(8 * 4 * 4, 28)
+        self.fc1 = nn.Linear(8 ** 3, 10)
 
     def forward(self, x):
         x = self.pool(self.relu1(self.conv1(x)))

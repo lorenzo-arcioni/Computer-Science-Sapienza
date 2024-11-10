@@ -17,9 +17,7 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             scores: it's the matrix containing raw scores for each sample and each class. The shape is (N, K)
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
+        scores = X @ self.parameters
         return scores
     
     def predict_labels(self, X: np.array) -> np.array:
@@ -32,9 +30,10 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             preds: it's the predicted class for each sample. The shape is (N,)
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
+        scores = self.predict(X)
+        probabilities = softmax(scores)  # Apply softmax to get probabilities
+        preds = np.argmax(probabilities, axis=1)  # Get index of max probability for each sample
+
         return preds
     
     @staticmethod
@@ -49,9 +48,7 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             loss: The scalar that is the mean error for each sample.
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
+        loss = -np.mean(np.sum(y_onehot * np.log(preds + 1e-12), axis=1))  # Adding epsilon to prevent log(0)
         return loss
     
     def update_theta(self, gradient:np.array, lr:float=0.5):
@@ -65,10 +62,7 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             None
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
-        pass
+        self.parameters -= lr * gradient
     
     @staticmethod
     def compute_gradient(x: np.array, y : np.array, preds: np.array) -> np.array:
@@ -83,9 +77,7 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             jacobian: A matrix with the partial derivatives of the loss. The shape is (H, K)
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
+        jacobian = x.T @ (preds - y) / x.shape[0]
         return jacobian
     
     
