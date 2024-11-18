@@ -1,4 +1,6 @@
 *.tar.gz
+*.gz
+*ubyte
 Computer Vision/project/datasets
 Computer Vision/project/model
 Computer Vision/project/runs

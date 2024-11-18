@@ -14,7 +14,7 @@ def sigmoid(x):
     ##############################
     ###     YOUR CODE HERE     ###
     ##############################    
-    return 1 / (1 + np.exp(-x))
+    return 1 / (1 + np.exp(- np.clip(x, -20, 20)))
 
 def softmax(y):
     """
@@ -26,8 +26,12 @@ def softmax(y):
     Returns:
         softmax_scores: it's the matrix containing probability for each sample and each class. The shape is (N, K)
     """
-    ##############################
-    ###     YOUR CODE HERE     ###
-    ##############################
+    
+    # Subtract the maximum value in each row to prevent numerical overflow and compute the exponentials
+    exp_y = np.exp(y - np.max(y, axis=1, keepdims=True))
+    
+    # Normalize each row to get probabilities
+    softmax_scores = exp_y / np.sum(exp_y, axis=1, keepdims=True)
+    
     return softmax_scores
 
