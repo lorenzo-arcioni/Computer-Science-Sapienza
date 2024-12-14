@@ -9,3 +9,6 @@ __pycache__/
 pothole-segmentation-for-road-damage-assessment.ipynb
 Foundation of Data Science/Homework02/assets/cifar10
 Foundation of Data Science/Homework02/data
+*.mp4
+*.pth
+*.pt

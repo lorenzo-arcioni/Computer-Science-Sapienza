@@ -1,0 +1,8 @@
+# Slide 4
+We preprocess the dataset by resizing images to 224x224 and converting them to tensors. The training set is augmented with random transformations to quadruple its size, while validation and test sets are left unchanged. Data loaders then batch the data for training and evaluation.
+
+# Slide 5
+We apply flipping, rotation, and zoom to dynamically augment the training set during each epoch. Each image, including its three augmented versions, is generated on-the-fly using PyTorch's transforms, ensuring the model sees fresh variations every time to boost generalization.
+
+# Slide 9
+To handle class imbalance, we compute class weights using the inverse of sample counts, normalized across all classes. This ensures the weights are proportional, balancing the model’s learning across all 9 classes.

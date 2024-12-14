@@ -1,0 +1,7 @@
+ResNet50
+Densenet121
+MobileNetV2
+Swin Transformer Base
+Efficient Net V2
+Vision Transformer ViT_L_16
+Custom CNN
