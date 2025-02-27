@@ -2,10 +2,10 @@ import cv2
 from ultralytics import YOLO
 
 # Carica il modello salvato (best.pt)
-model = YOLO('/home/lorenzo/Scaricati/best-faces-256.pt')  # Sostituisci con il percorso corretto del tuo modello
+model = YOLO('/home/lorenzo/Scaricati/best.pt')  # Sostituisci con il percorso corretto del tuo modello
 
 # Load the video capture
-videoCap = cv2.VideoCapture(0)
+videoCap = cv2.VideoCapture(2)
 
 # Function to get class colors
 def getColours(cls_num):
@@ -21,7 +21,7 @@ while True:
     ret, frame = videoCap.read()
     if not ret:
         continue
-    results = model.track(frame, stream=True, imgsz=256)
+    results = model.track(frame, stream=True, imgsz=480)
 
     for result in results:
         # get the classes names
