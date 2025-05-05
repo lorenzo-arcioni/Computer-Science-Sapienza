@@ -2,42 +2,38 @@ import pygame
 import os
 
 class MusicPlayer:
-    def __init__(self, music_dir="songs"):
-        pygame.init()
+    def __init__(self, music_folder="songs"):
         pygame.mixer.init()
-        self.music_dir = music_dir
-        self.playlist = []
-        self.current_song = 0
-        self.volume = 0.5
-        self.load_playlist()
+        self.music_folder = music_folder
+        self.songs = [f for f in os.listdir(music_folder) if f.endswith(".mp3")]
+        self.index = 0
+        self.load_song()
 
-    def load_playlist(self):
-        self.playlist = [os.path.join(self.music_dir, f) for f in os.listdir(self.music_dir) if f.endswith(('.mp3', '.wav'))]
-        self.playlist.sort()
+    def load_song(self):
+        if self.songs:
+            song_path = os.path.join(self.music_folder, self.songs[self.index])
+            pygame.mixer.music.load(song_path)
 
-    def play(self):
-        pygame.mixer.music.load(self.playlist[self.current_song])
+    def play_pause(self):
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.pause()
+        else:
+            pygame.mixer.music.unpause() if pygame.mixer.music.get_pos() > 0 else pygame.mixer.music.play()
+
+    def next(self):
+        self.index = (self.index + 1) % len(self.songs)
+        self.load_song()
         pygame.mixer.music.play()
-        pygame.mixer.music.set_volume(self.volume)
 
-    def pause(self):
-        pygame.mixer.music.pause()
-
-    def resume(self):
-        pygame.mixer.music.unpause()
-
-    def next_track(self):
-        self.current_song = (self.current_song + 1) % len(self.playlist)
-        self.play()
-
-    def previous_track(self):
-        self.current_song = (self.current_song - 1) % len(self.playlist)
-        self.play()
+    def prev(self):
+        self.index = (self.index - 1) % len(self.songs)
+        self.load_song()
+        pygame.mixer.music.play()
 
     def volume_up(self):
-        self.volume = min(1.0, self.volume + 0.1)
-        pygame.mixer.music.set_volume(self.volume)
+        vol = min(pygame.mixer.music.get_volume() + 0.1, 1.0)
+        pygame.mixer.music.set_volume(vol)
 
     def volume_down(self):
-        self.volume = max(0.0, self.volume - 0.1)
-        pygame.mixer.music.set_volume(self.volume)
+        vol = max(pygame.mixer.music.get_volume() - 0.1, 0.0)
+        pygame.mixer.music.set_volume(vol)

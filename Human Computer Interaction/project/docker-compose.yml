@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  kivyapp:
+    build: .
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - HOME=/app
+    stdin_open: true
+    tty: true
