@@ -150,7 +150,7 @@ last_trigger_time = 0
 cooldown = 1
 is_detecting = False
 detection_start_time = 0
-detection_delay = 1.3
+detection_delay = 0.9
 current_gesture = None
 consecutive_thumbs_up_count = 0
 consecutive_thumbs_down_count = 0
@@ -229,7 +229,7 @@ def estimate_hand_side(landmarks, handedness):
 mp_hands = mp.solutions.hands
 mp_draw = mp.solutions.drawing_utils
 hands = mp_hands.Hands(max_num_hands=1, model_complexity=1, min_detection_confidence=0.7, min_tracking_confidence=0.7)
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 
 # Avvia la riproduzione iniziale
 load_and_play(current_index)
