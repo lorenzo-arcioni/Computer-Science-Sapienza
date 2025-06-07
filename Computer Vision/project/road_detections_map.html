@@ -1,0 +1,2996 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_fe56e7b91b34c1cf99e37026ccd9582a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+            top: 50%; left: 50px; 
+            transform: translateY(-50%);
+            border:2px solid grey; z-index:9999; font-size:14px;
+            background-color:white;
+            padding: 10px;
+            border-radius: 5px;
+            opacity: 0.9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            ">
+    <h4 style="margin-top: 0; color: #333;">Area Legend</h4>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <div style="background-color: #666; border-radius: 50%; width: 10px; height: 10px; margin-right: 10px;"></div>
+        <span>Small area (~286 px²)</span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <div style="background-color: #666; border-radius: 50%; width: 30px; height: 30px; margin-right: 10px;"></div>
+        <span>Large area (~85698 px²)</span>
+    </div>
+    <div style="font-style: italic; font-size: 12px; margin-top: 10px; color: #666;">
+        Circle size is proportional to detection area
+    </div>
+</div>
+    
+<div style="position: fixed; 
+            top: 50%; right: 50px; 
+            transform: translateY(-50%);
+            border:2px solid grey; z-index:9999; font-size:14px;
+            background-color:white;
+            padding: 10px;
+            border-radius: 5px;
+            opacity: 0.9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            ">
+    <h4 style="margin-top: 0; color: #333;">Detection Types</h4>
+    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+        <div style="background-color: #DC143C; border-radius: 50%; width: 16px; height: 16px; margin-right: 8px;"></div>
+        <span>Pothole (29 detections)</span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+        <div style="background-color: #1E3A8A; border-radius: 50%; width: 16px; height: 16px; margin-right: 8px;"></div>
+        <span>Crack (66 detections)</span>
+    </div>
+    <div style="font-style: italic; font-size: 12px; margin-top: 10px; color: #666;">
+        Click on clusters to zoom in and see individual detections.
+    </div>
+</div>
+    
+            <div class="folium-map" id="map_fe56e7b91b34c1cf99e37026ccd9582a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_fe56e7b91b34c1cf99e37026ccd9582a = L.map(
+                "map_fe56e7b91b34c1cf99e37026ccd9582a",
+                {
+                    center: [41.881336003508785, 12.494451484210533],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 15,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_9cb7a725b3c37dbbdeb98d00b42eb98b = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 22, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_9cb7a725b3c37dbbdeb98d00b42eb98b.addTo(map_fe56e7b91b34c1cf99e37026ccd9582a);
+        
+    
+            var marker_cluster_be7066337644e6ce44c20cb0144cea40 = L.markerClusterGroup(
+                {"disableClusteringAtZoom": 18, "maxClusterRadius": 80, "spiderfyOnMaxZoom": true, "zoomToBoundsOnClick": true}
+            );
+        
+    
+            var circle_marker_1b33b3f58697d98bfd53b9eb8a03da7b = L.circleMarker(
+                [41.88088433333333, 12.494964],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.229803363503601, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_188a7107ccfc366632bcebe433f3ef5c = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_cc5f22745256c31affeaaf1fd2327914 = $(`<div id="html_cc5f22745256c31affeaaf1fd2327914" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 1020 px²<br>             <b>Confidence:</b> 0.30<br>             <b>Time:</b> 2025-05-06 17:22:07<br>             <b>Location:</b> 41.880884, 12.494964         </div>         </div>`)[0];
+                popup_188a7107ccfc366632bcebe433f3ef5c.setContent(html_cc5f22745256c31affeaaf1fd2327914);
+            
+        
+
+        circle_marker_1b33b3f58697d98bfd53b9eb8a03da7b.bindPopup(popup_188a7107ccfc366632bcebe433f3ef5c)
+        ;
+
+        
+    
+    
+            circle_marker_1b33b3f58697d98bfd53b9eb8a03da7b.bindTooltip(
+                `<div>
+                     Pothole: Area 1020 px², Confidence 0.30
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_6ee12807c05a3d057a84a541e999f46d = L.circleMarker(
+                [41.88092116666667, 12.494920666666667],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.9654978360319895, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_f32adf4ff6b2738d0e3e449a27ae710e = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_1ad325c22beb9b0a9fe62de525d858c5 = $(`<div id="html_1ad325c22beb9b0a9fe62de525d858c5" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 496 px²<br>             <b>Confidence:</b> 0.42<br>             <b>Time:</b> 2025-05-06 17:22:09<br>             <b>Location:</b> 41.880921, 12.494921         </div>         </div>`)[0];
+                popup_f32adf4ff6b2738d0e3e449a27ae710e.setContent(html_1ad325c22beb9b0a9fe62de525d858c5);
+            
+        
+
+        circle_marker_6ee12807c05a3d057a84a541e999f46d.bindPopup(popup_f32adf4ff6b2738d0e3e449a27ae710e)
+        ;
+
+        
+    
+    
+            circle_marker_6ee12807c05a3d057a84a541e999f46d.bindTooltip(
+                `<div>
+                     Pothole: Area 496 px², Confidence 0.42
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_19974d14b83063b1f4e53894fdc01fd3 = L.circleMarker(
+                [41.88092116666667, 12.494920666666667],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.753514429877265, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_de11f96c491e100e763cd8aa5e5c2b04 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_342d31577095e5784ba186b3c5005c5d = $(`<div id="html_342d31577095e5784ba186b3c5005c5d" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 1375 px²<br>             <b>Confidence:</b> 0.36<br>             <b>Time:</b> 2025-05-06 17:22:11<br>             <b>Location:</b> 41.880921, 12.494921         </div>         </div>`)[0];
+                popup_de11f96c491e100e763cd8aa5e5c2b04.setContent(html_342d31577095e5784ba186b3c5005c5d);
+            
+        
+
+        circle_marker_19974d14b83063b1f4e53894fdc01fd3.bindPopup(popup_de11f96c491e100e763cd8aa5e5c2b04)
+        ;
+
+        
+    
+    
+            circle_marker_19974d14b83063b1f4e53894fdc01fd3.bindTooltip(
+                `<div>
+                     Pothole: Area 1375 px², Confidence 0.36
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_bb0649993a4fa4bac9a1d40c0a122033 = L.circleMarker(
+                [41.88096133333333, 12.494868333333333],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_a8e5f7ef0e6f73cd30098225df52db0b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_e99cf0ae2a9e1dae12e80befc24c0c3a = $(`<div id="html_e99cf0ae2a9e1dae12e80befc24c0c3a" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 286 px²<br>             <b>Confidence:</b> 0.44<br>             <b>Time:</b> 2025-05-06 17:22:13<br>             <b>Location:</b> 41.880961, 12.494868         </div>         </div>`)[0];
+                popup_a8e5f7ef0e6f73cd30098225df52db0b.setContent(html_e99cf0ae2a9e1dae12e80befc24c0c3a);
+            
+        
+
+        circle_marker_bb0649993a4fa4bac9a1d40c0a122033.bindPopup(popup_a8e5f7ef0e6f73cd30098225df52db0b)
+        ;
+
+        
+    
+    
+            circle_marker_bb0649993a4fa4bac9a1d40c0a122033.bindTooltip(
+                `<div>
+                     Pothole: Area 286 px², Confidence 0.44
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_90136b45cab89f34340d550c5d2f083d = L.circleMarker(
+                [41.88096133333333, 12.494868333333333],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.704574695780752, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_c020bbfb494017d624bb8303b770e83b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_0ba5f713354a52ba3fc6e964cab50b1f = $(`<div id="html_0ba5f713354a52ba3fc6e964cab50b1f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 756 px²<br>             <b>Confidence:</b> 0.36<br>             <b>Time:</b> 2025-05-06 17:22:13<br>             <b>Location:</b> 41.880961, 12.494868         </div>         </div>`)[0];
+                popup_c020bbfb494017d624bb8303b770e83b.setContent(html_0ba5f713354a52ba3fc6e964cab50b1f);
+            
+        
+
+        circle_marker_90136b45cab89f34340d550c5d2f083d.bindPopup(popup_c020bbfb494017d624bb8303b770e83b)
+        ;
+
+        
+    
+    
+            circle_marker_90136b45cab89f34340d550c5d2f083d.bindTooltip(
+                `<div>
+                     Pothole: Area 756 px², Confidence 0.36
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f58c7736571bed827f28b3a765a271d1 = L.circleMarker(
+                [41.88096133333333, 12.494868333333333],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.014308612475072, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_ce384cd3c90e8850e19f74d14862642f = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_0e4e0c640bd2d767ae6eab3a85b3d5aa = $(`<div id="html_0e4e0c640bd2d767ae6eab3a85b3d5aa" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 510 px²<br>             <b>Confidence:</b> 0.32<br>             <b>Time:</b> 2025-05-06 17:22:13<br>             <b>Location:</b> 41.880961, 12.494868         </div>         </div>`)[0];
+                popup_ce384cd3c90e8850e19f74d14862642f.setContent(html_0e4e0c640bd2d767ae6eab3a85b3d5aa);
+            
+        
+
+        circle_marker_f58c7736571bed827f28b3a765a271d1.bindPopup(popup_ce384cd3c90e8850e19f74d14862642f)
+        ;
+
+        
+    
+    
+            circle_marker_f58c7736571bed827f28b3a765a271d1.bindTooltip(
+                `<div>
+                     Pothole: Area 510 px², Confidence 0.32
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_bd9d58c62e55a0e7dc1f3553b5e99927 = L.circleMarker(
+                [41.88096133333333, 12.494868333333333],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.162587454532492, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_fa754a9a818199a1bba64b4f46792dde = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_bd9fb44dedb92d5a7e4392cff0881829 = $(`<div id="html_bd9fb44dedb92d5a7e4392cff0881829" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 555 px²<br>             <b>Confidence:</b> 0.42<br>             <b>Time:</b> 2025-05-06 17:22:14<br>             <b>Location:</b> 41.880961, 12.494868         </div>         </div>`)[0];
+                popup_fa754a9a818199a1bba64b4f46792dde.setContent(html_bd9fb44dedb92d5a7e4392cff0881829);
+            
+        
+
+        circle_marker_bd9d58c62e55a0e7dc1f3553b5e99927.bindPopup(popup_fa754a9a818199a1bba64b4f46792dde)
+        ;
+
+        
+    
+    
+            circle_marker_bd9d58c62e55a0e7dc1f3553b5e99927.bindTooltip(
+                `<div>
+                     Pothole: Area 555 px², Confidence 0.42
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5dfb4d7163313eb0b199a2ce9a820d3a = L.circleMarker(
+                [41.881001833333336, 12.494805],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.09216137459302, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_ca104a76b6babb02d322056b74c9b18f = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_129a3d825d69fc2122cbefec94bcfa60 = $(`<div id="html_129a3d825d69fc2122cbefec94bcfa60" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 943 px²<br>             <b>Confidence:</b> 0.39<br>             <b>Time:</b> 2025-05-06 17:22:16<br>             <b>Location:</b> 41.881002, 12.494805         </div>         </div>`)[0];
+                popup_ca104a76b6babb02d322056b74c9b18f.setContent(html_129a3d825d69fc2122cbefec94bcfa60);
+            
+        
+
+        circle_marker_5dfb4d7163313eb0b199a2ce9a820d3a.bindPopup(popup_ca104a76b6babb02d322056b74c9b18f)
+        ;
+
+        
+    
+    
+            circle_marker_5dfb4d7163313eb0b199a2ce9a820d3a.bindTooltip(
+                `<div>
+                     Pothole: Area 943 px², Confidence 0.39
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_98bf84cfc8a5349d90d0980480e52686 = L.circleMarker(
+                [41.881001833333336, 12.494805],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.866571555624823, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_e212ea83814e9553f45c552963d5c21a = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_f48edde51195de860c113285e6948f38 = $(`<div id="html_f48edde51195de860c113285e6948f38" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 4588 px²<br>             <b>Confidence:</b> 0.43<br>             <b>Time:</b> 2025-05-06 17:22:19<br>             <b>Location:</b> 41.881002, 12.494805         </div>         </div>`)[0];
+                popup_e212ea83814e9553f45c552963d5c21a.setContent(html_f48edde51195de860c113285e6948f38);
+            
+        
+
+        circle_marker_98bf84cfc8a5349d90d0980480e52686.bindPopup(popup_e212ea83814e9553f45c552963d5c21a)
+        ;
+
+        
+    
+    
+            circle_marker_98bf84cfc8a5349d90d0980480e52686.bindTooltip(
+                `<div>
+                     Pothole: Area 4588 px², Confidence 0.43
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_6b1b6bafdcf2ada53a9dd6e6e995819c = L.circleMarker(
+                [41.88107633333333, 12.494677833333334],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.3969381748695735, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_ce8ef0db0d1b17cdda4aa9ac3ce1cd58 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ad1188a9622db375d2853567f13a2686 = $(`<div id="html_ad1188a9622db375d2853567f13a2686" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 1122 px²<br>             <b>Confidence:</b> 0.41<br>             <b>Time:</b> 2025-05-06 17:22:25<br>             <b>Location:</b> 41.881076, 12.494678         </div>         </div>`)[0];
+                popup_ce8ef0db0d1b17cdda4aa9ac3ce1cd58.setContent(html_ad1188a9622db375d2853567f13a2686);
+            
+        
+
+        circle_marker_6b1b6bafdcf2ada53a9dd6e6e995819c.bindPopup(popup_ce8ef0db0d1b17cdda4aa9ac3ce1cd58)
+        ;
+
+        
+    
+    
+            circle_marker_6b1b6bafdcf2ada53a9dd6e6e995819c.bindTooltip(
+                `<div>
+                     Pothole: Area 1122 px², Confidence 0.41
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_d74f1cd22093cff96a4d105beeae07e1 = L.circleMarker(
+                [41.88107633333333, 12.494677833333334],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.7232390258026875, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_0f25178a5beef1a23af0c8a000066893 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_8cbf7c46cb51e6e24611b8ba7eb11dce = $(`<div id="html_8cbf7c46cb51e6e24611b8ba7eb11dce" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 432 px²<br>             <b>Confidence:</b> 0.32<br>             <b>Time:</b> 2025-05-06 17:22:25<br>             <b>Location:</b> 41.881076, 12.494678         </div>         </div>`)[0];
+                popup_0f25178a5beef1a23af0c8a000066893.setContent(html_8cbf7c46cb51e6e24611b8ba7eb11dce);
+            
+        
+
+        circle_marker_d74f1cd22093cff96a4d105beeae07e1.bindPopup(popup_0f25178a5beef1a23af0c8a000066893)
+        ;
+
+        
+    
+    
+            circle_marker_d74f1cd22093cff96a4d105beeae07e1.bindTooltip(
+                `<div>
+                     Pothole: Area 432 px², Confidence 0.32
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_604695f1b3b8eb410f4fb54fe52900e7 = L.circleMarker(
+                [41.88107633333333, 12.494677833333334],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.263854690691085, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_d8afeea997610ecb0617d67ac801311d = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_53f5b4e4677c905ba532f269261913eb = $(`<div id="html_53f5b4e4677c905ba532f269261913eb" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 1040 px²<br>             <b>Confidence:</b> 0.46<br>             <b>Time:</b> 2025-05-06 17:22:26<br>             <b>Location:</b> 41.881076, 12.494678         </div>         </div>`)[0];
+                popup_d8afeea997610ecb0617d67ac801311d.setContent(html_53f5b4e4677c905ba532f269261913eb);
+            
+        
+
+        circle_marker_604695f1b3b8eb410f4fb54fe52900e7.bindPopup(popup_d8afeea997610ecb0617d67ac801311d)
+        ;
+
+        
+    
+    
+            circle_marker_604695f1b3b8eb410f4fb54fe52900e7.bindTooltip(
+                `<div>
+                     Pothole: Area 1040 px², Confidence 0.46
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_8f6d8030fd2249c637ace614c5ba6ac0 = L.circleMarker(
+                [41.881133, 12.494557833333332],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.930596461767548, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_1c1519791ad2ada5090ceeff8039059c = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_6862703f66d15b4873f2ede57f4ba7a1 = $(`<div id="html_6862703f66d15b4873f2ede57f4ba7a1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 860 px²<br>             <b>Confidence:</b> 0.43<br>             <b>Time:</b> 2025-05-06 17:22:30<br>             <b>Location:</b> 41.881133, 12.494558         </div>         </div>`)[0];
+                popup_1c1519791ad2ada5090ceeff8039059c.setContent(html_6862703f66d15b4873f2ede57f4ba7a1);
+            
+        
+
+        circle_marker_8f6d8030fd2249c637ace614c5ba6ac0.bindPopup(popup_1c1519791ad2ada5090ceeff8039059c)
+        ;
+
+        
+    
+    
+            circle_marker_8f6d8030fd2249c637ace614c5ba6ac0.bindTooltip(
+                `<div>
+                     Pothole: Area 860 px², Confidence 0.43
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_62cfa0c3cf097244031e8df57d914add = L.circleMarker(
+                [41.881198833333336, 12.494447],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.529069518882361, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_c9187ccda49536484e50aeef64da1c7a = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_4fa1d4f21c77aba95e4fb0c6e5f9719a = $(`<div id="html_4fa1d4f21c77aba95e4fb0c6e5f9719a" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 684 px²<br>             <b>Confidence:</b> 0.31<br>             <b>Time:</b> 2025-05-06 17:22:42<br>             <b>Location:</b> 41.881199, 12.494447         </div>         </div>`)[0];
+                popup_c9187ccda49536484e50aeef64da1c7a.setContent(html_4fa1d4f21c77aba95e4fb0c6e5f9719a);
+            
+        
+
+        circle_marker_62cfa0c3cf097244031e8df57d914add.bindPopup(popup_c9187ccda49536484e50aeef64da1c7a)
+        ;
+
+        
+    
+    
+            circle_marker_62cfa0c3cf097244031e8df57d914add.bindTooltip(
+                `<div>
+                     Pothole: Area 684 px², Confidence 0.31
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_1b2c465acceba30960bf72823d9272c9 = L.circleMarker(
+                [41.882398, 12.492487],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.263854690691085, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_68a79de0aba9409102bd56315b9a630e = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_4292346957d9e85623db51b8cfd0965c = $(`<div id="html_4292346957d9e85623db51b8cfd0965c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 1040 px²<br>             <b>Confidence:</b> 0.49<br>             <b>Time:</b> 2025-05-06 17:22:44<br>             <b>Location:</b> 41.882398, 12.492487         </div>         </div>`)[0];
+                popup_68a79de0aba9409102bd56315b9a630e.setContent(html_4292346957d9e85623db51b8cfd0965c);
+            
+        
+
+        circle_marker_1b2c465acceba30960bf72823d9272c9.bindPopup(popup_68a79de0aba9409102bd56315b9a630e)
+        ;
+
+        
+    
+    
+            circle_marker_1b2c465acceba30960bf72823d9272c9.bindTooltip(
+                `<div>
+                     Pothole: Area 1040 px², Confidence 0.49
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_879daf1197f5f8b153214ea81b2566a7 = L.circleMarker(
+                [41.882398, 12.492487],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.060431398446593, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_01b9e1d8fe539699a79b11073d267b5c = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_dc0aee3f4dbecc09794dca4015bd4142 = $(`<div id="html_dc0aee3f4dbecc09794dca4015bd4142" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 1638 px²<br>             <b>Confidence:</b> 0.50<br>             <b>Time:</b> 2025-05-06 17:22:45<br>             <b>Location:</b> 41.882398, 12.492487         </div>         </div>`)[0];
+                popup_01b9e1d8fe539699a79b11073d267b5c.setContent(html_dc0aee3f4dbecc09794dca4015bd4142);
+            
+        
+
+        circle_marker_879daf1197f5f8b153214ea81b2566a7.bindPopup(popup_01b9e1d8fe539699a79b11073d267b5c)
+        ;
+
+        
+    
+    
+            circle_marker_879daf1197f5f8b153214ea81b2566a7.bindTooltip(
+                `<div>
+                     Pothole: Area 1638 px², Confidence 0.50
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_661c2cec85825dd629d77fb7f5a77436 = L.circleMarker(
+                [41.882398, 12.492487],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.331658627953118, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_24c79d4dd5553e39af4f34838c3484e1 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_681770cdf5be84b0ea3b5c27cc591069 = $(`<div id="html_681770cdf5be84b0ea3b5c27cc591069" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 1081 px²<br>             <b>Confidence:</b> 0.53<br>             <b>Time:</b> 2025-05-06 17:22:45<br>             <b>Location:</b> 41.882398, 12.492487         </div>         </div>`)[0];
+                popup_24c79d4dd5553e39af4f34838c3484e1.setContent(html_681770cdf5be84b0ea3b5c27cc591069);
+            
+        
+
+        circle_marker_661c2cec85825dd629d77fb7f5a77436.bindPopup(popup_24c79d4dd5553e39af4f34838c3484e1)
+        ;
+
+        
+    
+    
+            circle_marker_661c2cec85825dd629d77fb7f5a77436.bindTooltip(
+                `<div>
+                     Pothole: Area 1081 px², Confidence 0.53
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5ee541a90da06e0b3c6834fade8f0c50 = L.circleMarker(
+                [41.88244666666667, 12.492409333333333],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.667063356385933, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_0d3593998de855787ed02f29dba10875 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_dc3e509ddfd74371c917532d58c9bed7 = $(`<div id="html_dc3e509ddfd74371c917532d58c9bed7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 740 px²<br>             <b>Confidence:</b> 0.32<br>             <b>Time:</b> 2025-05-06 17:22:49<br>             <b>Location:</b> 41.882447, 12.492409         </div>         </div>`)[0];
+                popup_0d3593998de855787ed02f29dba10875.setContent(html_dc3e509ddfd74371c917532d58c9bed7);
+            
+        
+
+        circle_marker_5ee541a90da06e0b3c6834fade8f0c50.bindPopup(popup_0d3593998de855787ed02f29dba10875)
+        ;
+
+        
+    
+    
+            circle_marker_5ee541a90da06e0b3c6834fade8f0c50.bindTooltip(
+                `<div>
+                     Pothole: Area 740 px², Confidence 0.32
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_4c5e8fb318bf06709d1a95d8958c2d99 = L.circleMarker(
+                [41.88264733333333, 12.492111],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.285219113974827, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_6456380a751df5e78fbc3aa447972fa8 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_209ad7b6976ee0e0a819baf8e2e3c5e5 = $(`<div id="html_209ad7b6976ee0e0a819baf8e2e3c5e5" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 32232 px²<br>             <b>Confidence:</b> 0.43<br>             <b>Time:</b> 2025-05-06 17:23:04<br>             <b>Location:</b> 41.882647, 12.492111         </div>         </div>`)[0];
+                popup_6456380a751df5e78fbc3aa447972fa8.setContent(html_209ad7b6976ee0e0a819baf8e2e3c5e5);
+            
+        
+
+        circle_marker_4c5e8fb318bf06709d1a95d8958c2d99.bindPopup(popup_6456380a751df5e78fbc3aa447972fa8)
+        ;
+
+        
+    
+    
+            circle_marker_4c5e8fb318bf06709d1a95d8958c2d99.bindTooltip(
+                `<div>
+                     Pothole: Area 32232 px², Confidence 0.43
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5f452fd2f38117720842333160d33e65 = L.circleMarker(
+                [41.88264733333333, 12.492111],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.455555960703663, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_6db2904a577822fc16095ba24948dda8 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_3244614e503a8732681a55a1ddce0801 = $(`<div id="html_3244614e503a8732681a55a1ddce0801" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 35520 px²<br>             <b>Confidence:</b> 0.39<br>             <b>Time:</b> 2025-05-06 17:23:05<br>             <b>Location:</b> 41.882647, 12.492111         </div>         </div>`)[0];
+                popup_6db2904a577822fc16095ba24948dda8.setContent(html_3244614e503a8732681a55a1ddce0801);
+            
+        
+
+        circle_marker_5f452fd2f38117720842333160d33e65.bindPopup(popup_6db2904a577822fc16095ba24948dda8)
+        ;
+
+        
+    
+    
+            circle_marker_5f452fd2f38117720842333160d33e65.bindTooltip(
+                `<div>
+                     Pothole: Area 35520 px², Confidence 0.39
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_cbbc99b06df357e6f2d4edb4cf74c6c0 = L.circleMarker(
+                [41.88264733333333, 12.492111],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.285960863495808, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_8a21a012f8532b6fe6dd2f0fab275f43 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_30fa3b008698e18fe3ca16603876d682 = $(`<div id="html_30fa3b008698e18fe3ca16603876d682" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 18231 px²<br>             <b>Confidence:</b> 0.40<br>             <b>Time:</b> 2025-05-06 17:23:06<br>             <b>Location:</b> 41.882647, 12.492111         </div>         </div>`)[0];
+                popup_8a21a012f8532b6fe6dd2f0fab275f43.setContent(html_30fa3b008698e18fe3ca16603876d682);
+            
+        
+
+        circle_marker_cbbc99b06df357e6f2d4edb4cf74c6c0.bindPopup(popup_8a21a012f8532b6fe6dd2f0fab275f43)
+        ;
+
+        
+    
+    
+            circle_marker_cbbc99b06df357e6f2d4edb4cf74c6c0.bindTooltip(
+                `<div>
+                     Pothole: Area 18231 px², Confidence 0.40
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_48a37dd2754886b90b50947344f43211 = L.circleMarker(
+                [41.88264733333333, 12.492111],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.001646399594833, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_5bb3f72c69390d750bcc8bfa0c73ce6a = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_d5fc8085d5a8d5d0e0f8bcb7a6d9fe1f = $(`<div id="html_d5fc8085d5a8d5d0e0f8bcb7a6d9fe1f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 1584 px²<br>             <b>Confidence:</b> 0.33<br>             <b>Time:</b> 2025-05-06 17:23:08<br>             <b>Location:</b> 41.882647, 12.492111         </div>         </div>`)[0];
+                popup_5bb3f72c69390d750bcc8bfa0c73ce6a.setContent(html_d5fc8085d5a8d5d0e0f8bcb7a6d9fe1f);
+            
+        
+
+        circle_marker_48a37dd2754886b90b50947344f43211.bindPopup(popup_5bb3f72c69390d750bcc8bfa0c73ce6a)
+        ;
+
+        
+    
+    
+            circle_marker_48a37dd2754886b90b50947344f43211.bindTooltip(
+                `<div>
+                     Pothole: Area 1584 px², Confidence 0.33
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_a2eaafce15766cc5f7e2ea07a85409a9 = L.circleMarker(
+                [41.88274583333333, 12.491933166666666],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.2159955106701865, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_1e860a8c2f1595e15063b00c3b35e005 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_8841462b47ddbc5c105f30b84b0ca47e = $(`<div id="html_8841462b47ddbc5c105f30b84b0ca47e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 1012 px²<br>             <b>Confidence:</b> 0.49<br>             <b>Time:</b> 2025-05-06 17:23:16<br>             <b>Location:</b> 41.882746, 12.491933         </div>         </div>`)[0];
+                popup_1e860a8c2f1595e15063b00c3b35e005.setContent(html_8841462b47ddbc5c105f30b84b0ca47e);
+            
+        
+
+        circle_marker_a2eaafce15766cc5f7e2ea07a85409a9.bindPopup(popup_1e860a8c2f1595e15063b00c3b35e005)
+        ;
+
+        
+    
+    
+            circle_marker_a2eaafce15766cc5f7e2ea07a85409a9.bindTooltip(
+                `<div>
+                     Pothole: Area 1012 px², Confidence 0.49
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_b172ab4d1df0e8a5c94e631357f51727 = L.circleMarker(
+                [41.88274583333333, 12.491933166666666],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.9654978360319895, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_f7351d3faf5c490a662fb3a4ce34bc28 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_9e271df71333b8cf71c146d8de718d50 = $(`<div id="html_9e271df71333b8cf71c146d8de718d50" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 496 px²<br>             <b>Confidence:</b> 0.35<br>             <b>Time:</b> 2025-05-06 17:23:17<br>             <b>Location:</b> 41.882746, 12.491933         </div>         </div>`)[0];
+                popup_f7351d3faf5c490a662fb3a4ce34bc28.setContent(html_9e271df71333b8cf71c146d8de718d50);
+            
+        
+
+        circle_marker_b172ab4d1df0e8a5c94e631357f51727.bindPopup(popup_f7351d3faf5c490a662fb3a4ce34bc28)
+        ;
+
+        
+    
+    
+            circle_marker_b172ab4d1df0e8a5c94e631357f51727.bindTooltip(
+                `<div>
+                     Pothole: Area 496 px², Confidence 0.35
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_aa3c7b553a2fb5def7d693f28b492d78 = L.circleMarker(
+                [41.88274583333333, 12.491933166666666],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.69527181852759, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_f98ce9c362a4072bd71ea70155d8fb9c = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_916134a0a56a97f6acd1556b5c9dcb31 = $(`<div id="html_916134a0a56a97f6acd1556b5c9dcb31" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 752 px²<br>             <b>Confidence:</b> 0.32<br>             <b>Time:</b> 2025-05-06 17:23:19<br>             <b>Location:</b> 41.882746, 12.491933         </div>         </div>`)[0];
+                popup_f98ce9c362a4072bd71ea70155d8fb9c.setContent(html_916134a0a56a97f6acd1556b5c9dcb31);
+            
+        
+
+        circle_marker_aa3c7b553a2fb5def7d693f28b492d78.bindPopup(popup_f98ce9c362a4072bd71ea70155d8fb9c)
+        ;
+
+        
+    
+    
+            circle_marker_aa3c7b553a2fb5def7d693f28b492d78.bindTooltip(
+                `<div>
+                     Pothole: Area 752 px², Confidence 0.32
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_b547fef42681a32ba8b6ca1133227f52 = L.circleMarker(
+                [41.88274583333333, 12.491933166666666],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.474387503743269, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_06e425aaf3a4e0409aeb73f924f572ef = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_d5675d0c7df5302295215266fea4b3f7 = $(`<div id="html_d5675d0c7df5302295215266fea4b3f7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 663 px²<br>             <b>Confidence:</b> 0.38<br>             <b>Time:</b> 2025-05-06 17:23:20<br>             <b>Location:</b> 41.882746, 12.491933         </div>         </div>`)[0];
+                popup_06e425aaf3a4e0409aeb73f924f572ef.setContent(html_d5675d0c7df5302295215266fea4b3f7);
+            
+        
+
+        circle_marker_b547fef42681a32ba8b6ca1133227f52.bindPopup(popup_06e425aaf3a4e0409aeb73f924f572ef)
+        ;
+
+        
+    
+    
+            circle_marker_b547fef42681a32ba8b6ca1133227f52.bindTooltip(
+                `<div>
+                     Pothole: Area 663 px², Confidence 0.38
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_9d06338e820bd393580f9af86e53701c = L.circleMarker(
+                [41.88274583333333, 12.491933166666666],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.803775799422888, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_7c6e7786b47a164c293da9c41a1c031c = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_f100a29d61bb3ed816f4b992fa6d91fc = $(`<div id="html_f100a29d61bb3ed816f4b992fa6d91fc" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 800 px²<br>             <b>Confidence:</b> 0.34<br>             <b>Time:</b> 2025-05-06 17:23:20<br>             <b>Location:</b> 41.882746, 12.491933         </div>         </div>`)[0];
+                popup_7c6e7786b47a164c293da9c41a1c031c.setContent(html_f100a29d61bb3ed816f4b992fa6d91fc);
+            
+        
+
+        circle_marker_9d06338e820bd393580f9af86e53701c.bindPopup(popup_7c6e7786b47a164c293da9c41a1c031c)
+        ;
+
+        
+    
+    
+            circle_marker_9d06338e820bd393580f9af86e53701c.bindTooltip(
+                `<div>
+                     Pothole: Area 800 px², Confidence 0.34
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_30b48c1c45f833eaa31d5c7181a9792d = L.circleMarker(
+                [41.884285166666665, 12.490055333333334],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.782809173531563, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_f169a202f4c33883aecdf75ae8b50c6d = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_8ff2cc1127a1ed6523f527633867ca31 = $(`<div id="html_8ff2cc1127a1ed6523f527633867ca31" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 4374 px²<br>             <b>Confidence:</b> 0.38<br>             <b>Time:</b> 2025-05-06 17:23:32<br>             <b>Location:</b> 41.884285, 12.490055         </div>         </div>`)[0];
+                popup_f169a202f4c33883aecdf75ae8b50c6d.setContent(html_8ff2cc1127a1ed6523f527633867ca31);
+            
+        
+
+        circle_marker_30b48c1c45f833eaa31d5c7181a9792d.bindPopup(popup_f169a202f4c33883aecdf75ae8b50c6d)
+        ;
+
+        
+    
+    
+            circle_marker_30b48c1c45f833eaa31d5c7181a9792d.bindTooltip(
+                `<div>
+                     Pothole: Area 4374 px², Confidence 0.38
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5d8345352b0cf72ecf235de288b33753 = L.circleMarker(
+                [41.884285166666665, 12.490055333333334],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.467708835771578, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_be7066337644e6ce44c20cb0144cea40);
+        
+    
+        var popup_72842f83108e51ed5f1940ea177095db = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_c82c62d952095d392bdc87424eace24b = $(`<div id="html_c82c62d952095d392bdc87424eace24b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #DC143C;">Pothole Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> pothole<br>             <b>Area:</b> 6464 px²<br>             <b>Confidence:</b> 0.31<br>             <b>Time:</b> 2025-05-06 17:23:33<br>             <b>Location:</b> 41.884285, 12.490055         </div>         </div>`)[0];
+                popup_72842f83108e51ed5f1940ea177095db.setContent(html_c82c62d952095d392bdc87424eace24b);
+            
+        
+
+        circle_marker_5d8345352b0cf72ecf235de288b33753.bindPopup(popup_72842f83108e51ed5f1940ea177095db)
+        ;
+
+        
+    
+    
+            circle_marker_5d8345352b0cf72ecf235de288b33753.bindTooltip(
+                `<div>
+                     Pothole: Area 6464 px², Confidence 0.31
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            marker_cluster_be7066337644e6ce44c20cb0144cea40.addTo(map_fe56e7b91b34c1cf99e37026ccd9582a);
+        
+    
+            var marker_cluster_26a47567823e2a49ce05d4f1115e1b49 = L.markerClusterGroup(
+                {"disableClusteringAtZoom": 18, "maxClusterRadius": 80, "spiderfyOnMaxZoom": true, "zoomToBoundsOnClick": true}
+            );
+        
+    
+            var circle_marker_4618a4d115db16d2c48c459e17b1e022 = L.circleMarker(
+                [41.88099066666667, 12.4951545],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.700640860584986, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_fb02da94dd01dc912f8993de933dfcac = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_685466d9d06f9e2269d1697430a1b38d = $(`<div id="html_685466d9d06f9e2269d1697430a1b38d" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 40848 px²<br>             <b>Confidence:</b> 0.41<br>             <b>Time:</b> 2025-05-06 17:20:19<br>             <b>Location:</b> 41.880991, 12.495154         </div>         </div>`)[0];
+                popup_fb02da94dd01dc912f8993de933dfcac.setContent(html_685466d9d06f9e2269d1697430a1b38d);
+            
+        
+
+        circle_marker_4618a4d115db16d2c48c459e17b1e022.bindPopup(popup_fb02da94dd01dc912f8993de933dfcac)
+        ;
+
+        
+    
+    
+            circle_marker_4618a4d115db16d2c48c459e17b1e022.bindTooltip(
+                `<div>
+                     Crack: Area 40848 px², Confidence 0.41
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_e953c993790e5000156cbe1948897566 = L.circleMarker(
+                [41.88099066666667, 12.4951545],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.190762617492071, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_93e6f4c580e4386a705be8672a9d0d59 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_d57a0bb40f3e620d451cf8ea74cf4411 = $(`<div id="html_d57a0bb40f3e620d451cf8ea74cf4411" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 54020 px²<br>             <b>Confidence:</b> 0.39<br>             <b>Time:</b> 2025-05-06 17:20:19<br>             <b>Location:</b> 41.880991, 12.495154         </div>         </div>`)[0];
+                popup_93e6f4c580e4386a705be8672a9d0d59.setContent(html_d57a0bb40f3e620d451cf8ea74cf4411);
+            
+        
+
+        circle_marker_e953c993790e5000156cbe1948897566.bindPopup(popup_93e6f4c580e4386a705be8672a9d0d59)
+        ;
+
+        
+    
+    
+            circle_marker_e953c993790e5000156cbe1948897566.bindTooltip(
+                `<div>
+                     Crack: Area 54020 px², Confidence 0.39
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f68c9dd443a7c1b7a9624c73250c4897 = L.circleMarker(
+                [41.88099066666667, 12.4951545],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.622690772069634, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_9dce0767c74b2ea995a272bb891d2676 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_50438ed9837da8c91fef40bd6859b712 = $(`<div id="html_50438ed9837da8c91fef40bd6859b712" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39072 px²<br>             <b>Confidence:</b> 0.45<br>             <b>Time:</b> 2025-05-06 17:20:20<br>             <b>Location:</b> 41.880991, 12.495154         </div>         </div>`)[0];
+                popup_9dce0767c74b2ea995a272bb891d2676.setContent(html_50438ed9837da8c91fef40bd6859b712);
+            
+        
+
+        circle_marker_f68c9dd443a7c1b7a9624c73250c4897.bindPopup(popup_9dce0767c74b2ea995a272bb891d2676)
+        ;
+
+        
+    
+    
+            circle_marker_f68c9dd443a7c1b7a9624c73250c4897.bindTooltip(
+                `<div>
+                     Crack: Area 39072 px², Confidence 0.45
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_fa6a2646672e1caf63e653c4bc4d76df = L.circleMarker(
+                [41.88099066666667, 12.4951545],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.190762617492071, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_a5c7f2473ab36898836c67957aa3662b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_47ca7fed54398f8c3724a2518eeea414 = $(`<div id="html_47ca7fed54398f8c3724a2518eeea414" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 54020 px²<br>             <b>Confidence:</b> 0.37<br>             <b>Time:</b> 2025-05-06 17:20:20<br>             <b>Location:</b> 41.880991, 12.495154         </div>         </div>`)[0];
+                popup_a5c7f2473ab36898836c67957aa3662b.setContent(html_47ca7fed54398f8c3724a2518eeea414);
+            
+        
+
+        circle_marker_fa6a2646672e1caf63e653c4bc4d76df.bindPopup(popup_a5c7f2473ab36898836c67957aa3662b)
+        ;
+
+        
+    
+    
+            circle_marker_fa6a2646672e1caf63e653c4bc4d76df.bindTooltip(
+                `<div>
+                     Crack: Area 54020 px², Confidence 0.37
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_23e9c58fd15e8dd61ad6d1d875bf1df8 = L.circleMarker(
+                [41.88099066666667, 12.4951545],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.598832060497353, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_52eec556100872fb4b263bbdc25da9a1 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_cda35bdb801404d5d6ab5cdae53af13d = $(`<div id="html_cda35bdb801404d5d6ab5cdae53af13d" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 38544 px²<br>             <b>Confidence:</b> 0.49<br>             <b>Time:</b> 2025-05-06 17:20:20<br>             <b>Location:</b> 41.880991, 12.495154         </div>         </div>`)[0];
+                popup_52eec556100872fb4b263bbdc25da9a1.setContent(html_cda35bdb801404d5d6ab5cdae53af13d);
+            
+        
+
+        circle_marker_23e9c58fd15e8dd61ad6d1d875bf1df8.bindPopup(popup_52eec556100872fb4b263bbdc25da9a1)
+        ;
+
+        
+    
+    
+            circle_marker_23e9c58fd15e8dd61ad6d1d875bf1df8.bindTooltip(
+                `<div>
+                     Crack: Area 38544 px², Confidence 0.49
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_9afbdbf3b6a27cc83012a548be5aabf0 = L.circleMarker(
+                [41.88099066666667, 12.4951545],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.687887435283814, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_d23b1c914909e2ce0b14d7d844a5a949 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ac4d0dfdb00c66e84d2ac597ee6c58f5 = $(`<div id="html_ac4d0dfdb00c66e84d2ac597ee6c58f5" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 40552 px²<br>             <b>Confidence:</b> 0.41<br>             <b>Time:</b> 2025-05-06 17:20:21<br>             <b>Location:</b> 41.880991, 12.495154         </div>         </div>`)[0];
+                popup_d23b1c914909e2ce0b14d7d844a5a949.setContent(html_ac4d0dfdb00c66e84d2ac597ee6c58f5);
+            
+        
+
+        circle_marker_9afbdbf3b6a27cc83012a548be5aabf0.bindPopup(popup_d23b1c914909e2ce0b14d7d844a5a949)
+        ;
+
+        
+    
+    
+            circle_marker_9afbdbf3b6a27cc83012a548be5aabf0.bindTooltip(
+                `<div>
+                     Crack: Area 40552 px², Confidence 0.41
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_c64fdaa3a00e66bf8ba5c33b30ecc4b5 = L.circleMarker(
+                [41.88099066666667, 12.4951545],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.190762617492071, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_7c6548160b528220e22fa9df16b54cfc = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_991fd0f256633edb5e7a3c45aac24fdf = $(`<div id="html_991fd0f256633edb5e7a3c45aac24fdf" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 54020 px²<br>             <b>Confidence:</b> 0.38<br>             <b>Time:</b> 2025-05-06 17:20:21<br>             <b>Location:</b> 41.880991, 12.495154         </div>         </div>`)[0];
+                popup_7c6548160b528220e22fa9df16b54cfc.setContent(html_991fd0f256633edb5e7a3c45aac24fdf);
+            
+        
+
+        circle_marker_c64fdaa3a00e66bf8ba5c33b30ecc4b5.bindPopup(popup_7c6548160b528220e22fa9df16b54cfc)
+        ;
+
+        
+    
+    
+            circle_marker_c64fdaa3a00e66bf8ba5c33b30ecc4b5.bindTooltip(
+                `<div>
+                     Crack: Area 54020 px², Confidence 0.38
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_62c2d7378fb16a487e9521c7d9069dc4 = L.circleMarker(
+                [41.880971, 12.495106333333334],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.649061017114049, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_f19378febd92027e7a1ac5d6ade05d98 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_2ef1f8f1f7f514ab816d2521a2a4d713 = $(`<div id="html_2ef1f8f1f7f514ab816d2521a2a4d713" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39664 px²<br>             <b>Confidence:</b> 0.46<br>             <b>Time:</b> 2025-05-06 17:20:44<br>             <b>Location:</b> 41.880971, 12.495106         </div>         </div>`)[0];
+                popup_f19378febd92027e7a1ac5d6ade05d98.setContent(html_2ef1f8f1f7f514ab816d2521a2a4d713);
+            
+        
+
+        circle_marker_62c2d7378fb16a487e9521c7d9069dc4.bindPopup(popup_f19378febd92027e7a1ac5d6ade05d98)
+        ;
+
+        
+    
+    
+            circle_marker_62c2d7378fb16a487e9521c7d9069dc4.bindTooltip(
+                `<div>
+                     Crack: Area 39664 px², Confidence 0.46
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_4b0e3985d70d23fa3128f61317b856ec = L.circleMarker(
+                [41.880971, 12.495106333333334],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.231511996175707, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_c7d2adef3469ac5d6c1fa04e758e4511 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_4be67effdd86f037ff1fd2bb300d1b78 = $(`<div id="html_4be67effdd86f037ff1fd2bb300d1b78" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 55290 px²<br>             <b>Confidence:</b> 0.40<br>             <b>Time:</b> 2025-05-06 17:20:44<br>             <b>Location:</b> 41.880971, 12.495106         </div>         </div>`)[0];
+                popup_c7d2adef3469ac5d6c1fa04e758e4511.setContent(html_4be67effdd86f037ff1fd2bb300d1b78);
+            
+        
+
+        circle_marker_4b0e3985d70d23fa3128f61317b856ec.bindPopup(popup_c7d2adef3469ac5d6c1fa04e758e4511)
+        ;
+
+        
+    
+    
+            circle_marker_4b0e3985d70d23fa3128f61317b856ec.bindTooltip(
+                `<div>
+                     Crack: Area 55290 px², Confidence 0.40
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_916be94451f9fa2e2251fe608ea4ff23 = L.circleMarker(
+                [41.880974, 12.495111666666666],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.62403668375558, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_3d4489a35367d23a9d74ad80a4d6aaf7 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_79590e9685ec320ab665158284da6024 = $(`<div id="html_79590e9685ec320ab665158284da6024" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39102 px²<br>             <b>Confidence:</b> 0.33<br>             <b>Time:</b> 2025-05-06 17:21:05<br>             <b>Location:</b> 41.880974, 12.495112         </div>         </div>`)[0];
+                popup_3d4489a35367d23a9d74ad80a4d6aaf7.setContent(html_79590e9685ec320ab665158284da6024);
+            
+        
+
+        circle_marker_916be94451f9fa2e2251fe608ea4ff23.bindPopup(popup_3d4489a35367d23a9d74ad80a4d6aaf7)
+        ;
+
+        
+    
+    
+            circle_marker_916be94451f9fa2e2251fe608ea4ff23.bindTooltip(
+                `<div>
+                     Crack: Area 39102 px², Confidence 0.33
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_22e3343366c4fd9d025e541339bbe52f = L.circleMarker(
+                [41.880974, 12.495111666666666],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.176028138699891, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_da61df0473c81820dd19d1cef80e3cbc = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_d11a04bbb2e8b66bebe793ba7de7559a = $(`<div id="html_d11a04bbb2e8b66bebe793ba7de7559a" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 53568 px²<br>             <b>Confidence:</b> 0.31<br>             <b>Time:</b> 2025-05-06 17:21:05<br>             <b>Location:</b> 41.880974, 12.495112         </div>         </div>`)[0];
+                popup_da61df0473c81820dd19d1cef80e3cbc.setContent(html_d11a04bbb2e8b66bebe793ba7de7559a);
+            
+        
+
+        circle_marker_22e3343366c4fd9d025e541339bbe52f.bindPopup(popup_da61df0473c81820dd19d1cef80e3cbc)
+        ;
+
+        
+    
+    
+            circle_marker_22e3343366c4fd9d025e541339bbe52f.bindTooltip(
+                `<div>
+                     Crack: Area 53568 px², Confidence 0.31
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_968fb749815e680a2f1a01e15020f2d2 = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.604827239839455, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_65b8d6f2194dda675639f78049ab955b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_e639b92f041c1faaa45f7ee2eaa93a4c = $(`<div id="html_e639b92f041c1faaa45f7ee2eaa93a4c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 38676 px²<br>             <b>Confidence:</b> 0.39<br>             <b>Time:</b> 2025-05-06 17:21:25<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_65b8d6f2194dda675639f78049ab955b.setContent(html_e639b92f041c1faaa45f7ee2eaa93a4c);
+            
+        
+
+        circle_marker_968fb749815e680a2f1a01e15020f2d2.bindPopup(popup_65b8d6f2194dda675639f78049ab955b)
+        ;
+
+        
+    
+    
+            circle_marker_968fb749815e680a2f1a01e15020f2d2.bindTooltip(
+                `<div>
+                     Crack: Area 38676 px², Confidence 0.39
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_234e6271688e95101542c2f2969111b3 = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.628605071940767, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_64cf9c06ad197bbfebeb29d6c8c7ca1b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_49bcc7e3fbbe1e67df74dc6f30038de1 = $(`<div id="html_49bcc7e3fbbe1e67df74dc6f30038de1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39204 px²<br>             <b>Confidence:</b> 0.31<br>             <b>Time:</b> 2025-05-06 17:21:25<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_64cf9c06ad197bbfebeb29d6c8c7ca1b.setContent(html_49bcc7e3fbbe1e67df74dc6f30038de1);
+            
+        
+
+        circle_marker_234e6271688e95101542c2f2969111b3.bindPopup(popup_64cf9c06ad197bbfebeb29d6c8c7ca1b)
+        ;
+
+        
+    
+    
+            circle_marker_234e6271688e95101542c2f2969111b3.bindTooltip(
+                `<div>
+                     Crack: Area 39204 px², Confidence 0.31
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_7c4ffa6989218331ec03769924a6a3fe = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.65021012859222, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_cfcfcc2e6933a81773b6688dbe956272 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_29005c4e9172153cc26f9cbbd3c68726 = $(`<div id="html_29005c4e9172153cc26f9cbbd3c68726" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39690 px²<br>             <b>Confidence:</b> 0.53<br>             <b>Time:</b> 2025-05-06 17:21:26<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_cfcfcc2e6933a81773b6688dbe956272.setContent(html_29005c4e9172153cc26f9cbbd3c68726);
+            
+        
+
+        circle_marker_7c4ffa6989218331ec03769924a6a3fe.bindPopup(popup_cfcfcc2e6933a81773b6688dbe956272)
+        ;
+
+        
+    
+    
+            circle_marker_7c4ffa6989218331ec03769924a6a3fe.bindTooltip(
+                `<div>
+                     Crack: Area 39690 px², Confidence 0.53
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_afcba934dd847b13c99bfb9c3fa6f682 = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.286032084332872, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_b31b5f65eb0cfbcb242663fa0d5b973e = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_962cec1ae0f762616f5279d88dcc35de = $(`<div id="html_962cec1ae0f762616f5279d88dcc35de" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 57036 px²<br>             <b>Confidence:</b> 0.43<br>             <b>Time:</b> 2025-05-06 17:21:26<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_b31b5f65eb0cfbcb242663fa0d5b973e.setContent(html_962cec1ae0f762616f5279d88dcc35de);
+            
+        
+
+        circle_marker_afcba934dd847b13c99bfb9c3fa6f682.bindPopup(popup_b31b5f65eb0cfbcb242663fa0d5b973e)
+        ;
+
+        
+    
+    
+            circle_marker_afcba934dd847b13c99bfb9c3fa6f682.bindTooltip(
+                `<div>
+                     Crack: Area 57036 px², Confidence 0.43
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_136251d94ac22669fe2df55ab7b02e46 = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.610801992636546, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_55e597753f727ab43728ecc13e0e70a7 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_cae79b4ed3d1e56eda24c338a79e4589 = $(`<div id="html_cae79b4ed3d1e56eda24c338a79e4589" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 38808 px²<br>             <b>Confidence:</b> 0.34<br>             <b>Time:</b> 2025-05-06 17:21:27<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_55e597753f727ab43728ecc13e0e70a7.setContent(html_cae79b4ed3d1e56eda24c338a79e4589);
+            
+        
+
+        circle_marker_136251d94ac22669fe2df55ab7b02e46.bindPopup(popup_55e597753f727ab43728ecc13e0e70a7)
+        ;
+
+        
+    
+    
+            circle_marker_136251d94ac22669fe2df55ab7b02e46.bindTooltip(
+                `<div>
+                     Crack: Area 38808 px², Confidence 0.34
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_6398e4c4685c3e260e326a1a34e518df = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.681953120823373, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_a3302d3f5b6da50972489b54eca25a2d = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_e1bc3aac97904d32baeb4173d61635ca = $(`<div id="html_e1bc3aac97904d32baeb4173d61635ca" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 40415 px²<br>             <b>Confidence:</b> 0.47<br>             <b>Time:</b> 2025-05-06 17:21:27<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_a3302d3f5b6da50972489b54eca25a2d.setContent(html_e1bc3aac97904d32baeb4173d61635ca);
+            
+        
+
+        circle_marker_6398e4c4685c3e260e326a1a34e518df.bindPopup(popup_a3302d3f5b6da50972489b54eca25a2d)
+        ;
+
+        
+    
+    
+            circle_marker_6398e4c4685c3e260e326a1a34e518df.bindTooltip(
+                `<div>
+                     Crack: Area 40415 px², Confidence 0.47
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f6d4c45a85d34edd44b466ed7867bb5c = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.294956216822243, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_b99d444eebb8169e42b948bf09895adc = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_d0b2f8856f758760cd5ed0da46243f4f = $(`<div id="html_d0b2f8856f758760cd5ed0da46243f4f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 57327 px²<br>             <b>Confidence:</b> 0.42<br>             <b>Time:</b> 2025-05-06 17:21:27<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_b99d444eebb8169e42b948bf09895adc.setContent(html_d0b2f8856f758760cd5ed0da46243f4f);
+            
+        
+
+        circle_marker_f6d4c45a85d34edd44b466ed7867bb5c.bindPopup(popup_b99d444eebb8169e42b948bf09895adc)
+        ;
+
+        
+    
+    
+            circle_marker_f6d4c45a85d34edd44b466ed7867bb5c.bindTooltip(
+                `<div>
+                     Crack: Area 57327 px², Confidence 0.42
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_ecf21a3b1f1fdaff7a8cf4b88ac8cd4a = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.662098908025309, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_013b054d5c1e3a710c03c2a177967219 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_057f7e6b501496bee6447ae53d4a3a84 = $(`<div id="html_057f7e6b501496bee6447ae53d4a3a84" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39960 px²<br>             <b>Confidence:</b> 0.52<br>             <b>Time:</b> 2025-05-06 17:21:28<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_013b054d5c1e3a710c03c2a177967219.setContent(html_057f7e6b501496bee6447ae53d4a3a84);
+            
+        
+
+        circle_marker_ecf21a3b1f1fdaff7a8cf4b88ac8cd4a.bindPopup(popup_013b054d5c1e3a710c03c2a177967219)
+        ;
+
+        
+    
+    
+            circle_marker_ecf21a3b1f1fdaff7a8cf4b88ac8cd4a.bindTooltip(
+                `<div>
+                     Crack: Area 39960 px², Confidence 0.52
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_6c46c8b96e113eda35dbb4b2a21a7571 = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.300971962857592, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_05ba9b71e7616b34202512ce53592c09 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_fb36299fb6214905fe2491a6057cfe53 = $(`<div id="html_fb36299fb6214905fe2491a6057cfe53" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 57524 px²<br>             <b>Confidence:</b> 0.38<br>             <b>Time:</b> 2025-05-06 17:21:28<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_05ba9b71e7616b34202512ce53592c09.setContent(html_fb36299fb6214905fe2491a6057cfe53);
+            
+        
+
+        circle_marker_6c46c8b96e113eda35dbb4b2a21a7571.bindPopup(popup_05ba9b71e7616b34202512ce53592c09)
+        ;
+
+        
+    
+    
+            circle_marker_6c46c8b96e113eda35dbb4b2a21a7571.bindTooltip(
+                `<div>
+                     Crack: Area 57524 px², Confidence 0.38
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_25fdda40759e0e00232072fc3c81ab52 = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.62403668375558, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_d8a0ddab1cb05cd719e9201ba89b497a = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_3fe12d0cf1dc2e96612f5b93d3d1b6e6 = $(`<div id="html_3fe12d0cf1dc2e96612f5b93d3d1b6e6" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39102 px²<br>             <b>Confidence:</b> 0.33<br>             <b>Time:</b> 2025-05-06 17:21:29<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_d8a0ddab1cb05cd719e9201ba89b497a.setContent(html_3fe12d0cf1dc2e96612f5b93d3d1b6e6);
+            
+        
+
+        circle_marker_25fdda40759e0e00232072fc3c81ab52.bindPopup(popup_d8a0ddab1cb05cd719e9201ba89b497a)
+        ;
+
+        
+    
+    
+            circle_marker_25fdda40759e0e00232072fc3c81ab52.bindTooltip(
+                `<div>
+                     Crack: Area 39102 px², Confidence 0.33
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_e942824f89de40e2526c8d9065dde75a = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.66315179802964, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_4dab1920c76d8c3d4b8e579a41051513 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_c3a5af8e98722384e79204a1a5600cb7 = $(`<div id="html_c3a5af8e98722384e79204a1a5600cb7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39984 px²<br>             <b>Confidence:</b> 0.49<br>             <b>Time:</b> 2025-05-06 17:21:30<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_4dab1920c76d8c3d4b8e579a41051513.setContent(html_c3a5af8e98722384e79204a1a5600cb7);
+            
+        
+
+        circle_marker_e942824f89de40e2526c8d9065dde75a.bindPopup(popup_4dab1920c76d8c3d4b8e579a41051513)
+        ;
+
+        
+    
+    
+            circle_marker_e942824f89de40e2526c8d9065dde75a.bindTooltip(
+                `<div>
+                     Crack: Area 39984 px², Confidence 0.49
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_c34097bed13a4b7c167a1af8910c2429 = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.303835163637093, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_95edbab15897f062500ce4b67358a08f = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_499896e46eec54af734eac2006c7e3d7 = $(`<div id="html_499896e46eec54af734eac2006c7e3d7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 57618 px²<br>             <b>Confidence:</b> 0.39<br>             <b>Time:</b> 2025-05-06 17:21:30<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_95edbab15897f062500ce4b67358a08f.setContent(html_499896e46eec54af734eac2006c7e3d7);
+            
+        
+
+        circle_marker_c34097bed13a4b7c167a1af8910c2429.bindPopup(popup_95edbab15897f062500ce4b67358a08f)
+        ;
+
+        
+    
+    
+            circle_marker_c34097bed13a4b7c167a1af8910c2429.bindTooltip(
+                `<div>
+                     Crack: Area 57618 px², Confidence 0.39
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_7caaebe2761efa31be5ec3a19b9aa9f2 = L.circleMarker(
+                [41.88097966666667, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.585496724373009, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_2fcf6f9396072275459d7c0f6c7e88f6 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_a314782452fea1843278e9cba9ac9dc4 = $(`<div id="html_a314782452fea1843278e9cba9ac9dc4" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 38252 px²<br>             <b>Confidence:</b> 0.55<br>             <b>Time:</b> 2025-05-06 17:21:30<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_2fcf6f9396072275459d7c0f6c7e88f6.setContent(html_a314782452fea1843278e9cba9ac9dc4);
+            
+        
+
+        circle_marker_7caaebe2761efa31be5ec3a19b9aa9f2.bindPopup(popup_2fcf6f9396072275459d7c0f6c7e88f6)
+        ;
+
+        
+    
+    
+            circle_marker_7caaebe2761efa31be5ec3a19b9aa9f2.bindTooltip(
+                `<div>
+                     Crack: Area 38252 px², Confidence 0.55
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_c8ae5b43845a548656928c6cb79bddc2 = L.circleMarker(
+                [41.880979833333335, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.610801992636546, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_8f4df349f42c06ca06bf9536927ffb01 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_2a9ecd669c1222e2b8b018368206c5c4 = $(`<div id="html_2a9ecd669c1222e2b8b018368206c5c4" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 38808 px²<br>             <b>Confidence:</b> 0.32<br>             <b>Time:</b> 2025-05-06 17:21:31<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_8f4df349f42c06ca06bf9536927ffb01.setContent(html_2a9ecd669c1222e2b8b018368206c5c4);
+            
+        
+
+        circle_marker_c8ae5b43845a548656928c6cb79bddc2.bindPopup(popup_8f4df349f42c06ca06bf9536927ffb01)
+        ;
+
+        
+    
+    
+            circle_marker_c8ae5b43845a548656928c6cb79bddc2.bindTooltip(
+                `<div>
+                     Crack: Area 38808 px², Confidence 0.32
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5641f223be3ef0c680dadaaac138ee40 = L.circleMarker(
+                [41.880979833333335, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.669106263002288, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_bf122945d4dabad06f7a466b6d9ef0d2 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_adf3ffdd33abe43f2876fe35b905a838 = $(`<div id="html_adf3ffdd33abe43f2876fe35b905a838" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 40120 px²<br>             <b>Confidence:</b> 0.53<br>             <b>Time:</b> 2025-05-06 17:21:31<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_bf122945d4dabad06f7a466b6d9ef0d2.setContent(html_adf3ffdd33abe43f2876fe35b905a838);
+            
+        
+
+        circle_marker_5641f223be3ef0c680dadaaac138ee40.bindPopup(popup_bf122945d4dabad06f7a466b6d9ef0d2)
+        ;
+
+        
+    
+    
+            circle_marker_5641f223be3ef0c680dadaaac138ee40.bindTooltip(
+                `<div>
+                     Crack: Area 40120 px², Confidence 0.53
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_fc3aed14540a2d18d989b2aeefd6cb71 = L.circleMarker(
+                [41.880979833333335, 12.495126],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.34492384379213, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_7d2c2164a519098f7dea5c9f71a9b7cc = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_da1dc379e8a6626ce28ebd2e53849a14 = $(`<div id="html_da1dc379e8a6626ce28ebd2e53849a14" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 58984 px²<br>             <b>Confidence:</b> 0.46<br>             <b>Time:</b> 2025-05-06 17:21:31<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_7d2c2164a519098f7dea5c9f71a9b7cc.setContent(html_da1dc379e8a6626ce28ebd2e53849a14);
+            
+        
+
+        circle_marker_fc3aed14540a2d18d989b2aeefd6cb71.bindPopup(popup_7d2c2164a519098f7dea5c9f71a9b7cc)
+        ;
+
+        
+    
+    
+            circle_marker_fc3aed14540a2d18d989b2aeefd6cb71.bindTooltip(
+                `<div>
+                     Crack: Area 58984 px², Confidence 0.46
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_a6844d7c9e5e790d0e86398ea304948b = L.circleMarker(
+                [41.88098, 12.495125666666668],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.643126702653605, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_27b8b3a0cd4224e5de5b3156eadcf711 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_143626356c34466b5115fff26cf631c7 = $(`<div id="html_143626356c34466b5115fff26cf631c7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39530 px²<br>             <b>Confidence:</b> 0.53<br>             <b>Time:</b> 2025-05-06 17:21:37<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_27b8b3a0cd4224e5de5b3156eadcf711.setContent(html_143626356c34466b5115fff26cf631c7);
+            
+        
+
+        circle_marker_a6844d7c9e5e790d0e86398ea304948b.bindPopup(popup_27b8b3a0cd4224e5de5b3156eadcf711)
+        ;
+
+        
+    
+    
+            circle_marker_a6844d7c9e5e790d0e86398ea304948b.bindTooltip(
+                `<div>
+                     Crack: Area 39530 px², Confidence 0.53
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_eb7f5c0013c5dcad9a4c094a11222f5e = L.circleMarker(
+                [41.88098, 12.495125666666668],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.353583556449953, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_0e40453442a8a8b698d96145ac2a40dd = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_400dc7ef20689a1c594d7933c90bfab6 = $(`<div id="html_400dc7ef20689a1c594d7933c90bfab6" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 59276 px²<br>             <b>Confidence:</b> 0.40<br>             <b>Time:</b> 2025-05-06 17:21:37<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_0e40453442a8a8b698d96145ac2a40dd.setContent(html_400dc7ef20689a1c594d7933c90bfab6);
+            
+        
+
+        circle_marker_eb7f5c0013c5dcad9a4c094a11222f5e.bindPopup(popup_0e40453442a8a8b698d96145ac2a40dd)
+        ;
+
+        
+    
+    
+            circle_marker_eb7f5c0013c5dcad9a4c094a11222f5e.bindTooltip(
+                `<div>
+                     Crack: Area 59276 px², Confidence 0.40
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_9adffa16925f728fff4bf306c06675ef = L.circleMarker(
+                [41.88098, 12.495125666666668],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.62403668375558, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_b893f455a6f671ed8c4661923f0b7620 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ca644da6cb3da5a0b9f25f57ad456dfe = $(`<div id="html_ca644da6cb3da5a0b9f25f57ad456dfe" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39102 px²<br>             <b>Confidence:</b> 0.53<br>             <b>Time:</b> 2025-05-06 17:21:37<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_b893f455a6f671ed8c4661923f0b7620.setContent(html_ca644da6cb3da5a0b9f25f57ad456dfe);
+            
+        
+
+        circle_marker_9adffa16925f728fff4bf306c06675ef.bindPopup(popup_b893f455a6f671ed8c4661923f0b7620)
+        ;
+
+        
+    
+    
+            circle_marker_9adffa16925f728fff4bf306c06675ef.bindTooltip(
+                `<div>
+                     Crack: Area 39102 px², Confidence 0.53
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5eeea29471f0f8ddcae64d002a9e975f = L.circleMarker(
+                [41.88098, 12.495125666666668],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.26804640615833, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_0c5c94cd484ebcc901c5a6d762a623e7 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_162f5c20e663d198476dfb87d2722bcb = $(`<div id="html_162f5c20e663d198476dfb87d2722bcb" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 56454 px²<br>             <b>Confidence:</b> 0.36<br>             <b>Time:</b> 2025-05-06 17:21:37<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_0c5c94cd484ebcc901c5a6d762a623e7.setContent(html_162f5c20e663d198476dfb87d2722bcb);
+            
+        
+
+        circle_marker_5eeea29471f0f8ddcae64d002a9e975f.bindPopup(popup_0c5c94cd484ebcc901c5a6d762a623e7)
+        ;
+
+        
+    
+    
+            circle_marker_5eeea29471f0f8ddcae64d002a9e975f.bindTooltip(
+                `<div>
+                     Crack: Area 56454 px², Confidence 0.36
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_518acf9bcf39094e77bc5e9151c80725 = L.circleMarker(
+                [41.88098016666667, 12.4951255],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.62403668375558, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_0e80fa7dfc5f392154097077747b6dba = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_220bb480169b68ef0087a329676cfbe5 = $(`<div id="html_220bb480169b68ef0087a329676cfbe5" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 39102 px²<br>             <b>Confidence:</b> 0.47<br>             <b>Time:</b> 2025-05-06 17:21:39<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_0e80fa7dfc5f392154097077747b6dba.setContent(html_220bb480169b68ef0087a329676cfbe5);
+            
+        
+
+        circle_marker_518acf9bcf39094e77bc5e9151c80725.bindPopup(popup_0e80fa7dfc5f392154097077747b6dba)
+        ;
+
+        
+    
+    
+            circle_marker_518acf9bcf39094e77bc5e9151c80725.bindTooltip(
+                `<div>
+                     Crack: Area 39102 px², Confidence 0.47
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_657ce37955a9a3b9085773867501a0c6 = L.circleMarker(
+                [41.88098016666667, 12.4951255],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.347567810414604, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_6ca9a29d001bccd5fd3a3620dec88396 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_6c5ed27d393b116e9826e714b116e7df = $(`<div id="html_6c5ed27d393b116e9826e714b116e7df" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 59073 px²<br>             <b>Confidence:</b> 0.35<br>             <b>Time:</b> 2025-05-06 17:21:39<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_6ca9a29d001bccd5fd3a3620dec88396.setContent(html_6c5ed27d393b116e9826e714b116e7df);
+            
+        
+
+        circle_marker_657ce37955a9a3b9085773867501a0c6.bindPopup(popup_6ca9a29d001bccd5fd3a3620dec88396)
+        ;
+
+        
+    
+    
+            circle_marker_657ce37955a9a3b9085773867501a0c6.bindTooltip(
+                `<div>
+                     Crack: Area 59073 px², Confidence 0.35
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_7ebcfd3ecbbf0a6fb7570ad4f2bb7b78 = L.circleMarker(
+                [41.88098016666667, 12.4951255],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.592816314462004, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_78231f3510cad64508e13e791b1041da = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_dc7938b9d4249707ad9e057520851a00 = $(`<div id="html_dc7938b9d4249707ad9e057520851a00" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 38412 px²<br>             <b>Confidence:</b> 0.56<br>             <b>Time:</b> 2025-05-06 17:21:39<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_78231f3510cad64508e13e791b1041da.setContent(html_dc7938b9d4249707ad9e057520851a00);
+            
+        
+
+        circle_marker_7ebcfd3ecbbf0a6fb7570ad4f2bb7b78.bindPopup(popup_78231f3510cad64508e13e791b1041da)
+        ;
+
+        
+    
+    
+            circle_marker_7ebcfd3ecbbf0a6fb7570ad4f2bb7b78.bindTooltip(
+                `<div>
+                     Crack: Area 38412 px², Confidence 0.56
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_0a829796427ea877d796790a2ec0c2da = L.circleMarker(
+                [41.88098016666667, 12.4951255],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.669106263002288, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_938dd97011f0df39b1a92dce440bc9ca = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_6955cce96e91e25e3287c18d8013855a = $(`<div id="html_6955cce96e91e25e3287c18d8013855a" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 40120 px²<br>             <b>Confidence:</b> 0.55<br>             <b>Time:</b> 2025-05-06 17:21:40<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_938dd97011f0df39b1a92dce440bc9ca.setContent(html_6955cce96e91e25e3287c18d8013855a);
+            
+        
+
+        circle_marker_0a829796427ea877d796790a2ec0c2da.bindPopup(popup_938dd97011f0df39b1a92dce440bc9ca)
+        ;
+
+        
+    
+    
+            circle_marker_0a829796427ea877d796790a2ec0c2da.bindTooltip(
+                `<div>
+                     Crack: Area 40120 px², Confidence 0.55
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5c7c43c2e4b558cd8309a6cf7e1213a6 = L.circleMarker(
+                [41.88098016666667, 12.4951255],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.312669380051604, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_e30a91e189312dc358c75ff54412b0fc = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_1d49b8047dac333cce41168f2582ca1e = $(`<div id="html_1d49b8047dac333cce41168f2582ca1e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 57909 px²<br>             <b>Confidence:</b> 0.45<br>             <b>Time:</b> 2025-05-06 17:21:40<br>             <b>Location:</b> 41.880980, 12.495126         </div>         </div>`)[0];
+                popup_e30a91e189312dc358c75ff54412b0fc.setContent(html_1d49b8047dac333cce41168f2582ca1e);
+            
+        
+
+        circle_marker_5c7c43c2e4b558cd8309a6cf7e1213a6.bindPopup(popup_e30a91e189312dc358c75ff54412b0fc)
+        ;
+
+        
+    
+    
+            circle_marker_5c7c43c2e4b558cd8309a6cf7e1213a6.bindTooltip(
+                `<div>
+                     Crack: Area 57909 px², Confidence 0.45
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_d613d067e6ecfcaed33a5859533232d5 = L.circleMarker(
+                [41.8809805, 12.4951245],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.296515573548097, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_6a2af366717fec9825983d089b54eda1 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_8621bec61740df303d62a10ee8153f33 = $(`<div id="html_8621bec61740df303d62a10ee8153f33" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 57378 px²<br>             <b>Confidence:</b> 0.45<br>             <b>Time:</b> 2025-05-06 17:21:51<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_6a2af366717fec9825983d089b54eda1.setContent(html_8621bec61740df303d62a10ee8153f33);
+            
+        
+
+        circle_marker_d613d067e6ecfcaed33a5859533232d5.bindPopup(popup_6a2af366717fec9825983d089b54eda1)
+        ;
+
+        
+    
+    
+            circle_marker_d613d067e6ecfcaed33a5859533232d5.bindTooltip(
+                `<div>
+                     Crack: Area 57378 px², Confidence 0.45
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_d416a8b3cc6149b1f6a9c3f147325e8d = L.circleMarker(
+                [41.8809805, 12.4951245],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.384345192985615, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_b5da3ec63792857a89cd3fcc4ba8648a = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_7eda4366b8d48667c5ebeae001cd46dc = $(`<div id="html_7eda4366b8d48667c5ebeae001cd46dc" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 60325 px²<br>             <b>Confidence:</b> 0.64<br>             <b>Time:</b> 2025-05-06 17:21:51<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_b5da3ec63792857a89cd3fcc4ba8648a.setContent(html_7eda4366b8d48667c5ebeae001cd46dc);
+            
+        
+
+        circle_marker_d416a8b3cc6149b1f6a9c3f147325e8d.bindPopup(popup_b5da3ec63792857a89cd3fcc4ba8648a)
+        ;
+
+        
+    
+    
+            circle_marker_d416a8b3cc6149b1f6a9c3f147325e8d.bindTooltip(
+                `<div>
+                     Crack: Area 60325 px², Confidence 0.64
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f0c054f3ed9fde7e0c2c4011918ef9a4 = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.51811847715569, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_da4704bb7de4ae99cff8506bf82931bf = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_e55d6b77246b546f5c735cd3e041db61 = $(`<div id="html_e55d6b77246b546f5c735cd3e041db61" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 65107 px²<br>             <b>Confidence:</b> 0.44<br>             <b>Time:</b> 2025-05-06 17:21:51<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_da4704bb7de4ae99cff8506bf82931bf.setContent(html_e55d6b77246b546f5c735cd3e041db61);
+            
+        
+
+        circle_marker_f0c054f3ed9fde7e0c2c4011918ef9a4.bindPopup(popup_da4704bb7de4ae99cff8506bf82931bf)
+        ;
+
+        
+    
+    
+            circle_marker_f0c054f3ed9fde7e0c2c4011918ef9a4.bindTooltip(
+                `<div>
+                     Crack: Area 65107 px², Confidence 0.44
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_614cc9e63d86b122fd36a4895f2fc9d5 = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.46176563992757, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_7b26570b00e4e774ff34461c0daea400 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_70fa46f08527a69d793d374ac58be60b = $(`<div id="html_70fa46f08527a69d793d374ac58be60b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 63048 px²<br>             <b>Confidence:</b> 0.39<br>             <b>Time:</b> 2025-05-06 17:21:52<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_7b26570b00e4e774ff34461c0daea400.setContent(html_70fa46f08527a69d793d374ac58be60b);
+            
+        
+
+        circle_marker_614cc9e63d86b122fd36a4895f2fc9d5.bindPopup(popup_7b26570b00e4e774ff34461c0daea400)
+        ;
+
+        
+    
+    
+            circle_marker_614cc9e63d86b122fd36a4895f2fc9d5.bindTooltip(
+                `<div>
+                     Crack: Area 63048 px², Confidence 0.39
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_acaf44b3450502454e03bc9cc6c3927d = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.671643040145028, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_8eef321185c1becf144dba3db87430e7 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_f4b3b824ef514c402aa7da342136fb79 = $(`<div id="html_f4b3b824ef514c402aa7da342136fb79" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 71064 px²<br>             <b>Confidence:</b> 0.31<br>             <b>Time:</b> 2025-05-06 17:21:52<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_8eef321185c1becf144dba3db87430e7.setContent(html_f4b3b824ef514c402aa7da342136fb79);
+            
+        
+
+        circle_marker_acaf44b3450502454e03bc9cc6c3927d.bindPopup(popup_8eef321185c1becf144dba3db87430e7)
+        ;
+
+        
+    
+    
+            circle_marker_acaf44b3450502454e03bc9cc6c3927d.bindTooltip(
+                `<div>
+                     Crack: Area 71064 px², Confidence 0.31
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_6ea0ca5643d2ab7ccc102b5cab97fb56 = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.63745623064234, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_b5d16f2dfb97a1b1446e95938bb74de2 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_b53f7f630603187bc33c81620a1b5163 = $(`<div id="html_b53f7f630603187bc33c81620a1b5163" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 69692 px²<br>             <b>Confidence:</b> 0.38<br>             <b>Time:</b> 2025-05-06 17:21:52<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_b5d16f2dfb97a1b1446e95938bb74de2.setContent(html_b53f7f630603187bc33c81620a1b5163);
+            
+        
+
+        circle_marker_6ea0ca5643d2ab7ccc102b5cab97fb56.bindPopup(popup_b5d16f2dfb97a1b1446e95938bb74de2)
+        ;
+
+        
+    
+    
+            circle_marker_6ea0ca5643d2ab7ccc102b5cab97fb56.bindTooltip(
+                `<div>
+                     Crack: Area 69692 px², Confidence 0.38
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_88ed3b6fe0507246c7ab24b9317eefba = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.549324931005492, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_c35fca2583b5656ae99048356eb4e795 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_aa12e66c018862dd4f8aee0a5ba03f52 = $(`<div id="html_aa12e66c018862dd4f8aee0a5ba03f52" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 66276 px²<br>             <b>Confidence:</b> 0.38<br>             <b>Time:</b> 2025-05-06 17:21:53<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_c35fca2583b5656ae99048356eb4e795.setContent(html_aa12e66c018862dd4f8aee0a5ba03f52);
+            
+        
+
+        circle_marker_88ed3b6fe0507246c7ab24b9317eefba.bindPopup(popup_c35fca2583b5656ae99048356eb4e795)
+        ;
+
+        
+    
+    
+            circle_marker_88ed3b6fe0507246c7ab24b9317eefba.bindTooltip(
+                `<div>
+                     Crack: Area 66276 px², Confidence 0.38
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_c1336ad74c3eb2926533db55e8dfeb47 = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_f21d778951fe923a6b0ea2cbbce52db4 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_8a4ef3546cc9934aad0f89acc49d6cd4 = $(`<div id="html_8a4ef3546cc9934aad0f89acc49d6cd4" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 85698 px²<br>             <b>Confidence:</b> 0.37<br>             <b>Time:</b> 2025-05-06 17:21:53<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_f21d778951fe923a6b0ea2cbbce52db4.setContent(html_8a4ef3546cc9934aad0f89acc49d6cd4);
+            
+        
+
+        circle_marker_c1336ad74c3eb2926533db55e8dfeb47.bindPopup(popup_f21d778951fe923a6b0ea2cbbce52db4)
+        ;
+
+        
+    
+    
+            circle_marker_c1336ad74c3eb2926533db55e8dfeb47.bindTooltip(
+                `<div>
+                     Crack: Area 85698 px², Confidence 0.37
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_b8d240823b3287359aa49f49648ebdb2 = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.878295655960542, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_2b8a975e566a241e9c34e38c994217af = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_64d456506a5816413e5edec21236dd2a = $(`<div id="html_64d456506a5816413e5edec21236dd2a" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 79952 px²<br>             <b>Confidence:</b> 0.37<br>             <b>Time:</b> 2025-05-06 17:21:53<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_2b8a975e566a241e9c34e38c994217af.setContent(html_64d456506a5816413e5edec21236dd2a);
+            
+        
+
+        circle_marker_b8d240823b3287359aa49f49648ebdb2.bindPopup(popup_2b8a975e566a241e9c34e38c994217af)
+        ;
+
+        
+    
+    
+            circle_marker_b8d240823b3287359aa49f49648ebdb2.bindTooltip(
+                `<div>
+                     Crack: Area 79952 px², Confidence 0.37
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_101926b4df3ab5ad121f06dd101c1e5a = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.625590045488776, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_828ab16a1b85a1e8b5c4dcbc0dd33f62 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_317b84a0563b716d1ed421642fa4681d = $(`<div id="html_317b84a0563b716d1ed421642fa4681d" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 69222 px²<br>             <b>Confidence:</b> 0.31<br>             <b>Time:</b> 2025-05-06 17:21:53<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_828ab16a1b85a1e8b5c4dcbc0dd33f62.setContent(html_317b84a0563b716d1ed421642fa4681d);
+            
+        
+
+        circle_marker_101926b4df3ab5ad121f06dd101c1e5a.bindPopup(popup_828ab16a1b85a1e8b5c4dcbc0dd33f62)
+        ;
+
+        
+    
+    
+            circle_marker_101926b4df3ab5ad121f06dd101c1e5a.bindTooltip(
+                `<div>
+                     Crack: Area 69222 px², Confidence 0.31
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_cee065c2a514ca362fbda49652fd36be = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.838320160761828, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_7f9bc77f195158ed9498d56c1a3c462b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_3563b585e6aa567123c64d65ddef42b0 = $(`<div id="html_3563b585e6aa567123c64d65ddef42b0" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 78150 px²<br>             <b>Confidence:</b> 0.43<br>             <b>Time:</b> 2025-05-06 17:21:54<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_7f9bc77f195158ed9498d56c1a3c462b.setContent(html_3563b585e6aa567123c64d65ddef42b0);
+            
+        
+
+        circle_marker_cee065c2a514ca362fbda49652fd36be.bindPopup(popup_7f9bc77f195158ed9498d56c1a3c462b)
+        ;
+
+        
+    
+    
+            circle_marker_cee065c2a514ca362fbda49652fd36be.bindTooltip(
+                `<div>
+                     Crack: Area 78150 px², Confidence 0.43
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_9542badb856901c001b47c051ac29ae1 = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.486949879841822, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_4f99631e6068762c56f3f2fdd0ca9cd7 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_e8da87b633db821401e4f6f7264e34d5 = $(`<div id="html_e8da87b633db821401e4f6f7264e34d5" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 63960 px²<br>             <b>Confidence:</b> 0.33<br>             <b>Time:</b> 2025-05-06 17:21:54<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_4f99631e6068762c56f3f2fdd0ca9cd7.setContent(html_e8da87b633db821401e4f6f7264e34d5);
+            
+        
+
+        circle_marker_9542badb856901c001b47c051ac29ae1.bindPopup(popup_4f99631e6068762c56f3f2fdd0ca9cd7)
+        ;
+
+        
+    
+    
+            circle_marker_9542badb856901c001b47c051ac29ae1.bindTooltip(
+                `<div>
+                     Crack: Area 63960 px², Confidence 0.33
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_b29f5066c81b8b72f585237814f66884 = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.6176937880108, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_15aeb1913d2df1dcde8e397b493cd2b6 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_3665c5a3988c10b93a01b593eaa5626e = $(`<div id="html_3665c5a3988c10b93a01b593eaa5626e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 68911 px²<br>             <b>Confidence:</b> 0.48<br>             <b>Time:</b> 2025-05-06 17:21:54<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_15aeb1913d2df1dcde8e397b493cd2b6.setContent(html_3665c5a3988c10b93a01b593eaa5626e);
+            
+        
+
+        circle_marker_b29f5066c81b8b72f585237814f66884.bindPopup(popup_15aeb1913d2df1dcde8e397b493cd2b6)
+        ;
+
+        
+    
+    
+            circle_marker_b29f5066c81b8b72f585237814f66884.bindTooltip(
+                `<div>
+                     Crack: Area 68911 px², Confidence 0.48
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_24f228b72f864ea5176bc501a026a5df = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.80803713152926, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_ae9f3b6bd36f2f04cb85a66f1a5bb72a = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_1af13356d74f2d75124fcaf842a26372 = $(`<div id="html_1af13356d74f2d75124fcaf842a26372" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 76812 px²<br>             <b>Confidence:</b> 0.44<br>             <b>Time:</b> 2025-05-06 17:21:54<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_ae9f3b6bd36f2f04cb85a66f1a5bb72a.setContent(html_1af13356d74f2d75124fcaf842a26372);
+            
+        
+
+        circle_marker_24f228b72f864ea5176bc501a026a5df.bindPopup(popup_ae9f3b6bd36f2f04cb85a66f1a5bb72a)
+        ;
+
+        
+    
+    
+            circle_marker_24f228b72f864ea5176bc501a026a5df.bindTooltip(
+                `<div>
+                     Crack: Area 76812 px², Confidence 0.44
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_2ee818a549b2b44be45e6d57c8fe13af = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.769677806365031, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_beb78e39efe0c8a1e169bda4749bbd00 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_6018bc90a643c60ba379f5541c1094c7 = $(`<div id="html_6018bc90a643c60ba379f5541c1094c7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 75150 px²<br>             <b>Confidence:</b> 0.42<br>             <b>Time:</b> 2025-05-06 17:21:55<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_beb78e39efe0c8a1e169bda4749bbd00.setContent(html_6018bc90a643c60ba379f5541c1094c7);
+            
+        
+
+        circle_marker_2ee818a549b2b44be45e6d57c8fe13af.bindPopup(popup_beb78e39efe0c8a1e169bda4749bbd00)
+        ;
+
+        
+    
+    
+            circle_marker_2ee818a549b2b44be45e6d57c8fe13af.bindTooltip(
+                `<div>
+                     Crack: Area 75150 px², Confidence 0.42
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_0c19cd21fc06eb366013c96cd79fcb17 = L.circleMarker(
+                [41.8809805, 12.495124166666669],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.386001344454098, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_b9c12981e20e974db47969a936738e15 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_4d49e167af10d5edaf42a815dd1ac22b = $(`<div id="html_4d49e167af10d5edaf42a815dd1ac22b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 60382 px²<br>             <b>Confidence:</b> 0.42<br>             <b>Time:</b> 2025-05-06 17:21:55<br>             <b>Location:</b> 41.880980, 12.495124         </div>         </div>`)[0];
+                popup_b9c12981e20e974db47969a936738e15.setContent(html_4d49e167af10d5edaf42a815dd1ac22b);
+            
+        
+
+        circle_marker_0c19cd21fc06eb366013c96cd79fcb17.bindPopup(popup_b9c12981e20e974db47969a936738e15)
+        ;
+
+        
+    
+    
+            circle_marker_0c19cd21fc06eb366013c96cd79fcb17.bindTooltip(
+                `<div>
+                     Crack: Area 60382 px², Confidence 0.42
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_c90d9af4cb43a321a2239290642c0e73 = L.circleMarker(
+                [41.880980666666666, 12.495124],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.59435683958809, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_8789f8843e052ea3d017e263c74fed87 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_a257bf85cbad7afdf621e1ede4c75fe6 = $(`<div id="html_a257bf85cbad7afdf621e1ede4c75fe6" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 68000 px²<br>             <b>Confidence:</b> 0.45<br>             <b>Time:</b> 2025-05-06 17:21:55<br>             <b>Location:</b> 41.880981, 12.495124         </div>         </div>`)[0];
+                popup_8789f8843e052ea3d017e263c74fed87.setContent(html_a257bf85cbad7afdf621e1ede4c75fe6);
+            
+        
+
+        circle_marker_c90d9af4cb43a321a2239290642c0e73.bindPopup(popup_8789f8843e052ea3d017e263c74fed87)
+        ;
+
+        
+    
+    
+            circle_marker_c90d9af4cb43a321a2239290642c0e73.bindTooltip(
+                `<div>
+                     Crack: Area 68000 px², Confidence 0.45
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_d669f8fec1750d48dc4265987cf021a1 = L.circleMarker(
+                [41.880980666666666, 12.495124],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.65975828947184, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_85101bea035515d3e6e836f3c8356980 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_6da2581f1f87f8e1e670a509c20f5f23 = $(`<div id="html_6da2581f1f87f8e1e670a509c20f5f23" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 70584 px²<br>             <b>Confidence:</b> 0.36<br>             <b>Time:</b> 2025-05-06 17:21:55<br>             <b>Location:</b> 41.880981, 12.495124         </div>         </div>`)[0];
+                popup_85101bea035515d3e6e836f3c8356980.setContent(html_6da2581f1f87f8e1e670a509c20f5f23);
+            
+        
+
+        circle_marker_d669f8fec1750d48dc4265987cf021a1.bindPopup(popup_85101bea035515d3e6e836f3c8356980)
+        ;
+
+        
+    
+    
+            circle_marker_d669f8fec1750d48dc4265987cf021a1.bindTooltip(
+                `<div>
+                     Crack: Area 70584 px², Confidence 0.36
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_d039feb832c5fe1f446a91fd54dbc5dc = L.circleMarker(
+                [41.880980666666666, 12.495124],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.59435683958809, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_c34e56abfe0f386b46bc44b4708af435 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_369328ed0d9f6df882d74e9dcc0fdab2 = $(`<div id="html_369328ed0d9f6df882d74e9dcc0fdab2" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 68000 px²<br>             <b>Confidence:</b> 0.52<br>             <b>Time:</b> 2025-05-06 17:21:55<br>             <b>Location:</b> 41.880981, 12.495124         </div>         </div>`)[0];
+                popup_c34e56abfe0f386b46bc44b4708af435.setContent(html_369328ed0d9f6df882d74e9dcc0fdab2);
+            
+        
+
+        circle_marker_d039feb832c5fe1f446a91fd54dbc5dc.bindPopup(popup_c34e56abfe0f386b46bc44b4708af435)
+        ;
+
+        
+    
+    
+            circle_marker_d039feb832c5fe1f446a91fd54dbc5dc.bindTooltip(
+                `<div>
+                     Crack: Area 68000 px², Confidence 0.52
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f7e5e0f6ca7e689df9b134e635a28870 = L.circleMarker(
+                [41.880980666666666, 12.495124],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.610477417745374, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_5b337f6d336c327ea339faa77aac826e = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_36a5204aaf1a35c9a1db32d587cada6d = $(`<div id="html_36a5204aaf1a35c9a1db32d587cada6d" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 68628 px²<br>             <b>Confidence:</b> 0.40<br>             <b>Time:</b> 2025-05-06 17:21:55<br>             <b>Location:</b> 41.880981, 12.495124         </div>         </div>`)[0];
+                popup_5b337f6d336c327ea339faa77aac826e.setContent(html_36a5204aaf1a35c9a1db32d587cada6d);
+            
+        
+
+        circle_marker_f7e5e0f6ca7e689df9b134e635a28870.bindPopup(popup_5b337f6d336c327ea339faa77aac826e)
+        ;
+
+        
+    
+    
+            circle_marker_f7e5e0f6ca7e689df9b134e635a28870.bindTooltip(
+                `<div>
+                     Crack: Area 68628 px², Confidence 0.40
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_b8b4164e9fa1a6fe829276a8a9a80482 = L.circleMarker(
+                [41.880980666666666, 12.495124],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.565731815915658, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_98a1ed7b984db27dca662ecbdc5d6149 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_85133efdf533fcb26349fd75fbb33616 = $(`<div id="html_85133efdf533fcb26349fd75fbb33616" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 66899 px²<br>             <b>Confidence:</b> 0.50<br>             <b>Time:</b> 2025-05-06 17:21:56<br>             <b>Location:</b> 41.880981, 12.495124         </div>         </div>`)[0];
+                popup_98a1ed7b984db27dca662ecbdc5d6149.setContent(html_85133efdf533fcb26349fd75fbb33616);
+            
+        
+
+        circle_marker_b8b4164e9fa1a6fe829276a8a9a80482.bindPopup(popup_98a1ed7b984db27dca662ecbdc5d6149)
+        ;
+
+        
+    
+    
+            circle_marker_b8b4164e9fa1a6fe829276a8a9a80482.bindTooltip(
+                `<div>
+                     Crack: Area 66899 px², Confidence 0.50
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_3e5d1984cf25b959644b98ff987f011b = L.circleMarker(
+                [41.880980666666666, 12.495124],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.570469866897676, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_e036005e07229e3f0ba868dffb0b3f27 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_38a88cb85414378d09240b05cb8756ac = $(`<div id="html_38a88cb85414378d09240b05cb8756ac" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 67080 px²<br>             <b>Confidence:</b> 0.42<br>             <b>Time:</b> 2025-05-06 17:21:56<br>             <b>Location:</b> 41.880981, 12.495124         </div>         </div>`)[0];
+                popup_e036005e07229e3f0ba868dffb0b3f27.setContent(html_38a88cb85414378d09240b05cb8756ac);
+            
+        
+
+        circle_marker_3e5d1984cf25b959644b98ff987f011b.bindPopup(popup_e036005e07229e3f0ba868dffb0b3f27)
+        ;
+
+        
+    
+    
+            circle_marker_3e5d1984cf25b959644b98ff987f011b.bindTooltip(
+                `<div>
+                     Crack: Area 67080 px², Confidence 0.42
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_d05d10b5e7313df3de43591d4052004e = L.circleMarker(
+                [41.880980666666666, 12.495124],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.41817289811783, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_9c9d4b5f5985940a9c82058a98d17769 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_bd7b06c9a2d1570b190669ce51811719 = $(`<div id="html_bd7b06c9a2d1570b190669ce51811719" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 61500 px²<br>             <b>Confidence:</b> 0.46<br>             <b>Time:</b> 2025-05-06 17:21:56<br>             <b>Location:</b> 41.880981, 12.495124         </div>         </div>`)[0];
+                popup_9c9d4b5f5985940a9c82058a98d17769.setContent(html_bd7b06c9a2d1570b190669ce51811719);
+            
+        
+
+        circle_marker_d05d10b5e7313df3de43591d4052004e.bindPopup(popup_9c9d4b5f5985940a9c82058a98d17769)
+        ;
+
+        
+    
+    
+            circle_marker_d05d10b5e7313df3de43591d4052004e.bindTooltip(
+                `<div>
+                     Crack: Area 61500 px², Confidence 0.46
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_6c8d251a64209d6cee7eb720147e7c9d = L.circleMarker(
+                [41.88098083333333, 12.495124],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.794814719931908, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_9947d053d80162233e0f712dc89adbfd = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_10594f6b3f0afb1f674faaba76eec773 = $(`<div id="html_10594f6b3f0afb1f674faaba76eec773" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 76235 px²<br>             <b>Confidence:</b> 0.32<br>             <b>Time:</b> 2025-05-06 17:22:01<br>             <b>Location:</b> 41.880981, 12.495124         </div>         </div>`)[0];
+                popup_9947d053d80162233e0f712dc89adbfd.setContent(html_10594f6b3f0afb1f674faaba76eec773);
+            
+        
+
+        circle_marker_6c8d251a64209d6cee7eb720147e7c9d.bindPopup(popup_9947d053d80162233e0f712dc89adbfd)
+        ;
+
+        
+    
+    
+            circle_marker_6c8d251a64209d6cee7eb720147e7c9d.bindTooltip(
+                `<div>
+                     Crack: Area 76235 px², Confidence 0.32
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_e42108619c8b5f7a5e11b3e4c23e6aef = L.circleMarker(
+                [41.880981, 12.495123833333333],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.038286922271444, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_486d23cf6694a129329779f602d9d925 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_6b7940bc600da17e13c9d81ac4316872 = $(`<div id="html_6b7940bc600da17e13c9d81ac4316872" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 5060 px²<br>             <b>Confidence:</b> 0.36<br>             <b>Time:</b> 2025-05-06 17:22:02<br>             <b>Location:</b> 41.880981, 12.495124         </div>         </div>`)[0];
+                popup_486d23cf6694a129329779f602d9d925.setContent(html_6b7940bc600da17e13c9d81ac4316872);
+            
+        
+
+        circle_marker_e42108619c8b5f7a5e11b3e4c23e6aef.bindPopup(popup_486d23cf6694a129329779f602d9d925)
+        ;
+
+        
+    
+    
+            circle_marker_e42108619c8b5f7a5e11b3e4c23e6aef.bindTooltip(
+                `<div>
+                     Crack: Area 5060 px², Confidence 0.36
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_8ca07789582a7ce02ab4fa6e198fadcb = L.circleMarker(
+                [41.88107633333333, 12.494677833333334],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.643696798865587, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_d1a836461a19ee3ce09c8a0e509aa38f = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_dfa6839e6dc845cf815d81685fb6d83c = $(`<div id="html_dfa6839e6dc845cf815d81685fb6d83c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 12640 px²<br>             <b>Confidence:</b> 0.33<br>             <b>Time:</b> 2025-05-06 17:22:25<br>             <b>Location:</b> 41.881076, 12.494678         </div>         </div>`)[0];
+                popup_d1a836461a19ee3ce09c8a0e509aa38f.setContent(html_dfa6839e6dc845cf815d81685fb6d83c);
+            
+        
+
+        circle_marker_8ca07789582a7ce02ab4fa6e198fadcb.bindPopup(popup_d1a836461a19ee3ce09c8a0e509aa38f)
+        ;
+
+        
+    
+    
+            circle_marker_8ca07789582a7ce02ab4fa6e198fadcb.bindTooltip(
+                `<div>
+                     Crack: Area 12640 px², Confidence 0.33
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_a172adc570804620a23187292cad9fba = L.circleMarker(
+                [41.881198833333336, 12.494447],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.38323578282398, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_17621faddd143c0aad217221affab16b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_da9948b2f98a9cb351c45c1a91b3c38c = $(`<div id="html_da9948b2f98a9cb351c45c1a91b3c38c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 6160 px²<br>             <b>Confidence:</b> 0.59<br>             <b>Time:</b> 2025-05-06 17:22:38<br>             <b>Location:</b> 41.881199, 12.494447         </div>         </div>`)[0];
+                popup_17621faddd143c0aad217221affab16b.setContent(html_da9948b2f98a9cb351c45c1a91b3c38c);
+            
+        
+
+        circle_marker_a172adc570804620a23187292cad9fba.bindPopup(popup_17621faddd143c0aad217221affab16b)
+        ;
+
+        
+    
+    
+            circle_marker_a172adc570804620a23187292cad9fba.bindTooltip(
+                `<div>
+                     Crack: Area 6160 px², Confidence 0.59
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_c8fb9109a169ef4318af37d37c5d40af = L.circleMarker(
+                [41.882714666666665, 12.491993833333334],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.737164405856841, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_1bce3a9343a0e1a5995aa261c45d4f5e = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_a33d5dbde7de7cd3ebb40518e9b50655 = $(`<div id="html_a33d5dbde7de7cd3ebb40518e9b50655" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 13332 px²<br>             <b>Confidence:</b> 0.35<br>             <b>Time:</b> 2025-05-06 17:23:13<br>             <b>Location:</b> 41.882715, 12.491994         </div>         </div>`)[0];
+                popup_1bce3a9343a0e1a5995aa261c45d4f5e.setContent(html_a33d5dbde7de7cd3ebb40518e9b50655);
+            
+        
+
+        circle_marker_c8fb9109a169ef4318af37d37c5d40af.bindPopup(popup_1bce3a9343a0e1a5995aa261c45d4f5e)
+        ;
+
+        
+    
+    
+            circle_marker_c8fb9109a169ef4318af37d37c5d40af.bindTooltip(
+                `<div>
+                     Crack: Area 13332 px², Confidence 0.35
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_3b0c8c00019d1ea58c887ee0d528ef4a = L.circleMarker(
+                [41.882714666666665, 12.491993833333334],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.003637509044898, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_0594cf338c650120003befe6f1533480 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_a4951f3dff48cff2b520f3cef1c9d9eb = $(`<div id="html_a4951f3dff48cff2b520f3cef1c9d9eb" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 4961 px²<br>             <b>Confidence:</b> 0.50<br>             <b>Time:</b> 2025-05-06 17:23:13<br>             <b>Location:</b> 41.882715, 12.491994         </div>         </div>`)[0];
+                popup_0594cf338c650120003befe6f1533480.setContent(html_a4951f3dff48cff2b520f3cef1c9d9eb);
+            
+        
+
+        circle_marker_3b0c8c00019d1ea58c887ee0d528ef4a.bindPopup(popup_0594cf338c650120003befe6f1533480)
+        ;
+
+        
+    
+    
+            circle_marker_3b0c8c00019d1ea58c887ee0d528ef4a.bindTooltip(
+                `<div>
+                     Crack: Area 4961 px², Confidence 0.50
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_91c125615fde42cb301e19e88aafc848 = L.circleMarker(
+                [41.882714666666665, 12.491993833333334],
+                {"bubblingMouseEvents": true, "color": "#1E3A8A", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1E3A8A", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.1613962853482, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_26a47567823e2a49ce05d4f1115e1b49);
+        
+    
+        var popup_43f20c57568ea704a5cb24a9f2e35085 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_cd01ae1689b8697ba1067d248fed7e3a = $(`<div id="html_cd01ae1689b8697ba1067d248fed7e3a" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 250px;">             <h4 style="margin-bottom: 5px; color: #1E3A8A;">Crack Detection</h4>             <hr style="margin: 5px 0;">             <b>Type:</b> crack<br>             <b>Area:</b> 5428 px²<br>             <b>Confidence:</b> 0.48<br>             <b>Time:</b> 2025-05-06 17:23:14<br>             <b>Location:</b> 41.882715, 12.491994         </div>         </div>`)[0];
+                popup_43f20c57568ea704a5cb24a9f2e35085.setContent(html_cd01ae1689b8697ba1067d248fed7e3a);
+            
+        
+
+        circle_marker_91c125615fde42cb301e19e88aafc848.bindPopup(popup_43f20c57568ea704a5cb24a9f2e35085)
+        ;
+
+        
+    
+    
+            circle_marker_91c125615fde42cb301e19e88aafc848.bindTooltip(
+                `<div>
+                     Crack: Area 5428 px², Confidence 0.48
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            marker_cluster_26a47567823e2a49ce05d4f1115e1b49.addTo(map_fe56e7b91b34c1cf99e37026ccd9582a);
+        
+    
+            var tile_layer_aca6be14be36c1a5f07965bf35c21d77 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_aca6be14be36c1a5f07965bf35c21d77.addTo(map_fe56e7b91b34c1cf99e37026ccd9582a);
+        
+    
+            var tile_layer_873dc75e2605a7e689eb801e4319fbd9 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_873dc75e2605a7e689eb801e4319fbd9.addTo(map_fe56e7b91b34c1cf99e37026ccd9582a);
+        
+    
+            var tile_layer_7351d86361f392928013e39f4ffa72ae = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_7351d86361f392928013e39f4ffa72ae.addTo(map_fe56e7b91b34c1cf99e37026ccd9582a);
+        
+    
+            var layer_control_2f95873b7376e07ab66e5e0bf8d76266_layers = {
+                base_layers : {
+                    "cartodbdarkmatter" : tile_layer_9cb7a725b3c37dbbdeb98d00b42eb98b,
+                    "Dark Mode" : tile_layer_aca6be14be36c1a5f07965bf35c21d77,
+                    "Light Mode" : tile_layer_873dc75e2605a7e689eb801e4319fbd9,
+                    "OpenStreetMap" : tile_layer_7351d86361f392928013e39f4ffa72ae,
+                },
+                overlays :  {
+                    "Pothole Detections" : marker_cluster_be7066337644e6ce44c20cb0144cea40,
+                    "Crack Detections" : marker_cluster_26a47567823e2a49ce05d4f1115e1b49,
+                },
+            };
+            let layer_control_2f95873b7376e07ab66e5e0bf8d76266 = L.control.layers(
+                layer_control_2f95873b7376e07ab66e5e0bf8d76266_layers.base_layers,
+                layer_control_2f95873b7376e07ab66e5e0bf8d76266_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_fe56e7b91b34c1cf99e37026ccd9582a);
+
+        
+    
+            var measure_control_10659406de2d0e2c54644007f98a31e8 = new L.Control.Measure(
+                {"position": "bottomleft", "primaryAreaUnit": "sqmeters", "primaryLengthUnit": "meters", "secondaryAreaUnit": "acres", "secondaryLengthUnit": "miles"});
+            map_fe56e7b91b34c1cf99e37026ccd9582a.addControl(measure_control_10659406de2d0e2c54644007f98a31e8);
+
+            // Workaround for using this plugin with Leaflet>=1.8.0
+            // https://github.com/ljagis/leaflet-measure/issues/171
+            L.Control.Measure.include({
+                _setCaptureMarkerIcon: function () {
+                    // disable autopan
+                    this._captureMarker.options.autoPanOnFocus = false;
+                    // default function
+                    this._captureMarker.setIcon(
+                        L.divIcon({
+                            iconSize: this._map.getSize().multiplyBy(2)
+                        })
+                    );
+                },
+            });
+
+        
+    
+            L.control.fullscreen(
+                {"forceSeparateButton": false, "position": "topleft", "title": "Full Screen", "titleCancel": "Exit Full Screen"}
+            ).addTo(map_fe56e7b91b34c1cf99e37026ccd9582a);
+        
+    
+            var mouse_position_1965a70cd1b9179739861e3aee56f8b1 = new L.Control.MousePosition(
+                {"emptyString": "", "lngFirst": false, "numDigits": 6, "position": "bottomright", "prefix": "Coordinates:", "separator": " | "}
+            );
+            mouse_position_1965a70cd1b9179739861e3aee56f8b1.options["latFormatter"] =
+                undefined;
+            mouse_position_1965a70cd1b9179739861e3aee56f8b1.options["lngFormatter"] =
+                undefined;
+            map_fe56e7b91b34c1cf99e37026ccd9582a.addControl(mouse_position_1965a70cd1b9179739861e3aee56f8b1);
+        
+    
+            var tile_layer_123a4a1555008adee453687a403b05f1 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_069c273fca9c7a92f93b4b65988bee7e = new L.Control.MiniMap(
+                tile_layer_123a4a1555008adee453687a403b05f1,
+                {"autoToggleDisplay": false, "centerFixed": false, "collapsedHeight": 25, "collapsedWidth": 25, "height": 150, "minimized": false, "position": "bottomright", "toggleDisplay": true, "width": 150, "zoomAnimation": false, "zoomLevelOffset": -5}
+            );
+            map_fe56e7b91b34c1cf99e37026ccd9582a.addControl(mini_map_069c273fca9c7a92f93b4b65988bee7e);
+        
+</script>
+</html>
