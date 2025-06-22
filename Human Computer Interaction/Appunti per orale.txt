@@ -1,0 +1,27 @@
+Oral Exam Notes
+
+The system is designed with a multi-tasking orientation: it enables users to remain focused on driving while simultaneously managing the music player without significant distraction. There is no need to interrupt the primary activity—in this case, driving—in order to interact with the system.
+
+-Input Modality and Cognitive Load
+The system utilizes direct manipulation via mid-air hand gestures. This form of input inherently requires a medium to high level of cognitive and perceptual attention. However, the output is delivered through auditory feedback (e.g.  beeps), which corresponds to an ambient, low-load feedback channel—minimizing the overall distraction for the user.
+
+-Interaction While Driving
+Interaction requires momentarily removing a hand from the gear shift or steering wheel. However, this interruption is brief and does not significantly compromise the driver’s ability to maintain control, as short periods of one-handed driving are generally acceptable and safe.
+
+-Eyes-Free Interaction
+The interface is designed to be operated entirely through hand gestures, with no visual feedback. Auditory signals serve as confirmation of successful input. These sounds are blended with the ongoing music playback and vary according to the gesture performed, providing intuitive and non-intrusive feedback.
+
+-Feature Creep Consideration
+Feature creep—the unnecessary addition of functions that complicate the interface—was carefully avoided. For example, including a screen or LED indicators would have introduced visual distractions, potentially reducing usability and safety. Similarly, overly complex gestures were excluded. Instead, the design focuses on essential music control functions, supported by intuitive, simple gestures and minimal feedback, in order to maintain driver focus and minimize accident risk.
+
+-Gesture Selection and Interaction Design
+Mid-air gestural input was chosen due to its suitability for short to medium-duration interactions and the fact that it does not require high precision. The interaction is entirely touchless, enabled by computer vision. Users interact with the music player without physical contact or visual attention, relying solely on an RGB camera (standard webcam) combined with software-based gesture recognition.
+
+-Technology and Gesture Recognition
+The gesture recognition system was implemented using the MediaPipe framework, which integrates machine learning models with computer vision to provide real-time hand tracking. MediaPipe detects 21 landmark points on the hand, each with specific coordinates. Using these landmarks, we applied algebraic computations and developed custom functions to identify gestures that align with familiar social conventions.
+
+-Conceptual Model and User-Centered Design
+We conducted surveys to gather a broad range of possible interactions, which allowed us to select gestures that matched user expectations and intuitions. Field testing further validated the system, enabling users to quickly understand and interact with the interface. The outcomes confirmed the effectiveness and usability of the gesture-based system.
+
+-Haptic Steering Wheel as Input Device
+The steering wheel used in testing functioned as a haptic device. It not only served as an input mechanism but also provided tactile feedback to the driver, simulating real-world driving conditions by applying torque-based resistance.
