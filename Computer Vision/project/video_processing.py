@@ -8,7 +8,11 @@ import math
 from tqdm import tqdm
 from ultralytics import YOLO
 
-def create_temp_video(input_video_path, temp_video_path, yolo_width=640, yolo_height=384):
+def create_temp_video(input_video_path, 
+                      temp_video_path, 
+                      yolo_width=640, 
+                      yolo_height=384
+    ):
     """
     Crea un video temporaneo scalato (ad esempio, 640x384) a partire dal video originale.
     Restituisce fps, numero totale di frame e le dimensioni originali.
@@ -38,9 +42,19 @@ def create_temp_video(input_video_path, temp_video_path, yolo_width=640, yolo_he
     
     cap_in.release()
     temp_writer.release()
+    
     return fps, total_frames, (orig_width, orig_height)
 
-def run_yolo_predictions(temp_video_path, model, confidence_threshold, fps, total_frames, prediction_fps=15, skip_factor=None, class_filter=None, position_filter=None):
+def run_yolo_predictions(temp_video_path, 
+                         model, 
+                         confidence_threshold, 
+                         fps, 
+                         total_frames, 
+                         prediction_fps=15, 
+                         skip_factor=None, 
+                         class_filter=None, 
+                         position_filter=None
+    ):
     """
     Esegue le predizioni YOLO sul video temporaneo.
     Utilizza il parametro 'vid_stride' per ridurre il numero di frame elaborati e
@@ -102,7 +116,14 @@ def run_yolo_predictions(temp_video_path, model, confidence_threshold, fps, tota
     
     return boxes_per_frame
 
-def annotate_video(input_video_path, temp_video_path, output_video_path, boxes_per_frame, model_names, yolo_width=640, yolo_height=384):
+def annotate_video(input_video_path, 
+                   temp_video_path, 
+                   output_video_path, 
+                   boxes_per_frame, 
+                   model_names, 
+                   yolo_width=640, 
+                   yolo_height=384
+    ):
     """
     Disegna le bounding box (e le relative etichette) sui frame originali e salva il video annotato.
     """
@@ -197,7 +218,14 @@ def reencode_video(temp_video_path, output_video_path, input_video_path):
     except Exception as e:
         print(f"Impossibile rimuovere il file temporaneo: {e}")
 
-def process_video(sweep, input_video_path, output_video_path, confidence_threshold=0.20, prediction_fps=15, do_reencode=True, class_filter=None, position_filter=None):
+def process_video(sweep, input_video_path, 
+                  output_video_path, 
+                  confidence_threshold=0.20, 
+                  prediction_fps=15, 
+                  do_reencode=True, 
+                  class_filter=None, 
+                  position_filter=None
+    ):
     """
     Funzione principale per processare un video.
     Carica il modello corrispondente allo sweep, crea il video temporaneo scalato,
