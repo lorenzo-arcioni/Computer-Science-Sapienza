@@ -4,6 +4,7 @@
 Computer Vision/project/datasets
 Computer Vision/project/model
 Computer Vision/project/runs
+Computer Vision/project/configs
 Computer Vision/*.pt
 __pycache__/
 pothole-segmentation-for-road-damage-assessment.ipynb
