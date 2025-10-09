@@ -5,6 +5,7 @@ Computer Vision/project/datasets
 Computer Vision/project/model
 Computer Vision/project/runs
 Computer Vision/project/configs
+Computer Vision/project/results/images
 Computer Vision/*.pt
 __pycache__/
 pothole-segmentation-for-road-damage-assessment.ipynb
@@ -14,9 +15,14 @@ Foundation of Data Science/Homework02/data
 *.pth
 *.pt
 *.csv
+*.png
 *.MP4
+*.wav
+*.gif
 NLP/Part_1/datasets
 Deep Learning/lab/data
+Deep Learning/project/ESC-50-master
 env
 hailo_env
 *.onnx
+*.zip
