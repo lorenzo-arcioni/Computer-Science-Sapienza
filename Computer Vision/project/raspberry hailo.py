@@ -1,13 +1,13 @@
 import cv2
 from ultralytics import YOLO
-import serial
+# import serial
 from datetime import datetime
 import os
 import time  # Per calcolare il tempo
 
-model = YOLO('./best_face.pt')
-videoCap = cv2.VideoCapture(0)
-ser = serial.Serial('/dev/ttyACM0', 4800, timeout=1)
+model = YOLO('./best-scarlet.pt')
+videoCap = cv2.VideoCapture(2)
+# ser = serial.Serial('/dev/ttyACM0', 4800, timeout=1)
 output_file = "detections-faces.tsv"
 
 # Intestazione TSV con nuova colonna
@@ -24,29 +24,29 @@ confidence_thresholds = {
 
 classes_of_interest = ['face']
 
-def parse_nmea(sentence):
-    try:
-        if sentence.startswith('$GPRMC'):
-            parts = sentence.split(',')
-            if parts[2] == 'A':
-                lat_raw = parts[3]
-                lat_dir = parts[4]
-                lon_raw = parts[5]
-                lon_dir = parts[6]
-                lat_deg = float(lat_raw[:2])
-                lat_min = float(lat_raw[2:])
-                lat = lat_deg + lat_min / 60.0
-                if lat_dir == 'S':
-                    lat = -lat
-                lon_deg = float(lon_raw[:3])
-                lon_min = float(lon_raw[3:])
-                lon = lon_deg + lon_min / 60.0
-                if lon_dir == 'W':
-                    lon = -lon
-                return (lat, lon)
-        return None
-    except Exception:
-        return None
+# def parse_nmea(sentence):
+#     try:
+#         if sentence.startswith('$GPRMC'):
+#             parts = sentence.split(',')
+#             if parts[2] == 'A':
+#                 lat_raw = parts[3]
+#                 lat_dir = parts[4]
+#                 lon_raw = parts[5]
+#                 lon_dir = parts[6]
+#                 lat_deg = float(lat_raw[:2])
+#                 lat_min = float(lat_raw[2:])
+#                 lat = lat_deg + lat_min / 60.0
+#                 if lat_dir == 'S':
+#                     lat = -lat
+#                 lon_deg = float(lon_raw[:3])
+#                 lon_min = float(lon_raw[3:])
+#                 lon = lon_deg + lon_min / 60.0
+#                 if lon_dir == 'W':
+#                     lon = -lon
+#                 return (lat, lon)
+#         return None
+#     except Exception:
+#         return None
 
 def getColours(cls_num):
     base_colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
@@ -105,10 +105,12 @@ while True:
 
                     area = (x2 - x1) * (y2 - y1)
                     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    gps_line = ser.readline().decode('ascii', errors='replace').strip()
-                    gps_data = parse_nmea(gps_line)
-                    timestamp_gps = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    lat, lon = gps_data if gps_data else (None, None)
+                    # gps_line = ser.readline().decode('ascii', errors='replace').strip()
+                    # gps_data = parse_nmea(gps_line)
+                    # timestamp_gps = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    # lat, lon = gps_data if gps_data else (None, None)
+                    timestamp_gps = None
+                    lat, lon = None, None
 
                     # 📝 Riga con tempo di inferenza
                     tsv_line = f"{timestamp}\t{class_name}\t{area}\t{conf:.2f}\t{timestamp_gps}\t{lat}\t{lon}\t{inference_time_ms}\n"
@@ -125,8 +127,8 @@ while True:
 
 videoCap.release()
 cv2.destroyAllWindows()
-ser.close()
+# ser.close()
 print("Detection terminata.")
 
 # Chiudi la porta seriale
-ser.close()
+# ser.close()

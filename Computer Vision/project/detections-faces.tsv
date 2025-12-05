@@ -1,3 +1,8 @@
 timestamp	type	area	confidence	timestamp_gps	lat	lon	inference_time_ms
 2025-06-28 15:28:04	face	80215	0.91	2025-06-28 15:28:04	None	None	223
 2025-06-28 15:29:30	face	89700	0.89	2025-06-28 15:29:30	None	None	216
+2025-12-05 15:22:44	face	171828	0.90	None	None	None	1792
+2025-12-05 15:23:39	face	57486	0.66	None	None	None	0
+2025-12-05 15:23:44	face	23112	0.83	None	None	None	0
+2025-12-05 15:24:35	face	177100	0.83	None	None	None	279
+2025-12-05 15:26:45	face	123906	0.66	None	None	None	0
