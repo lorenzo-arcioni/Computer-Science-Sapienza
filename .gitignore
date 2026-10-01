@@ -1,6 +1,9 @@
 *.tar.gz
 *.gz
 *ubyte
+Biometric Systems/Slides
+Biometric Systems/Notes/*
+!Biometric Systems/Notes/personal/
 Computer Vision/project/datasets
 Computer Vision/project/model
 Computer Vision/project/runs
