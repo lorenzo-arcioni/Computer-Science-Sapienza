@@ -38,21 +38,97 @@ L'accesso può essere di due tipi: **fisico** (stanze, edifici, aree) o **logico
 
 ## 3. Architettura di un sistema biometrico
 
-Un sistema biometrico ha due macro-fasi che condividono la stessa pipeline di moduli:
+Un sistema biometrico ha due macro-fasi, **enrollment** e **recognition**, che condividono la stessa pipeline di moduli iniziali (acquisizione ed estrazione delle feature) e si differenziano per ciò che avviene a valle.
 
-- **Enrollment (iscrizione)**: acquisizione ed elaborazione dei dati biometrici dell'utente per l'uso da parte del sistema nelle successive operazioni di autenticazione. Il risultato è un **template** salvato nella **gallery** (l'archivio dei template iscritti).
-- **Recognition (riconoscimento)**: acquisizione ed elaborazione dei dati biometrici dell'utente al fine di rendere una decisione di autenticazione, basata sull'esito di un processo di matching tra template salvato e template corrente (verifica 1:1, identificazione 1:N).
+### 3.1 Panoramica: come si collegano le due fasi
 
-Il **probe** è ogni template sottoposto per il riconoscimento; la **gallery** è l'insieme dei template appartenenti ai soggetti iscritti.
+<img src="img/biometric_enrollment_recognition_pipeline.svg" width="600" style="display: block; margin-left: auto; margin-right: auto;">
 
-Un sistema biometrico è generalmente composto da **quattro moduli**:
+```mermaid
+flowchart LR
+  subgraph ENR["ENROLLMENT (iscrizione)"]
+    direction LR
+    S1["Sensore<br/><i>dati grezzi</i>"] --> F1["Feature extraction<br/><i>estrae le feature</i>"] --> T["Template<br/><i>da salvare</i>"]
+  end
 
-| Modulo | Funzione |
+  T -->|"salvataggio"| G[("Gallery<br/>template degli iscritti")]
+
+  subgraph REC["RECOGNITION (riconoscimento)"]
+    direction LR
+    S2["Sensore<br/><i>dati grezzi</i>"] --> F2["Feature extraction<br/><i>genera il probe</i>"] --> M["Matching<br/><i>1:1 oppure 1:N</i>"] --> D["Decisione<br/><i>soglia + policy</i>"] --> O{"Accetta / Rifiuta"}
+  end
+
+  G -->|"template di riferimento"| M
+
+  style ENR fill:#E1F5EE,stroke:#0F6E56,color:#085041
+  style REC fill:#EEEDFE,stroke:#534AB7,color:#3C3489
+  style G fill:#F1EFE8,stroke:#5F5E5A,color:#2C2C2A
+```
+
+Sensore e Feature Extraction sono **gli stessi moduli** in entrambe le fasi: cambia solo il loro output (template in enrollment, probe in recognition) e il fatto che solo la recognition usa Matching e Decisione.
+
+### 3.2 Le due fasi
+
+**Enrollment (iscrizione).** È la fase in cui l'utente viene registrato nel sistema. I suoi dati biometrici vengono acquisiti ed elaborati per l'uso nelle successive operazioni di autenticazione. Il risultato è un **template** salvato nella **gallery**, l'archivio dei template dei soggetti iscritti.
+
+- Non c'è nessuna decisione da prendere: il flusso termina con la memorizzazione.
+- La qualità dell'acquisizione è critica, perché il template resterà in uso per tutte le autenticazioni future. Per questo si acquisiscono spesso più campioni e si scartano quelli di scarsa qualità.
+
+**Recognition (riconoscimento).** È la fase operativa. Il sistema acquisisce nuovamente i dati dell'utente e li elabora con la stessa pipeline dell'enrollment. Il template così ottenuto è il **probe**, cioè il template sottoposto per il riconoscimento. Il probe viene confrontato con i template della gallery e, in base all'esito del matching, il sistema prende una decisione di autenticazione.
+
+Il confronto può avvenire in due modalità:
+
+| Modalità | Domanda a cui risponde | Confronto | Esempio |
+|---|---|---|---|
+| **Verifica (1:1)** | "Sei chi dichiari di essere?" | Il probe viene confrontato con il solo template associato all'identità dichiarata | Sblocco dello smartphone |
+| **Identificazione (1:N)** | "Chi sei?" | Il probe viene confrontato con tutti i template della gallery | Ricerca di una persona in un database |
+
+Nella verifica l'utente fornisce un'identità (badge, PIN, username) e il sistema controlla solo quella. Nell'identificazione non c'è nessuna identità dichiarata e il sistema cerca la corrispondenza migliore tra tutti gli iscritti, quindi il carico computazionale e il rischio di errore crescono con la dimensione della gallery.
+
+### 3.3 Terminologia
+
+| Termine | Significato |
 |---|---|
-| **Sensore** | Cattura i dati biometrici grezzi |
-| **Feature Extraction** | Estrae un insieme di caratteristiche dai dati acquisiti; in fase di enrollment produce i template da salvare |
-| **Matching** | Confronta le feature estratte con i template salvati, restituendo uno o più matching score |
-| **Decisione** | Prende una decisione in base ai risultati del matching (soglia + eventuale policy) |
+| **Template** | Rappresentazione compatta delle feature estratte da un campione biometrico. Non è il dato grezzo, ma la sua descrizione numerica |
+| **Gallery** | Insieme dei template appartenenti ai soggetti iscritti |
+| **Probe** | Ogni template sottoposto per il riconoscimento, cioè il campione "da riconoscere" |
+| **Matching score** | Valore numerico che misura la similarità (o la distanza) tra probe e template della gallery |
+| **Soglia (threshold)** | Valore di riferimento con cui viene confrontato lo score per decidere |
+
+### 3.4 I quattro moduli
+
+Un sistema biometrico è generalmente composto da **quattro moduli**, collegati in cascata:
+
+| Modulo | Funzione | In enrollment | In recognition |
+|---|---|---|---|
+| **Sensore** | Cattura i dati biometrici grezzi (immagine, audio, segnale) | Acquisisce il campione da iscrivere | Acquisisce il campione da riconoscere |
+| **Feature Extraction** | Estrae un insieme di caratteristiche discriminanti dai dati acquisiti, scartando le informazioni irrilevanti | Produce il template da salvare | Produce il probe |
+| **Matching** | Confronta le feature estratte con i template salvati, restituendo uno o più matching score | Non utilizzato | Confronta il probe con i template in gallery |
+| **Decisione** | Prende una decisione in base ai risultati del matching (soglia + eventuale policy) | Non utilizzata | Accetta o rifiuta |
+
+### 3.5 Come funziona la pipeline, passo per passo
+
+**Flusso di enrollment**
+
+1. Il **sensore** acquisisce il campione biometrico dell'utente.
+2. La **feature extraction** elabora il dato grezzo ed estrae le caratteristiche rilevanti.
+3. L'output è un **template**, che viene salvato nella **gallery**.
+
+**Flusso di recognition**
+
+1. Il **sensore** acquisisce un nuovo campione dell'utente.
+2. La **feature extraction** produce il **probe**.
+3. Il **matching** confronta il probe con il template dell'utente (1:1) o con tutti i template della gallery (1:N) e produce uno o più score.
+4. La **decisione** applica la soglia e l'eventuale policy: l'utente viene accettato o rifiutato. Nell'identificazione viene restituita l'identità più probabile oppure l'esito "nessuna corrispondenza".
+
+### 3.6 Il ruolo della soglia nella decisione
+
+Due acquisizioni della stessa persona non sono mai identiche (variazioni di posa, illuminazione, rumore, invecchiamento), quindi il matching non cerca l'uguaglianza esatta ma una **similarità sufficiente**. La soglia regola il compromesso tra due tipi di errore:
+
+- **Soglia troppo permissiva**: aumentano i *falsi accetti* (un impostore viene riconosciuto).
+- **Soglia troppo restrittiva**: aumentano i *falsi rifiuti* (un utente legittimo viene respinto).
+
+La **policy** può aggiungere regole oltre alla soglia, ad esempio permettere un numero massimo di tentativi o richiedere un secondo fattore di autenticazione.
 
 ---
 
@@ -144,15 +220,3 @@ I tratti biometrici costituiscono una metodologia di autenticazione "naturale", 
 - Se un tratto viene "copiato" (spoofing), l'utente non può cambiarlo come farebbe con una password;
 - I dispositivi biometrici possono essere inaffidabili in certe condizioni;
 - Una foto del volto è più facile da rubare di una password → lo spoofing è un tema di ricerca centrale.
-
----
-
-## RIEPILOGO DEL CAPITOLO
-
-- La biometria è pattern recognition dove le classi sono le persone; le tre domande eterne sono: quali feature, quale distanza, quale soglia.
-- Storia: Bertillon (Bertillonage, 1882) → Galton (minuzie, 1892) → classificazione Galton-Henry (1900), ancora alla base degli AFIS di polizia.
-- Pipeline: Sensore → Feature Extraction → Matching → Decisione; l'enrollment costruisce la gallery, il riconoscimento confronta una probe con essa.
-- Verifica = 1:1 contro un'identità dichiarata; identificazione = 1:N; closed set assume il soggetto iscritto, open set no (le watch list sono il caso open-set, non-cooperativo).
-- Un buon tratto "hard" richiede universalità, unicità, permanenza, collectability, accettabilità; l'assenza anche di un solo requisito lo rende un tratto "soft", comunque utile come filtro veloce.
-- Lo standard ANSI X9.84 classifica i tratti in fisiologici, comportamentali, misti e tracce biologiche.
-- I tratti randotipici (non genetici) sono i più discriminativi, perché unici anche oltre la componente genetica condivisa dai parenti.
