@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="600" viewBox="0 0 920 600">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#111827" font-weight="700">Template: dal sample alla gallery</text>
+<text x="460.0" y="53" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#4b5563">Il matching usa il template (feature etichettate con l&#x27;identità), non il sample · ogni acquisizione genera un template diverso</text>
+<clipPath id="s0"><rect x="40" y="120" width="120" height="150" rx="6"/></clipPath>
+<rect x="40" y="120" width="120" height="150" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.6"/>
+<ellipse cx="100.0" cy="202.5" rx="9.0" ry="12.8" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s0)"/>
+<ellipse cx="100.0" cy="202.5" rx="18.0" ry="25.5" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s0)"/>
+<ellipse cx="100.0" cy="202.5" rx="27.0" ry="38.2" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s0)"/>
+<ellipse cx="100.0" cy="202.5" rx="36.0" ry="51.0" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s0)"/>
+<ellipse cx="100.0" cy="202.5" rx="45.0" ry="63.8" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s0)"/>
+<ellipse cx="100.0" cy="202.5" rx="54.0" ry="76.5" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s0)"/>
+<ellipse cx="100.0" cy="202.5" rx="63.0" ry="89.2" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s0)"/>
+<ellipse cx="100.0" cy="202.5" rx="72.0" ry="102.0" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s0)"/>
+<text x="100" y="290" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#111" font-weight="700">sample</text>
+<text x="100" y="307" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#555">(es. impronta)</text>
+<line x1="168" y1="195" x2="238" y2="195" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="238" y1="195" x2="232.09" y2="198.75" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="238" y1="195" x2="232.09" y2="191.25" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+<text x="203" y="180" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#111" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">estrazione</text>
+<text x="203" y="213" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#111" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">feature</text>
+<rect x="246" y="120" width="120" height="150" rx="6" fill="#fff" stroke="#374151" stroke-width="1.6"/>
+<circle cx="261.5" cy="148.5" r="2.8" fill="#dc2626"/>
+<circle cx="296.2" cy="217.1" r="2.8" fill="#dc2626"/>
+<circle cx="273.0" cy="148.5" r="2.8" fill="#dc2626"/>
+<circle cx="281.5" cy="225.9" r="2.8" fill="#dc2626"/>
+<circle cx="273.8" cy="223.9" r="2.8" fill="#dc2626"/>
+<circle cx="320.8" cy="151.4" r="2.8" fill="#dc2626"/>
+<circle cx="309.3" cy="188.7" r="2.8" fill="#dc2626"/>
+<circle cx="298.0" cy="254.6" r="2.8" fill="#dc2626"/>
+<circle cx="268.9" cy="137.4" r="2.8" fill="#dc2626"/>
+<circle cx="346.1" cy="183.4" r="2.8" fill="#dc2626"/>
+<circle cx="278.5" cy="174.6" r="2.8" fill="#dc2626"/>
+<circle cx="293.7" cy="249.6" r="2.8" fill="#dc2626"/>
+<circle cx="279.6" cy="161.0" r="2.8" fill="#dc2626"/>
+<circle cx="313.7" cy="200.7" r="2.8" fill="#dc2626"/>
+<circle cx="347.4" cy="235.6" r="2.8" fill="#dc2626"/>
+<circle cx="292.8" cy="159.5" r="2.8" fill="#dc2626"/>
+<text x="306" y="290" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#b91c1c" font-weight="700">template</text>
+<text x="306" y="307" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#555">{(x, y, θ) ...} + identità</text>
+<rect x="33.0" y="345.0" width="340" height="80" rx="9" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="203" y="373.5" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#111827" font-weight="700">Proprietà del template</text>
+<text x="203" y="389.025" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#111827">• sta in uno spazio ridotto: facile da codificare e archiviare</text>
+<text x="203" y="404.55" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#111827">• non deve permettere di ricostruire un sample valido</text>
+<text x="640" y="104" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#111" font-weight="700">Stessa persona, tre acquisizioni</text>
+<clipPath id="s1"><rect x="440" y="120" width="110" height="120" rx="6"/></clipPath>
+<rect x="440" y="120" width="110" height="120" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.6"/>
+<ellipse cx="489.5" cy="186.0" rx="8.2" ry="10.2" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s1)"/>
+<ellipse cx="489.5" cy="186.0" rx="16.5" ry="20.4" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s1)"/>
+<ellipse cx="489.5" cy="186.0" rx="24.8" ry="30.6" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s1)"/>
+<ellipse cx="489.5" cy="186.0" rx="33.0" ry="40.8" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s1)"/>
+<ellipse cx="489.5" cy="186.0" rx="41.2" ry="51.0" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s1)"/>
+<ellipse cx="489.5" cy="186.0" rx="49.5" ry="61.2" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s1)"/>
+<ellipse cx="489.5" cy="186.0" rx="57.8" ry="71.4" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s1)"/>
+<ellipse cx="489.5" cy="186.0" rx="66.0" ry="81.6" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s1)"/>
+<line x1="495" y1="246" x2="495" y2="270" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="495" y1="270" x2="491.25" y2="264.09" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="495" y1="270" x2="498.75" y2="264.09" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="440" y="276" width="110" height="120" rx="6" fill="#fff" stroke="#374151" stroke-width="1.6"/>
+<circle cx="458.5" cy="291.1" r="2.8" fill="#dc2626"/>
+<circle cx="490.4" cy="354.6" r="2.8" fill="#dc2626"/>
+<circle cx="467.5" cy="295.6" r="2.8" fill="#dc2626"/>
+<circle cx="465.3" cy="357.1" r="2.8" fill="#dc2626"/>
+<circle cx="507.3" cy="299.5" r="2.8" fill="#dc2626"/>
+<circle cx="500.4" cy="331.7" r="2.8" fill="#dc2626"/>
+<circle cx="486.3" cy="386.2" r="2.8" fill="#dc2626"/>
+<circle cx="457.8" cy="285.4" r="2.8" fill="#dc2626"/>
+<circle cx="539.1" cy="324.7" r="2.8" fill="#dc2626"/>
+<circle cx="474.6" cy="319.5" r="2.8" fill="#dc2626"/>
+<circle cx="468.3" cy="306.2" r="2.8" fill="#dc2626"/>
+<circle cx="501.5" cy="339.4" r="2.8" fill="#dc2626"/>
+<circle cx="535.1" cy="374.8" r="2.8" fill="#dc2626"/>
+<circle cx="479.5" cy="304.8" r="2.8" fill="#dc2626"/>
+<circle cx="486.6" cy="375.4" r="2.8" fill="#dc2626"/>
+<text x="495" y="414" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#b91c1c" font-weight="700">template T1</text>
+<clipPath id="s2"><rect x="590" y="120" width="110" height="120" rx="6"/></clipPath>
+<rect x="590" y="120" width="110" height="120" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.6"/>
+<ellipse cx="645.0" cy="186.0" rx="8.2" ry="10.2" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s2)"/>
+<ellipse cx="645.0" cy="186.0" rx="16.5" ry="20.4" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s2)"/>
+<ellipse cx="645.0" cy="186.0" rx="24.8" ry="30.6" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s2)"/>
+<ellipse cx="645.0" cy="186.0" rx="33.0" ry="40.8" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s2)"/>
+<ellipse cx="645.0" cy="186.0" rx="41.2" ry="51.0" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s2)"/>
+<ellipse cx="645.0" cy="186.0" rx="49.5" ry="61.2" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s2)"/>
+<ellipse cx="645.0" cy="186.0" rx="57.8" ry="71.4" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s2)"/>
+<ellipse cx="645.0" cy="186.0" rx="66.0" ry="81.6" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s2)"/>
+<line x1="645" y1="246" x2="645" y2="270" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="645" y1="270" x2="641.25" y2="264.09" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="645" y1="270" x2="648.75" y2="264.09" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="590" y="276" width="110" height="120" rx="6" fill="#fff" stroke="#374151" stroke-width="1.6"/>
+<circle cx="599.2" cy="291.3" r="2.8" fill="#dc2626"/>
+<circle cx="637.0" cy="356.8" r="2.8" fill="#dc2626"/>
+<circle cx="615.7" cy="295.7" r="2.8" fill="#dc2626"/>
+<circle cx="623.4" cy="357.0" r="2.8" fill="#dc2626"/>
+<circle cx="616.4" cy="360.0" r="2.8" fill="#dc2626"/>
+<circle cx="648.8" cy="333.5" r="2.8" fill="#dc2626"/>
+<circle cx="636.5" cy="377.9" r="2.8" fill="#dc2626"/>
+<circle cx="607.8" cy="290.5" r="2.8" fill="#dc2626"/>
+<circle cx="682.3" cy="324.3" r="2.8" fill="#dc2626"/>
+<circle cx="617.2" cy="322.7" r="2.8" fill="#dc2626"/>
+<circle cx="633.2" cy="379.1" r="2.8" fill="#dc2626"/>
+<circle cx="621.9" cy="309.9" r="2.8" fill="#dc2626"/>
+<circle cx="651.4" cy="336.0" r="2.8" fill="#dc2626"/>
+<circle cx="687.6" cy="367.7" r="2.8" fill="#dc2626"/>
+<circle cx="623.0" cy="297.3" r="2.8" fill="#dc2626"/>
+<text x="645" y="414" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#b91c1c" font-weight="700">template T2</text>
+<clipPath id="s3"><rect x="740" y="120" width="110" height="120" rx="6"/></clipPath>
+<rect x="740" y="120" width="110" height="120" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.6"/>
+<ellipse cx="800.5" cy="186.0" rx="8.2" ry="10.2" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s3)"/>
+<ellipse cx="800.5" cy="186.0" rx="16.5" ry="20.4" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s3)"/>
+<ellipse cx="800.5" cy="186.0" rx="24.8" ry="30.6" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s3)"/>
+<ellipse cx="800.5" cy="186.0" rx="33.0" ry="40.8" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s3)"/>
+<ellipse cx="800.5" cy="186.0" rx="41.2" ry="51.0" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s3)"/>
+<ellipse cx="800.5" cy="186.0" rx="49.5" ry="61.2" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s3)"/>
+<ellipse cx="800.5" cy="186.0" rx="57.8" ry="71.4" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s3)"/>
+<ellipse cx="800.5" cy="186.0" rx="66.0" ry="81.6" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#s3)"/>
+<line x1="795" y1="246" x2="795" y2="270" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="795" y1="270" x2="791.25" y2="264.09" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="795" y1="270" x2="798.75" y2="264.09" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="740" y="276" width="110" height="120" rx="6" fill="#fff" stroke="#374151" stroke-width="1.6"/>
+<circle cx="751.6" cy="297.2" r="2.8" fill="#dc2626"/>
+<circle cx="787.5" cy="353.6" r="2.8" fill="#dc2626"/>
+<circle cx="761.3" cy="297.1" r="2.8" fill="#dc2626"/>
+<circle cx="767.1" cy="352.1" r="2.8" fill="#dc2626"/>
+<circle cx="811.4" cy="297.7" r="2.8" fill="#dc2626"/>
+<circle cx="794.7" cy="329.7" r="2.8" fill="#dc2626"/>
+<circle cx="783.4" cy="383.3" r="2.8" fill="#dc2626"/>
+<circle cx="759.0" cy="289.9" r="2.8" fill="#dc2626"/>
+<circle cx="833.1" cy="330.6" r="2.8" fill="#dc2626"/>
+<circle cx="768.0" cy="324.9" r="2.8" fill="#dc2626"/>
+<circle cx="782.5" cy="382.3" r="2.8" fill="#dc2626"/>
+<circle cx="768.3" cy="308.4" r="2.8" fill="#dc2626"/>
+<circle cx="829.5" cy="372.1" r="2.8" fill="#dc2626"/>
+<circle cx="786.9" cy="308.7" r="2.8" fill="#dc2626"/>
+<circle cx="765.0" cy="324.5" r="2.8" fill="#dc2626"/>
+<text x="795" y="414" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#b91c1c" font-weight="700">template T3</text>
+<rect x="420.0" y="450.0" width="440" height="60" rx="9" fill="#ffedd5" stroke="#b45309" stroke-width="1.5"/>
+<text x="640" y="476.09999999999997" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#111827" font-weight="700">T1 ≠ T2 ≠ T3 anche per lo stesso soggetto</text>
+<text x="640" y="492.29999999999995" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#111827">→ la gallery può contenere più template per identità (§9, multiple template)</text>
+<text x="460.0" y="580" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#555">In esercizio arrivano molti più dati che all&#x27;enrollment: usarli per aggiornare i template risolve invecchiamento e qualità (§16).</text>
+</svg>

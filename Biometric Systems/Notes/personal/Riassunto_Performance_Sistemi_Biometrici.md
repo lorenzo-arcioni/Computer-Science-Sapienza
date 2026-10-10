@@ -3305,21 +3305,111 @@ save(o, 'n13_znorm_per_utente.svg')
 
 ## 12. Decidability Value
 
-Misura alternativa (usata nelle competizioni di iris recognition) che tiene conto insieme dei contributi di FA e FR.
+Misura alternativa (usata nelle competizioni di iris recognition) che riassume **in un solo numero** quanto sono separate le distribuzioni dei genuini e degli impostori, senza fissare una soglia.
 
-Si costruiscono due insiemi di distanze: **D^I** (intra-class, stesso soggetto) e **D^E** (inter-class, soggetti diversi).
+Si costruiscono due insiemi di distanze: **D^I** (intra-class, stesso soggetto) e **D^E** (inter-class, soggetti diversi). La formula standard (Daugman) è
 
 $$
-\text{Decidability} = \frac{\overline{D^E} - \overline{D^I}}{\sigma}
+d' = \frac{\left|\overline{D^E} - \overline{D^I}\right|}{\sqrt{\dfrac{\sigma_I^2 + \sigma_E^2}{2}}}
 $$
 
-dove σ è una misura di deviazione standard normalizzante calcolata sui due insiemi.
+dove $\overline{D^I},\overline{D^E}$ sono le medie e $\sigma_I,\sigma_E$ le deviazioni standard dei due insiemi: al denominatore c'è la **media quadratica** delle due deviazioni, non una deviazione standard generica. Si legge come "distanza tra le medie, misurata in unità di deviazione standard".
+
+**Come leggere la figura.** Le tre righe hanno le stesse $\sigma$ e medie sempre più lontane ($d' = 1.5, 3, 5$). Le aree arancione (FR) e rossa (FA) sono gli errori alla soglia dell'EER (il punto medio tra le due medie). Quando le due distribuzioni sono gaussiane con la stessa $\sigma$, l'EER dipende **solo** da $d'$:
+
+$$
+EER = \Phi\!\left(-\frac{d'}{2}\right)
+$$
+
+dove $\Phi$ è la CDF della normale standard. A destra la curva mostra quanto velocemente l'EER scende al crescere di $d'$: nella zona $d'\approx 3\text{–}6$ servono circa due unità in più di $d'$ per abbassare l'EER di un ordine di grandezza (da 6.7% a 0.6% passando da $d'=3$ a $d'=5$).
+
+```python
+# =====================================================================
+# 23 — Decidability d'  (richiede 01, 05)
+# Produce: fig11_decidability.svg
+# =====================================================================
+SIG_D, MU_INTRA = 0.08, 0.30            # σ uguale per D^I e D^E; media intra-classe
+PhiN = NormalDist().cdf
+dvals = [1.5, 3.0, 5.0]
+
+def dprime(m1, s1, m2, s2):
+    """Decidability di Daugman: differenza delle medie / deviazione standard quadratica media."""
+    return abs(m2-m1)/math.sqrt((s1**2+s2**2)/2)
+
+W, H = 920, 670
+o = new_svg(W, H)
+header(o, W, "Decidability d': separazione tra distanze intra-classe e inter-classe",
+       "D^I = stesso soggetto · D^E = soggetti diversi · d' = |media(D^E) − media(D^I)| / √((σ_I² + σ_E²)/2)")
+PX, PW, PH = 40, 500, 118
+XMIN, XMAX, YMAX = 0.0, 1.0, 5.6
+for r, dv in enumerate(dvals):
+    py = 100 + r*(PH+46)
+    mE = MU_INTRA + dv*SIG_D
+    sx = lambda x: PX + (x-XMIN)/(XMAX-XMIN)*PW
+    sy = lambda y, py=py: py + PH - y/YMAX*PH
+    base = py + PH
+    tm = (MU_INTRA+mE)/2                  # soglia all'EER (σ uguali): si accetta se d ≤ t
+    o.append(f'<path d="{g_area(MU_INTRA,SIG_D,XMIN,XMAX,sx,sy,base)}" fill="{C_G}" fill-opacity="0.15"/>')
+    o.append(f'<path d="{g_area(mE,SIG_D,XMIN,XMAX,sx,sy,base)}" fill="{C_I}" fill-opacity="0.15"/>')
+    o.append(f'<path d="{g_area(MU_INTRA,SIG_D,tm,XMAX,sx,sy,base)}" fill="{C_FR}" fill-opacity="0.85"/>')
+    o.append(f'<path d="{g_area(mE,SIG_D,XMIN,tm,sx,sy,base)}" fill="{C_FA}" fill-opacity="0.85"/>')
+    o.append(f'<path d="{g_line(MU_INTRA,SIG_D,XMIN,XMAX,sx,sy)}" fill="none" stroke="{C_G}" stroke-width="2.4"/>')
+    o.append(f'<path d="{g_line(mE,SIG_D,XMIN,XMAX,sx,sy)}" fill="none" stroke="{C_I}" stroke-width="2.4"/>')
+    o.append(f'<line x1="{PX}" y1="{base}" x2="{PX+PW}" y2="{base}" stroke="#222" stroke-width="1.3"/>')
+    o.append(f'<line x1="{sx(tm):.1f}" y1="{py+8}" x2="{sx(tm):.1f}" y2="{base}" stroke="#111" stroke-width="1.5" stroke-dasharray="5,4"/>')
+    txt(o, PX+6, py+14, f"d' = {dv:g}", 15, 700, "#111", "start", halo=False)
+    txt(o, PX+6, py+32, f"EER = {PhiN(-dv/2):.2%}", 12.5, 700, C_FA_T, "start", halo=False)
+    # distanza tra le medie
+    yy = base + 16
+    arrow(o, sx(MU_INTRA)+3, yy, sx(mE)-3, yy, "#555", 1.4, 6)
+    arrow(o, sx(mE)-3, yy, sx(MU_INTRA)+3, yy, "#555", 1.4, 6)
+    txt(o, (sx(MU_INTRA)+sx(mE))/2, yy+15, f"Δμ = {dv:g}·σ = {dv*SIG_D:.2f}", 11.5, None, "#333", halo=False)
+    if r == 0:
+        txt(o, sx(MU_INTRA)-6, py+30, "D^I", 13, 700, C_G_T, "end")
+        txt(o, sx(mE)+6, py+30, "D^E", 13, 700, C_I, "start")
+for v in [0, 0.2, 0.4, 0.6, 0.8, 1.0]:
+    txt(o, PX+v*PW, 100+3*(PH+46)+8, f"{v:.1f}", 11.5, None, "#333", halo=False)
+txt(o, PX+PW/2, 100+3*(PH+46)+28, "distanza d", 13, None, "#222", halo=False)
+
+# pannello destro: EER in funzione di d' (σ uguali: EER = Φ(−d'/2))
+RX0, RX1, RY0, RY1 = 620, 880, 130, 500
+DM, EMIN, EMAX = 9.0, 1e-6, 0.5
+ex = lambda d: RX0 + d/DM*(RX1-RX0)
+ey = lambda e: RY1 - (math.log10(e)-math.log10(EMIN))/(math.log10(EMAX)-math.log10(EMIN))*(RY1-RY0)
+txt(o, (RX0+RX1)/2, 104, "EER in funzione di d'", 14, 700, "#111", halo=False)
+for e in [0.5, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6]:
+    o.append(f'<line x1="{RX0}" y1="{ey(e):.1f}" x2="{RX1}" y2="{ey(e):.1f}" stroke="#e5e7eb"/>')
+    txt(o, RX0-6, ey(e)+4, f"{e*100:g}%", 11, None, "#333", "end", halo=False)
+for d in range(0, 10, 1):
+    o.append(f'<line x1="{ex(d):.1f}" y1="{RY1}" x2="{ex(d):.1f}" y2="{RY1+5}" stroke="#222"/>')
+    txt(o, ex(d), RY1+19, str(d), 11.5, None, "#333", halo=False)
+o.append(f'<line x1="{RX0}" y1="{RY1}" x2="{RX1}" y2="{RY1}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{RX0}" y1="{RY0}" x2="{RX0}" y2="{RY1}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (RX0+RX1)/2, RY1+40, "d'", 13, None, "#222", halo=False)
+pts = [(ex(d/100), ey(PhiN(-d/200))) for d in range(1, 900, 3)]
+o.append('<path d="M ' + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts) + f'" fill="none" stroke="{C_FA}" stroke-width="3"/>')
+for dv in dvals:
+    o.append(f'<circle cx="{ex(dv):.1f}" cy="{ey(PhiN(-dv/2)):.1f}" r="6" fill="#111" stroke="#fff" stroke-width="2"/>')
+    txt(o, ex(dv)+10, ey(PhiN(-dv/2))-8, f"d' = {dv:g}", 11.5, 700, "#111", "start")
+txt(o, RX0+8, RY1-12, "d' ↑ → curve più separate → EER ↓", 12, None, "#555", "start")
+txt(o, 40, H-12, f"Con σ diverse si usa la media quadratica: es. σ_I = 0.06, σ_E = 0.10 → σ_eff = {math.sqrt((0.06**2+0.10**2)/2):.3f} · d' non dice nulla sulla soglia, solo sulla separabilità.", 11.5, None, "#555", "start", halo=False)
+save(o, 'fig11_decidability.svg')
+print("d' esempio σ diverse:", round(dprime(0.30, 0.06, 0.60, 0.10), 3))
+```
+
+<img src="./img/fig11_decidability.svg" alt="Decidability d' ed EER" style="display:block; margin:1.5em auto; max-width:100%;">
+
+Punti da notare:
+
+- **$d'$ non contiene la soglia**: dice quanto il sistema *potrebbe* separare, non dove lo si fa funzionare. Due sistemi con lo stesso $d'$ possono avere ROC diverse se le distribuzioni non sono gaussiane o hanno $\sigma$ molto diverse.
+- **$d'$ negativo**: con le **similarità**, se gli impostori ottengono score *più alti* dei genuini (es. i *worms* del §11.4, con $d'=-3.0$) la differenza delle medie cambia segno. Nella formula di Daugman si usa il valore assoluto, quindi il segno va controllato a parte: un $d'$ firmato negativo significa che il sistema sta funzionando "al contrario" per quell'utente.
+- **Con gli utenti**: $d'_k$ per singolo utente (§11.4) permette di individuare gli utenti difficili; $d'$ globale è la loro sintesi.
 
 ---
 
 ## 13. Reliability of an Identification System (SRR)
 
-La **reliability** di una singola risposta è diversa dall'accuratezza globale del sistema (FAR/FRR/CMS): riguarda **quanto ci si può fidare di una specifica decisione**.
+La **reliability** di una singola risposta è diversa dall'accuratezza globale del sistema (FAR/FRR/CMS): riguarda **quanto ci si può fidare di una specifica decisione**. C'è una differenza di fondo tra una **misura di qualità del campione in ingresso** (si calcola prima del riconoscimento, sull'immagine) e una **misura di reliability della risposta** del sistema (si calcola dopo, sulla lista ordinata dei candidati). Un sistema può avere un EER ottimo e, ciononostante, restituire per una certa probe una risposta fragile.
 
 ### 13.1 Catena logica
 1. Valutare la **qualità della probe** prima del riconoscimento (pre-processing).
@@ -3327,6 +3417,8 @@ La **reliability** di una singola risposta è diversa dall'accuratezza globale d
 3. Valutare la **reliability della risposta** dopo il riconoscimento.
 
 ### 13.2 Misure di qualità dell'immagine (esempio volto)
+
+Una misura di qualità dei campioni di input permette di **scartare a priori** (prima del riconoscimento) quelli affetti da distorsioni troppo elevate, che porterebbero a una risposta sbagliata o non affidabile.
 
 - **SP (Score Pose):**
 $$
@@ -3346,66 +3438,824 @@ $$
 SY = \sum_{(i,j)\in X} sym(P_i, P_j)
 $$
 
-Una buona misura di qualità deve **ridurre l'EER scartando il minor numero possibile** di campioni (bilanciare accuratezza e throughput del sistema).
+Nelle slide compaiono nei grafici altre due misure: **UIQI** (Universal Image Quality Index) e **SE**; la loro definizione non è riportata nelle slide fornite.
 
-### 13.3 System Response Reliability (SRR)
+#### Come misurare la «qualità» di una misura di qualità
 
-Indice **srr ∈ [0,1]** che misura la capacità di separare genuini da impostori **su base di singola probe**, sfruttando la nozione di "confusione" tra i candidati nella lista ordinata.
+Servono almeno due test.
 
-**Relative Distance:**
+**Test 1 — distribuzione dei valori.** Si controlla come sono distribuiti, rispetto ai valori restituiti dalla misura, i campioni di un dataset. Questo permette di capire **qual è il livello medio di qualità di un dataset di volti rispetto a quella specifica misura**. Due o più misure si confrontano calcolando la **correlazione** dei valori che restituiscono sulle stesse immagini del dataset.
+
+Dalle slide (FERET/fa, LFW, SCface) si leggono comportamenti molto diversi: SP concentrata su valori alti (circa 0.7–0.95), SI molto più larga, SY su valori bassi, SE vicinissima a zero, UIQI che restituisce **sempre lo stesso valore (0.5)**. Un valore costante non discrimina nulla e la sua correlazione con altre misure non è nemmeno definita. La figura qui sotto ricostruisce questo tipo di analisi su **dati simulati** (la forma è quella delle slide, i numeri non sono quelli originali): a sinistra le distribuzioni per dataset, a destra la matrice di correlazione tra le misure (due misure molto correlate portano la stessa informazione).
+
+```python
+# =====================================================================
+# 24 — Distribuzione dei valori delle misure di qualità e correlazione  (richiede 01, 05)
+# Produce: fig12a_qualita_distribuzioni.svg
+# DATI SIMULATI: forme ispirate alle slide (FERET/fa, LFW, SCface), non i dati originali.
+# =====================================================================
+random.seed(12)
+clip01 = lambda v: max(0.0, min(1.0, v))
+PAR = {"FERET/fa": {"SP": (0.82, 0.06), "SI": (0.50, 0.17), "SY": (0.18, 0.09), "SE": (0.03, 0.015)},
+       "LFW":      {"SP": (0.77, 0.07), "SI": (0.65, 0.12), "SY": (0.17, 0.08), "SE": (0.025, 0.010)},
+       "SCface":   {"SP": (0.82, 0.08), "SI": (0.78, 0.09), "SY": (0.25, 0.08), "SE": (0.035, 0.012)}}
+LOAD = {"SP": 0.8, "SI": 0.75, "SY": 0.3, "SE": 0.05}       # quanto ogni misura segue la "qualità latente" z
+MCOL = {"SP": "#2563eb", "SI": "#db2777", "SY": "#dc2626", "UIQI": "#06b6d4", "SE": "#111111"}
+
+def sample_q(ds, n=3000):
+    cols = {m: [] for m in LOAD}
+    for _ in range(n):
+        z = random.gauss(0, 1)
+        for m, a in LOAD.items():
+            mu, sd = PAR[ds][m]
+            cols[m].append(clip01(mu + sd*(a*z + math.sqrt(1-a*a)*random.gauss(0, 1))))
+    return cols
+
+def pearson(x, y):
+    mx, my = sum(x)/len(x), sum(y)/len(y)
+    sxy = sum((a-mx)*(b-my) for a, b in zip(x, y))
+    return sxy/math.sqrt(sum((a-mx)**2 for a in x)*sum((b-my)**2 for b in y))
+
+NBIN = 25
+data_q = {ds: sample_q(ds) for ds in PAR}
+W, H = 920, 680
+o = new_svg(W, H)
+header(o, W, "Come misurare la «qualità» di una misura di qualità (1): distribuzione dei valori",
+       "Frazione di immagini per intervallo di valore · tre dataset · cinque misure (dati simulati con la forma delle slide)")
+PX0, PX1 = 70, 560
+for r, ds in enumerate(PAR):
+    TOP, BOT = 100 + r*185, 235 + r*185
+    sxv = lambda v: PX0 + v*(PX1-PX0)
+    syv = lambda f, TOP=TOP, BOT=BOT: BOT - f/0.4*(BOT-TOP)
+    txt(o, PX1, TOP+4, ds, 14, 700, "#111", "end", halo=False)
+    for f in [0, 0.1, 0.2, 0.3, 0.4]:
+        o.append(f'<line x1="{PX0}" y1="{syv(f):.1f}" x2="{PX1}" y2="{syv(f):.1f}" stroke="#e5e7eb"/>')
+        txt(o, PX0-6, syv(f)+4, f"{f:.1f}", 11, None, "#333", "end", halo=False)
+    for v in [0, 0.2, 0.4, 0.6, 0.8, 1.0]:
+        txt(o, sxv(v), BOT+16, f"{v:.1f}", 11, None, "#333", halo=False)
+    for m in ["SP", "SI", "SY", "SE"]:
+        vals = data_q[ds][m]
+        cnt = [0]*NBIN
+        for v in vals: cnt[min(NBIN-1, int(v*NBIN))] += 1
+        pts = [(sxv((k+0.5)/NBIN), syv(min(0.4, c/len(vals)))) for k, c in enumerate(cnt) if c > 0]
+        o.append('<path d="M ' + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts) + f'" fill="none" stroke="{MCOL[m]}" stroke-width="1.8"/>')
+        for x, y in pts[::2]:
+            o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.6" fill="{MCOL[m]}"/>')
+    o.append(f'<line x1="{sxv(0.5):.1f}" y1="{syv(0.25):.1f}" x2="{sxv(0.5):.1f}" y2="{BOT}" stroke="{MCOL["UIQI"]}" stroke-width="3"/>')
+    o.append(f'<line x1="{PX0}" y1="{BOT}" x2="{PX1}" y2="{BOT}" stroke="#222" stroke-width="1.5"/>')
+    o.append(f'<line x1="{PX0}" y1="{TOP}" x2="{PX0}" y2="{BOT}" stroke="#222" stroke-width="1.5"/>')
+    if r == 0:
+        for j, m in enumerate(["SP", "SI", "SY", "UIQI", "SE"]):
+            o.append(f'<rect x="{PX0+8+j*86}" y="{TOP-24}" width="16" height="5" fill="{MCOL[m]}"/>')
+            txt(o, PX0+28+j*86, TOP-18, m, 12, 700, MCOL[m], "start", halo=False)
+txt(o, (PX0+PX1)/2, 100+3*185-12, "valore restituito dalla misura", 12.5, None, "#222", halo=False)
+# correlazione (FERET/fa simulato)
+names = ["SP", "SI", "SY", "SE"]
+C = [[pearson(data_q["FERET/fa"][a], data_q["FERET/fa"][b]) for b in names] for a in names]
+HX, HY, CS = 650, 170, 52
+txt(o, HX+2*CS, 118, "Correlazione tra misure", 14, 700, "#111", halo=False)
+txt(o, HX+2*CS, 136, "stesse immagini, FERET/fa simulato", 11.5, None, "#555", halo=False)
+def heat2(v):
+    a = abs(v)
+    base = (37, 99, 235) if v >= 0 else (220, 38, 38)
+    r_, g_, b_ = [int(255 + (c-255)*a) for c in base]
+    return f"#{r_:02x}{g_:02x}{b_:02x}", ("#fff" if a > 0.55 else "#111")
+for k, nm in enumerate(names):
+    txt(o, HX+k*CS+CS/2, HY-8, nm, 12.5, 700, MCOL[nm], halo=False)
+    txt(o, HX-8, HY+k*CS+CS/2+4, nm, 12.5, 700, MCOL[nm], "end", halo=False)
+for i in range(4):
+    for j in range(4):
+        bg, fg = heat2(C[i][j])
+        mat_cell(o, HX+j*CS, HY+i*CS, CS, CS, bg, f"{C[i][j]:.2f}", 12.5, fg, i == j, "#ffffff", 1.5)
+txt(o, HX, HY+4*CS+30, "UIQI vale 0.5 su ogni immagine:", 12, 700, MCOL["UIQI"], "start", halo=False)
+txt(o, HX, HY+4*CS+47, "deviazione standard nulla → correlazione", 11.5, None, "#333", "start", halo=False)
+txt(o, HX, HY+4*CS+62, "non definita, la misura non discrimina.", 11.5, None, "#333", "start", halo=False)
+txt(o, HX, HY+4*CS+95, "Due misure molto correlate portano la", 11.5, None, "#333", "start", halo=False)
+txt(o, HX, HY+4*CS+110, "stessa informazione: ne basta una.", 11.5, None, "#333", "start", halo=False)
+txt(o, 40, H-12, "La distribuzione dice quanto è «buono» in media un dataset secondo quella misura; la correlazione confronta due misure sulle stesse immagini.", 11.5, None, "#555", "start", halo=False)
+save(o, 'fig12a_qualita_distribuzioni.svg')
+print([[round(c, 2) for c in r_] for r_ in C])
+```
+
+<img src="./img/fig12a_qualita_distribuzioni.svg" alt="Distribuzione dei valori delle misure di qualità e correlazione" style="display:block; margin:1.5em auto; max-width:100%;">
+
+**Test 2 — effetto sulle prestazioni (EER) al variare della soglia di tolleranza.** Si fissa una soglia sul valore della misura, si scartano i campioni sotto soglia e si misura quanto cala l'EER, tenendo sott'occhio anche il **tasso di immagini adeguate** (quante ne restano). Una buona misura di qualità deve **ridurre l'EER scartando il minor numero possibile di campioni** (bilanciare accuratezza e throughput del sistema).
+
+Dalle annotazioni delle slide si leggono, in modo approssimato, EER di partenza molto diversi per dataset (circa 0.14 su FERET/fa, 0.33 su LFW, 0.19 su SCface) che scendono, con le soglie più severe, a circa 0.07–0.10, 0.27–0.31 e 0.15–0.18. Nella figura simulata il pannello A è nel formato delle slide (tasso di immagini adeguate al variare della soglia); il pannello B mette in relazione EER e campioni scartati: la misura con la curva più ripida è quella che «vede» la qualità che conta davvero. Con pochi campioni rimasti l'EER è stimato su insiemi piccoli e va letto con cautela.
+
+```python
+# =====================================================================
+# 25 — Qualità: tasso di immagini adeguate ed EER al variare della soglia di tolleranza  (richiede 01, 05)
+# Produce: fig12b_qualita_tolleranza.svg
+# DATI SIMULATI: il punteggio dei genuini dipende da una qualità latente q; ogni misura la "vede" in modo diverso.
+# =====================================================================
+random.seed(16)
+NQ2 = 6000
+qq = [random.gauss(0, 1) for _ in range(NQ2)]
+clip01 = lambda v: max(0.0, min(1.0, v))
+def mix(mu, sd, a, q): return clip01(mu + sd*(a*q + math.sqrt(1-a*a)*random.gauss(0, 1)))
+meas2 = {"SP": [mix(0.82, 0.06, 0.8, q) for q in qq], "SI": [mix(0.50, 0.17, 0.75, q) for q in qq],
+         "SY": [mix(0.18, 0.09, 0.3, q) for q in qq], "UIQI": [0.5]*NQ2,
+         "SE": [clip01(random.gauss(0.03, 0.015)) for _ in qq]}
+MCOL = {"SP": "#2563eb", "SI": "#db2777", "SY": "#dc2626", "UIQI": "#06b6d4", "SE": "#111111"}
+gen2 = [random.gauss(0.60+0.07*q, 0.11) for q in qq]       # il genuino peggiora con la qualità bassa
+imp2 = [random.gauss(0.35, 0.10) for _ in qq]
+
+def eer_emp(g, i):
+    gs, is_ = sorted(g), sorted(i)
+    best = (9.0, 0.0)
+    for k in range(201):
+        t = k/200
+        frr_ = bisect.bisect_left(gs, t)/len(gs)
+        far_ = 1 - bisect.bisect_left(is_, t)/len(is_)
+        best = min(best, (abs(far_-frr_), (far_+frr_)/2))
+    return best[1]
+
+TH = [i/50 for i in range(0, 51)]
+rate, eer_c = {}, {}
+for m, vals in meas2.items():
+    rate[m], eer_c[m] = [], []
+    for th in TH:
+        keep = [k for k in range(NQ2) if vals[k] >= th]
+        r_ = len(keep)/NQ2
+        rate[m].append(r_)
+        eer_c[m].append(eer_emp([gen2[k] for k in keep], [imp2[k] for k in keep]) if r_ >= 0.30 else None)
+base = eer_c["SP"][0]
+
+W, H = 920, 590
+o = new_svg(W, H)
+header(o, W, "Come misurare la «qualità» di una misura di qualità (2): effetto sull'EER",
+       f"Si scartano le immagini con valore &lt; soglia di tolleranza · EER senza scarti = {base:.1%} (dati simulati)")
+AX0, AX1, AY0, AY1 = 80, 420, 110, 420
+sxa = lambda v: AX0 + v*(AX1-AX0)
+sya = lambda v: AY1 - v*(AY1-AY0)
+txt(o, (AX0+AX1)/2, 96, "A · tasso di immagini adeguate vs soglia", 14, 700, "#111", halo=False)
+for v in [0, 0.25, 0.5, 0.75, 1.0]:
+    o.append(f'<line x1="{AX0}" y1="{sya(v):.1f}" x2="{AX1}" y2="{sya(v):.1f}" stroke="#e5e7eb"/>')
+    txt(o, AX0-6, sya(v)+4, f"{v:g}", 11, None, "#333", "end", halo=False)
+for v in [0, 0.2, 0.4, 0.6, 0.8, 1.0]:
+    txt(o, sxa(v), AY1+16, f"{v:.1f}", 11, None, "#333", halo=False)
+for m in ["SP", "SI", "SY", "SE"]:
+    o.append('<path d="M ' + " L ".join(f"{sxa(t):.1f},{sya(r_):.1f}" for t, r_ in zip(TH, rate[m])) + f'" fill="none" stroke="{MCOL[m]}" stroke-width="2.6"/>')
+o.append(f'<line x1="{sxa(0.5):.1f}" y1="{sya(1):.1f}" x2="{sxa(0.5):.1f}" y2="{sya(0):.1f}" stroke="{MCOL["UIQI"]}" stroke-width="3.2"/>')
+o.append(f'<line x1="{AX0}" y1="{AY1}" x2="{AX1}" y2="{AY1}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{AX0}" y1="{AY0}" x2="{AX0}" y2="{AY1}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (AX0+AX1)/2, AY1+36, "soglia di tolleranza (valore minimo accettato)", 12.5, None, "#222", halo=False)
+txt(o, AX0-50, (AY0+AY1)/2, "immagini adeguate", 12.5, None, "#222", halo=False, extra=f' transform="rotate(-90 {AX0-50} {(AY0+AY1)/2})"')
+BX0, BX1, BY0, BY1 = 530, 880, 110, 420
+emax = base*1.15
+sxb = lambda f: BX0 + f/0.7*(BX1-BX0)
+syb = lambda e: BY1 - e/emax*(BY1-BY0)
+txt(o, (BX0+BX1)/2, 96, "B · EER vs campioni scartati", 14, 700, "#111", halo=False)
+for j in range(5):
+    e = emax*j/4
+    o.append(f'<line x1="{BX0}" y1="{syb(e):.1f}" x2="{BX1}" y2="{syb(e):.1f}" stroke="#e5e7eb"/>')
+    txt(o, BX0-6, syb(e)+4, f"{e:.0%}", 11, None, "#333", "end", halo=False)
+for v in [0, 0.2, 0.4, 0.6]:
+    txt(o, sxb(v), BY1+16, f"{v:.0%}", 11, None, "#333", halo=False)
+for m in ["SP", "SI", "SY", "SE"]:
+    pts = [(sxb(1-r_), syb(e)) for r_, e in zip(rate[m], eer_c[m]) if e is not None and 1-r_ <= 0.7]
+    pts = sorted(set(pts))
+    o.append('<path d="M ' + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts) + f'" fill="none" stroke="{MCOL[m]}" stroke-width="2.8"/>')
+o.append(f'<circle cx="{sxb(0):.1f}" cy="{syb(base):.1f}" r="5" fill="{MCOL["UIQI"]}" stroke="#fff" stroke-width="1.5"/>')
+txt(o, sxb(0)+4, syb(base)-26, "UIQI: nessuno scarto utile", 11, 700, "#0e7490", "start")
+o.append(f'<line x1="{BX0}" y1="{BY1}" x2="{BX1}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{BX0}" y1="{BY0}" x2="{BX0}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (BX0+BX1)/2, BY1+36, "campioni scartati", 12.5, None, "#222", halo=False)
+txt(o, BX0-52, (BY0+BY1)/2, "EER", 12.5, None, "#222", halo=False, extra=f' transform="rotate(-90 {BX0-52} {(BY0+BY1)/2})"')
+for j, m in enumerate(["SP", "SI", "SY", "UIQI", "SE"]):
+    o.append(f'<rect x="{80+j*100}" y="508" width="18" height="6" fill="{MCOL[m]}"/>')
+    txt(o, 104+j*100, 515, m, 12.5, 700, MCOL[m], "start", halo=False)
+txt(o, 80, 545, "Una buona misura abbassa l'EER scartando poco (curva che scende presto). Se la curva resta piatta, la misura non vede la qualità che conta.", 11.5, None, "#555", "start", halo=False)
+txt(o, 80, 563, "Con pochi campioni rimasti (soglia molto alta) l'EER è stimato su insiemi piccoli e va letto con cautela: serve sempre il tasso di immagini adeguate.", 11.5, None, "#555", "start", halo=False)
+save(o, 'fig12b_qualita_tolleranza.svg')
+print({m: [None if e is None else round(e, 3) for e in (eer_c[m][0], eer_c[m][next((i for i, r_ in enumerate(rate[m]) if r_ < 0.8), 0)])] for m in eer_c})
+```
+
+<img src="./img/fig12b_qualita_tolleranza.svg" alt="Tasso di immagini adeguate ed EER al variare della soglia di tolleranza" style="display:block; margin:1.5em auto; max-width:100%;">
+
+**Compromesso errore/scarti.** Si ordinano i campioni dal peggiore al migliore secondo la misura, si scarta una frazione $f$ dei peggiori e si ricalcola l'EER sui rimanenti: è la curva *error vs reject*. Nell'esempio simulato lo score dei genuini cresce con la qualità vera $q$ (pannello A, gli impostori ne sono indipendenti). Nel pannello B tre misure a confronto: la **misura ideale** (conosce $q$) riduce l'EER molto più in fretta, una **misura mediocre** (qualità vera + rumore) migliora ma molto meno, lo **scarto casuale** lascia l'EER invariato e serve solo a ridurre il numero di campioni. Una misura che scarta il 20% dei campioni senza abbassare l'EER è inutile e danneggia il throughput.
+
+```python
+# =====================================================================
+# 26 — Qualità del campione e compromesso EER / scarti  (richiede 01, 05)
+# Produce: fig12_qualita_eer.svg
+# =====================================================================
+random.seed(21)
+NQ = 6000
+qual = [random.random() for _ in range(NQ)]
+gen_q = [random.gauss(0.45+0.30*q, 0.08) for q in qual]       # genuini: score cresce con la qualità
+imp_q = [random.gauss(0.35, 0.10) for _ in range(NQ)]         # impostori: indipendenti dalla qualità
+
+def eer_emp(g, i):
+    gs, is_ = sorted(g), sorted(i)
+    best = (9.0, 0.0)
+    for k in range(201):
+        t = k/200
+        frr_ = bisect.bisect_left(gs, t)/len(gs)              # s < t  -> rifiutato
+        far_ = 1 - bisect.bisect_left(is_, t)/len(is_)        # s ≥ t  -> accettato
+        best = min(best, (abs(far_-frr_), (far_+frr_)/2))
+    return best[1]
+
+def curve_eer(measure, fracs):
+    order = sorted(range(NQ), key=lambda k: measure[k])        # dal peggiore al migliore secondo la misura
+    out = []
+    for f in fracs:
+        keep = order[int(f*NQ):]
+        out.append(eer_emp([gen_q[k] for k in keep], [imp_q[k] for k in keep]))
+    return out
+
+fracs = [i*0.025 for i in range(21)]                           # 0% ... 50% scartato
+meas = {"misura ideale (qualità vera)": qual,
+        "misura mediocre (qualità + rumore)": [q+random.gauss(0, 0.35) for q in qual],
+        "nessuna misura (scarto casuale)": [random.random() for _ in range(NQ)]}
+cols = ["#16a34a", "#f59e0b", "#6b7280"]
+curves = {k: curve_eer(v, fracs) for k, v in meas.items()}
+
+W, H = 920, 610
+o = new_svg(W, H)
+header(o, W, "Qualità del campione: quanto si guadagna in EER scartando i campioni peggiori",
+       "Una buona misura di qualità riduce l'EER scartando poco · una cattiva misura scarta ma non migliora")
+# pannello sinistro: scatter qualità-score
+AX0, AX1, AY0, AY1 = 80, 400, 110, 420
+sxq = lambda q: AX0 + q*(AX1-AX0)
+syq = lambda s: AY1 - s*(AY1-AY0)
+txt(o, (AX0+AX1)/2, 96, "A · score genuino vs qualità", 14, 700, "#111", halo=False)
+o.append(f'<rect x="{AX0}" y="{syq(0.55):.1f}" width="{AX1-AX0}" height="{syq(0.15)-syq(0.55):.1f}" fill="{C_I}" fill-opacity="0.12"/>')
+o.append(f'<line x1="{AX0}" y1="{syq(0.35):.1f}" x2="{AX1}" y2="{syq(0.35):.1f}" stroke="{C_I}" stroke-width="2"/>')
+txt(o, AX1-4, syq(0.35)+16, "impostori (media ± 2σ)", 11.5, 700, C_I, "end")
+for k in range(0, 500):
+    o.append(f'<circle cx="{sxq(qual[k]):.1f}" cy="{syq(gen_q[k]):.1f}" r="1.8" fill="{C_G}" fill-opacity="0.55"/>')
+o.append(f'<line x1="{sxq(0)}" y1="{syq(0.45):.1f}" x2="{sxq(1)}" y2="{syq(0.75):.1f}" stroke="{C_G_T}" stroke-width="2.5"/>')
+txt(o, sxq(0.05), syq(0.86), "genuini", 12.5, 700, C_G_T, "start")
+for v in [0, 0.25, 0.5, 0.75, 1.0]:
+    txt(o, sxq(v), AY1+18, f"{v:g}", 11.5, None, "#333", halo=False)
+    txt(o, AX0-8, syq(v)+4, f"{v:g}", 11.5, None, "#333", "end", halo=False)
+o.append(f'<line x1="{AX0}" y1="{AY1}" x2="{AX1}" y2="{AY1}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{AX0}" y1="{AY0}" x2="{AX0}" y2="{AY1}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (AX0+AX1)/2, AY1+40, "qualità del campione q", 13, None, "#222", halo=False)
+o.append(f'<text transform="translate(34,{(AY0+AY1)/2}) rotate(-90)" text-anchor="middle" font-size="13" fill="#222">score di similarità</text>')
+# pannello destro: EER vs frazione scartata
+BX0, BX1, BY0, BY1 = 520, 880, 110, 420
+emax = max(curves[k][0] for k in curves)*1.05
+sxf = lambda f: BX0 + f/0.5*(BX1-BX0)
+syf = lambda e: BY1 - e/emax*(BY1-BY0)
+txt(o, (BX0+BX1)/2, 96, "B · EER vs frazione di campioni scartati", 14, 700, "#111", halo=False)
+for j in range(5):
+    e = emax*j/4
+    o.append(f'<line x1="{BX0}" y1="{syf(e):.1f}" x2="{BX1}" y2="{syf(e):.1f}" stroke="#e5e7eb"/>')
+    txt(o, BX0-8, syf(e)+4, f"{e:.0%}", 11.5, None, "#333", "end", halo=False)
+for v in [0, 0.1, 0.2, 0.3, 0.4, 0.5]:
+    txt(o, sxf(v), BY1+18, f"{v:.0%}", 11.5, None, "#333", halo=False)
+o.append(f'<line x1="{BX0}" y1="{BY1}" x2="{BX1}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{BX0}" y1="{BY0}" x2="{BX0}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (BX0+BX1)/2, BY1+40, "campioni scartati (peggiori secondo la misura)", 13, None, "#222", halo=False)
+txt(o, BX0-44, (BY0+BY1)/2, "EER", 13, None, "#222", halo=False, extra=f' transform="rotate(-90 {BX0-44} {(BY0+BY1)/2})"')
+for (name, ys), c in zip(curves.items(), cols):
+    o.append('<path d="M ' + " L ".join(f"{sxf(f):.1f},{syf(e):.1f}" for f, e in zip(fracs, ys)) + f'" fill="none" stroke="{c}" stroke-width="3"/>')
+i20 = fracs.index(0.2)
+for (name, ys), c in zip(curves.items(), cols):
+    o.append(f'<circle cx="{sxf(0.2):.1f}" cy="{syf(ys[i20]):.1f}" r="5" fill="{c}" stroke="#fff" stroke-width="1.5"/>')
+o.append(f'<line x1="{sxf(0.2):.1f}" y1="{BY0}" x2="{sxf(0.2):.1f}" y2="{BY1}" stroke="#111" stroke-width="1.2" stroke-dasharray="5,4"/>')
+for j, ((name, ys), c) in enumerate(zip(curves.items(), cols)):
+    yy = 500 + j*22
+    o.append(f'<rect x="80" y="{yy-9}" width="18" height="6" fill="{c}"/>')
+    txt(o, 106, yy-1, f"{name}: EER {ys[0]:.1%} → {ys[i20]:.1%} scartando il 20%", 12.5, None, "#222", "start", halo=False)
+txt(o, 80, 590, "Throughput: scartare il 20% dei campioni significa chiedere una nuova acquisizione a 1 utente su 5 (Failure to Acquire controllata).", 11.5, None, "#555", "start", halo=False)
+save(o, 'fig12_qualita_eer.svg')
+print({k: [round(v, 4) for v in (ys[0], ys[i20])] for k, ys in curves.items()})
+```
+
+<img src="./img/fig12_qualita_eer.svg" alt="Qualità del campione ed EER" style="display:block; margin:1.5em auto; max-width:100%;">
+
+### 13.3 Margini basati sulla stima dell'errore (Poh e Bengio, 2004)
+
+Un approccio diverso non guarda l'immagine ma il **punteggio** del sistema. Le prestazioni sono misurate con
+
+$$
+FAR(\Delta) = \frac{\text{n. di FA}(\Delta)}{\text{n. di accessi impostore}} \qquad
+FRR(\Delta) = \frac{\text{n. di FR}(\Delta)}{\text{n. di accessi client}}
+$$
+
+e il **margine** è definito come
+
+$$
+\mathcal{M}(\Delta) = \left|\,FAR(\Delta) - FRR(\Delta)\,\right|
+$$
+
+**Come leggere la figura.** In A, FAR(Δ) (tratteggiata rossa) vale 1 per soglie molto basse e scende a 0; FRR(Δ) (blu) fa il contrario; si incrociano all'EER. In B il margine è **0 proprio all'EER** e cresce verso 1 allontanandosi da quel punto, dove un solo errore domina. Interpretazione (il margine è usato come misura di *confidenza*): dove il margine è piccolo FAR e FRR sono confrontabili, quindi la decisione è incerta; dove è grande il verdetto è più netto e affidabile. Qui i dati sono gaussiani e ricostruiti sulla scala delle slide.
+
+```python
+# =====================================================================
+# 27 — Margini basati sulla stima dell'errore (Poh e Bengio, 2004)  (richiede 01, 05)
+# Produce: fig13a_margine.svg
+# =====================================================================
+PhiN = NormalDist().cdf
+MU_IM, SD_IM = -1.5, 0.75           # impostori (score normalizzati, scala delle slide)
+MU_GM, SD_GM = 1.2, 0.45            # genuini
+far_m = lambda d: 1 - PhiN((d-MU_IM)/SD_IM)
+frr_m = lambda d: PhiN((d-MU_GM)/SD_GM)
+marg = lambda d: abs(far_m(d)-frr_m(d))
+ds_ = [-6+9*i/900 for i in range(901)]
+d_eer = min(ds_, key=marg)
+
+W, H = 920, 600
+o = new_svg(W, H)
+header(o, W, "Margini basati sulla stima dell'errore (Poh e Bengio, 2004)",
+       "FAR(Δ) = n. FA(Δ) / n. accessi impostori · FRR(Δ) = n. FR(Δ) / n. accessi client · M(Δ) = |FAR(Δ) − FRR(Δ)|")
+X0, X1 = 90, 820
+sx = lambda d: X0 + (d+6)/9*(X1-X0)
+def pan(TOP, BOT, title):
+    sy = lambda v: BOT - v*(BOT-TOP)
+    txt(o, X0, TOP-10, title, 14, 700, "#111", "start", halo=False)
+    for v in [0, 0.5, 1.0]:
+        o.append(f'<line x1="{X0}" y1="{sy(v):.1f}" x2="{X1}" y2="{sy(v):.1f}" stroke="#e5e7eb"/>')
+        txt(o, X0-6, sy(v)+4, f"{v:g}", 11.5, None, "#333", "end", halo=False)
+    o.append(f'<line x1="{X0}" y1="{BOT}" x2="{X1}" y2="{BOT}" stroke="#222" stroke-width="1.5"/>')
+    o.append(f'<line x1="{X0}" y1="{TOP}" x2="{X0}" y2="{BOT}" stroke="#222" stroke-width="1.5"/>')
+    for v in range(-6, 4):
+        txt(o, sx(v), BOT+16, str(v), 11.5, None, "#333", halo=False)
+    return sy
+syA = pan(110, 270, "A · tassi di errore in funzione della soglia Δ")
+o.append('<path d="M ' + " L ".join(f"{sx(d):.1f},{syA(far_m(d)):.1f}" for d in ds_) + f'" fill="none" stroke="{C_FA}" stroke-width="3" stroke-dasharray="7,4"/>')
+o.append('<path d="M ' + " L ".join(f"{sx(d):.1f},{syA(frr_m(d)):.1f}" for d in ds_) + f'" fill="none" stroke="{C_I}" stroke-width="3"/>')
+txt(o, sx(-2.4), syA(0.62), "FAR(Δ)", 14, 700, C_FA_T, "end")
+txt(o, sx(1.2), syA(0.5), "FRR(Δ)", 14, 700, "#1d4ed8", "start")
+syB = pan(340, 500, "B · margine M(Δ) = |FAR − FRR|")
+o.append('<path d="M ' + " L ".join(f"{sx(d):.1f},{syB(marg(d)):.1f}" for d in ds_) + f'" fill="none" stroke="{C_G}" stroke-width="3" stroke-dasharray="7,4"/>')
+for sy_ in (syA, syB):
+    o.append(f'<line x1="{sx(d_eer):.1f}" y1="{syA(1) if sy_ is syA else syB(1):.1f}" x2="{sx(d_eer):.1f}" y2="{syA(0) if sy_ is syA else syB(0):.1f}" stroke="#111" stroke-width="1.3" stroke-dasharray="4,4"/>')
+o.append(f'<circle cx="{sx(d_eer):.1f}" cy="{syA(far_m(d_eer)):.1f}" r="6" fill="#fff" stroke="#111" stroke-width="2.4"/>')
+txt(o, sx(d_eer)+8, syA(0.93), f"EER = {far_m(d_eer):.1%}", 12, 700, "#111", "start")
+txt(o, sx(d_eer)+8, syA(0.83), f"Δ ≈ {d_eer:.2f}", 11.5, None, "#333", "start")
+o.append(f'<circle cx="{sx(d_eer):.1f}" cy="{syB(0):.1f}" r="6" fill="#fff" stroke="#111" stroke-width="2.4"/>')
+txt(o, sx(d_eer)+34, syB(0)-8, "M = 0: massima incertezza", 12, 700, "#111", "start")
+txt(o, sx(-4.6), syB(1)+18, "M ≈ 1: prevalgono i FA", 12, 700, C_FA_T)
+txt(o, sx(-4.6), syB(1)+33, "(score basso → verdetto netto)", 11.5, None, "#333")
+txt(o, sx(3), syB(0.42), "M ≈ 1: prevalgono i FR", 12, 700, "#1d4ed8", "end")
+txt(o, sx(3), syB(0.42)+15, "(score alto → verdetto netto)", 11.5, None, "#333", "end")
+txt(o, (X0+X1)/2, 545, "scores (Δ)", 12.5, None, "#222", halo=False)
+txt(o, W/2, 578, "Idea: dove il margine è piccolo FAR e FRR sono confrontabili e la decisione è incerta; dove è grande un solo errore domina e il verdetto è più affidabile.", 11.5, None, "#555", halo=False)
+save(o, 'fig13a_margine.svg')
+print(round(d_eer, 3), round(far_m(d_eer), 4))
+```
+
+<img src="./img/fig13a_margine.svg" alt="Margine di Poh e Bengio" style="display:block; margin:1.5em auto; max-width:100%;">
+
+### 13.4 System Response Reliability (SRR)
+
+L'indice **srr** misura la capacità di un sistema di identificazione di separare genuini da impostori **su base di singola probe**. Si appoggia su una funzione $\varphi$, di cui sono state definite e testate due versioni: la **Relative Distance** e il **Density Ratio**. Entrambe misurano la quantità di «confusione» tra i possibili candidati. Si assume che il risultato di un'identificazione sia **l'intera gallery ordinata per distanza dalla probe, o almeno una short list**.
+
+> **Nota sull'intervallo.** Le slide scrivono $srr\in[0,1]$, ma con la formula finale riportata più sotto l'indice, così com'è scritto, vale $-1$ per $\varphi=0$, $0$ per $\varphi=\bar\varphi$ e $+1$ per $\varphi=1$ (con $SRR>0$ per le risposte ritenute affidabili). Se serve un indice in $[0,1]$ basta riscalarlo con $(SRR+1)/2$. Qui si usa la forma delle slide.
+
+**Idea: la nuvola attorno al soggetto restituito.** Nuvola «poco affollata» = risposta più affidabile; nuvola «molto affollata» = risposta meno affidabile.
+
+```python
+# =====================================================================
+# 28 — SRR: la nuvola attorno al soggetto restituito  (richiede 01, 05)
+# Produce: fig13b_srr_folla.svg
+# =====================================================================
+def person_(o, cx, cy, color, s=1.0):
+    o.append(f'<circle cx="{cx:.1f}" cy="{cy-17*s:.1f}" r="{7.5*s:.1f}" fill="{color}"/>')
+    o.append(f'<rect x="{cx-11*s:.1f}" y="{cy-7*s:.1f}" width="{22*s:.1f}" height="{28*s:.1f}" rx="{7*s:.1f}" fill="{color}"/>')
+
+def cloud(o, cx, cy, rx, ry, others, title_col):
+    o.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="#cfeaf0" stroke="#374151" stroke-width="1.6"/>')
+    o.append(f'<rect x="{cx-17}" y="{cy-30}" width="34" height="58" fill="#dc2626"/>')   # soggetto restituito
+    for dx, dy in others:
+        person_(o, cx+dx, cy+dy, "#111827", 0.95)
+    person_(o, cx, cy, "#111827", 1.05)
+
+random.seed(9)
+few = [(-95, 15), (-45, 35), (70, -35), (105, 5)]
+many = []
+while len(many) < 17:
+    dx, dy = random.uniform(-125, 125), random.uniform(-62, 62)
+    if (dx/150)**2 + (dy/78)**2 <= 1 and (abs(dx) > 8 or abs(dy) > 8):
+        many.append((dx, dy))
+
+W, H = 920, 560
+o = new_svg(W, H)
+header(o, W, "SRR: la nuvola attorno al soggetto restituito",
+       "Più candidati sono vicini al primo, più la risposta è confondibile e quindi meno affidabile")
+cloud(o, 250, 190, 170, 90, few, C_G_T)
+cloud(o, 250, 430, 170, 90, many, C_FA_T)
+box(o, 650, 175, 380, 80, ["Nube «poco affollata»", "pochi candidati vicini al primo", "→ risposta più affidabile (φ alto)"], C_OK_BG, C_G_T, 14)
+box(o, 650, 415, 380, 80, ["Nube «molto affollata»", "molti candidati vicini al primo", "→ risposta meno affidabile (φ basso)"], C_FA_BG, C_FA_T, 14)
+rect(o, 596, 300, 22, 22, "#dc2626", "#dc2626", 1, 3)
+txt(o, 628, 317, "= soggetto restituito (rango 1)", 12.5, None, "#333", "start", halo=False)
+txt(o, W/2, 548, "Relative Distance e Density Ratio misurano la stessa idea di «confusione tra i candidati» in due modi diversi.", 12, None, "#555", halo=False)
+save(o, 'fig13b_srr_folla.svg')
+```
+
+<img src="./img/fig13b_srr_folla.svg" alt="Nuvola poco o molto affollata attorno al soggetto restituito" style="display:block; margin:1.5em auto; max-width:100%;">
+
+#### Relative Distance
+
+Data una probe $p$ e un sistema $A$ con gallery $G$, la **Relative Distance** è
 
 $$
 \varphi(p) = \frac{F\big(d(p,g_{i_2})\big) - F\big(d(p,g_{i_1})\big)}{F\big(d(p,g_{i_{|G|}})\big)}
 $$
 
+dove $F$ è la funzione (di normalizzazione) applicata alle distanze, che le slide non specificano qui.
+
 - Numeratore: differenza tra la prima e la seconda distanza (quanto sono vicini i primi due candidati).
-- Denominatore: distanza massima nella lista.
-- **Più basso è φ, peggiore è l'affidabilità** (i primi due candidati sono troppo simili tra loro rispetto alla distanza massima).
+- Denominatore: distanza massima calcolata con la probe (l'ultimo della lista, o della short list).
+- **Più basso è il numeratore rispetto al denominatore, maggiore è la possibile confusione tra i primi due candidati, minore è l'affidabilità.**
 
-**Density Ratio** (meno sensibile agli outlier, generalmente migliore della Relative Distance):
+**Esempio delle slide.** Distanze dei primi candidati $0.15,\ 0.25,\ 0.28,\ 0.45$: numeratore $0.25-0.15=0.10$, denominatore $0.45$, quindi $\varphi = 0.10/0.45 \approx 0.22$ (bassa: i primi due sono vicini rispetto alla scala della lista).
 
-$$
-\varphi(p) = 1 - \frac{|N_b|}{|N|}, \qquad N_b = \{g_{i_k} \in G \mid F(d(p,g_{i_k})) < 2\cdot F(d(p,g_{i_1}))\}
-$$
-
-Conta quanti template hanno distanza dalla probe inferiore al doppio della prima distanza (nube di candidati "vicini" al primo). **Nube meno affollata → maggiore affidabilità → φ più alto è meglio.**
-
-**Valore critico φₖ:** soglia (analoga concettualmente all'EER) che separa risposte affidabili da non affidabili, minimizzando le stime errate di φ.
-
-**Normalizzazione finale (SRR):**
+#### Density Ratio
 
 $$
-S(\varphi(p), \overline{\varphi}) =
+\varphi(p) = 1 - \frac{|N_b|}{|G|}, \qquad N_b = \{g_{i_k} \in G \mid F(d(p,g_{i_k})) < 2\cdot F(d(p,g_{i_1}))\}
+$$
+
+Conta quanti template hanno distanza dalla probe inferiore al doppio della prima distanza (nube di candidati «vicini» al primo). **Nube meno affollata → maggiore affidabilità → $\varphi$ più alto è meglio.**
+
+> **Convenzione delle slide.** Sia $|N_b|$ sia $|G|$ si calcolano **senza considerare l'elemento in prima posizione**, per avere un valore massimo pari a 1 (ma non è strettamente necessario).
+
+**Esempio delle slide.** Distanze $0.15,\ 0.25,\ 0.31,\ 0.45$: $2\times0.15=0.30$; l'unico altro candidato sotto $0.30$ è $0.25$, quindi $|N_b|=1$ su $|G|=3$ (primo escluso) e $\varphi = 1-\tfrac13 \approx 0.66$. Con il primo incluso si avrebbe $1-\tfrac24 = 0.5$.
+
+```python
+# =====================================================================
+# 29 — Relative Distance e Density Ratio: esempi numerici delle slide  (richiede 01, 05)
+# Produce: fig13c_srr_esempi.svg
+# =====================================================================
+dist_rd = [0.15, 0.25, 0.28, 0.45]      # esempio Relative Distance
+dist_dr = [0.15, 0.25, 0.31, 0.45]      # esempio Density Ratio
+rd = (dist_rd[1]-dist_rd[0])/dist_rd[-1]
+rest = dist_dr[1:]                      # primo escluso (convenzione delle slide)
+nb = sum(x < 2*dist_dr[0] for x in rest)
+dr = 1 - nb/len(rest)
+dr_incl = 1 - sum(x < 2*dist_dr[0] for x in dist_dr)/len(dist_dr)   # variante: primo incluso
+
+W, H = 920, 560
+o = new_svg(W, H)
+header(o, W, "SRR: i due esempi numerici delle slide",
+       "Lista ordinata delle distanze d(p, g_i) dei primi candidati · A: Relative Distance · B: Density Ratio")
+AX0, AX1 = 70, 410
+sxd = lambda v, a0, a1: a0 + v/0.5*(a1-a0)
+def axis(y, a0, a1):
+    o.append(f'<line x1="{a0}" y1="{y}" x2="{a1}" y2="{y}" stroke="#222" stroke-width="1.5"/>')
+    for v in [0, 0.1, 0.2, 0.3, 0.4, 0.5]:
+        o.append(f'<line x1="{sxd(v,a0,a1):.1f}" y1="{y}" x2="{sxd(v,a0,a1):.1f}" y2="{y+5}" stroke="#222"/>')
+        txt(o, sxd(v, a0, a1), y+20, f"{v:.1f}", 11.5, None, "#333", halo=False)
+# --- A
+txt(o, (AX0+AX1)/2, 100, "A · Relative Distance", 15, 700, "#111", halo=False)
+YA = 260
+axis(YA, AX0, AX1)
+for k, v in enumerate(dist_rd, 1):
+    c = C_G if k == 1 else ("#6b7280" if k < 4 else C_FA)
+    o.append(f'<circle cx="{sxd(v,AX0,AX1):.1f}" cy="{YA-24}" r="9" fill="{c}" stroke="#fff" stroke-width="2"/>')
+    txt(o, sxd(v, AX0, AX1), YA-42-(18 if k == 3 else 0), f"g_{k}  {v:.2f}", 11.5, 700, "#222")
+# numeratore e denominatore
+x1, x2, x3 = [sxd(dist_rd[i], AX0, AX1) for i in (0, 1, 3)]
+o.append(f'<path d="M {x1:.1f},{YA+50} L {x1:.1f},{YA+58} L {x2:.1f},{YA+58} L {x2:.1f},{YA+50}" fill="none" stroke="{C_I}" stroke-width="2"/>')
+txt(o, (x1+x2)/2, YA+76, f"num = {dist_rd[1]:.2f} − {dist_rd[0]:.2f} = {dist_rd[1]-dist_rd[0]:.2f}", 12, 700, C_I)
+o.append(f'<path d="M {sxd(0,AX0,AX1):.1f},{YA+90} L {sxd(0,AX0,AX1):.1f},{YA+98} L {x3:.1f},{YA+98} L {x3:.1f},{YA+90}" fill="none" stroke="{C_FA}" stroke-width="2"/>')
+txt(o, (sxd(0, AX0, AX1)+x3)/2, YA+116, f"den = distanza massima = {dist_rd[-1]:.2f}", 12, 700, C_FA_T)
+box(o, (AX0+AX1)/2, 430, 360, 58, [f"φ = {dist_rd[1]-dist_rd[0]:.2f} / {dist_rd[-1]:.2f} = {rd:.3f}",
+    "numeratore piccolo rispetto al denominatore", "→ primi due candidati confondibili → bassa affidabilità"], C_FR_BG, C_FR_T, 12)
+# --- B
+BX0, BX1 = 520, 860
+txt(o, (BX0+BX1)/2, 100, "B · Density Ratio", 15, 700, "#111", halo=False)
+YB = 260
+axis(YB, BX0, BX1)
+r_ = 2*dist_dr[0]
+o.append(f'<rect x="{BX0}" y="{YB-70}" width="{sxd(r_,BX0,BX1)-BX0:.1f}" height="70" fill="{C_FR}" fill-opacity="0.15"/>')
+o.append(f'<line x1="{sxd(r_,BX0,BX1):.1f}" y1="{YB-80}" x2="{sxd(r_,BX0,BX1):.1f}" y2="{YB}" stroke="{C_FR_T}" stroke-width="2" stroke-dasharray="6,4"/>')
+txt(o, sxd(r_, BX0, BX1), YB-86, f"2·d_1 = {r_:.2f}", 12, 700, C_FR_T)
+for k, v in enumerate(dist_dr, 1):
+    inb = k > 1 and v < r_
+    c = C_G if k == 1 else (C_FR if inb else "#9ca3af")
+    o.append(f'<circle cx="{sxd(v,BX0,BX1):.1f}" cy="{YB-24}" r="9" fill="{c}" stroke="#fff" stroke-width="2"/>')
+    txt(o, sxd(v, BX0, BX1), YB-42+(0 if k % 2 else 0), f"{v:.2f}", 11.5, 700, "#222")
+txt(o, BX0+4, YB+50, "verde = primo (escluso dal conteggio) · arancione = in N_b · grigio = fuori", 11, None, "#555", "start", halo=False)
+box(o, (BX0+BX1)/2, 430, 410, 82, [f"N_b = {{0.25}}  →  |N_b| = {nb},  |G| = {len(rest)} (primo escluso)",
+    f"φ = 1 − {nb}/{len(rest)} = {dr:.3f}",
+    f"variante, primo incluso: 1 − 2/4 = {dr_incl:.2f} (non necessario)"], C_OK_BG, C_G_T, 12)
+txt(o, W/2, 530, "Con la convenzione delle slide il Density Ratio ha massimo 1; la scelta del fattore 2 non è stata migliorata da parametri adattivi.", 11.5, None, "#555", halo=False)
+save(o, 'fig13c_srr_esempi.svg')
+print(round(rd, 3), round(dr, 3), dr_incl)
+```
+
+<img src="./img/fig13c_srr_esempi.svg" alt="Esempi numerici di Relative Distance e Density Ratio" style="display:block; margin:1.5em auto; max-width:100%;">
+
+**Relative Distance o Density Ratio?** Il Density Ratio è **meno sensibile agli outlier** e di solito funziona meglio della Relative Distance: quest'ultima guarda solo i primi due candidati, quindi basta un secondo candidato molto vicino al primo (o un solo outlier lontano che gonfia il denominatore) per falsarla. Contropartita del Density Ratio: la sua definizione porta a considerare **nuvole più strette quando la prima identità recuperata è più vicina alla probe**; viceversa, una distanza grande porta a una nuvola più ampia, che ci si aspetta comunque più affollata. Sostituire il fattore 2 con un parametro adattivo non ha dato risultati migliori.
+
+La figura seguente mostra due probe con la stessa gallery di 40 template (dati simulati): la probe A ha il primo candidato isolato, la B una nube di 12 candidati poco più lontani. Per B la Relative Distance è quasi nulla (i primi due sono vicinissimi) e il Density Ratio la penalizza per l'intera nube.
+
+```python
+# =====================================================================
+# 30 — Density Ratio e Relative Distance  (richiede 01, 05)
+# Produce: fig13_density_ratio.svg   · Definisce phiA, phiB, d1A, d1B (riusati da 26)
+# =====================================================================
+random.seed(5)
+NGAL = 40
+def make_list(d1, n_close, lo, hi):
+    d = [d1] + [random.uniform(lo, hi) for _ in range(n_close)]
+    d += [random.uniform(0.62, 0.95) for _ in range(NGAL-len(d))]
+    return sorted(d)
+
+dA = make_list(0.18, 0, 0, 0)          # probe A: il primo candidato è isolato
+dB = make_list(0.30, 12, 0.32, 0.58)   # probe B: nube di candidati vicini al primo
+
+def phi_density(d):
+    rest = d[1:]                       # convenzione delle slide: il primo elemento è escluso sia da N_b sia da |G|
+    nb = sum(x < 2*d[0] for x in rest) # N_b: distanze < 2·(prima distanza)
+    return 1 - nb/len(rest), nb
+def phi_relative(d):
+    return (d[1]-d[0])/d[-1]
+
+phiA, nbA = phi_density(dA); phiB, nbB = phi_density(dB)
+d1A, d1B = dA[0], dB[0]
+
+W, H = 920, 545
+o = new_svg(W, H)
+header(o, W, "Density Ratio: quanto è affollata la nube attorno al primo candidato",
+       "Distanze d(p, g_i) ordinate in modo crescente · N_b = template con distanza &lt; 2·d_1 · φ = 1 − |N_b|/|G| (primo escluso)")
+for idx, (nm, d, phi, nb, ok) in enumerate([("Probe A · risposta affidabile", dA, phiA, nbA, True),
+                                            ("Probe B · risposta ambigua", dB, phiB, nbB, False)]):
+    X0, X1, Y0, Y1 = 70 + idx*440, 440 + idx*440, 120, 380
+    sxr = lambda k, X0=X0, X1=X1: X0 + (k-0.5)/NGAL*(X1-X0)
+    syd = lambda v, Y0=Y0, Y1=Y1: Y1 - v*(Y1-Y0)
+    txt(o, (X0+X1)/2, 100, nm, 14.5, 700, C_G_T if ok else C_FR_T, halo=False)
+    o.append(f'<rect x="{X0}" y="{syd(2*d[0]):.1f}" width="{X1-X0}" height="{Y1-syd(2*d[0]):.1f}" fill="{C_FR}" fill-opacity="0.12"/>')
+    o.append(f'<line x1="{X0}" y1="{syd(2*d[0]):.1f}" x2="{X1}" y2="{syd(2*d[0]):.1f}" stroke="{C_FR_T}" stroke-width="1.8" stroke-dasharray="6,4"/>')
+    txt(o, X1-4, syd(2*d[0])-6, f"2·d_1 = {2*d[0]:.2f}", 12, 700, C_FR_T, "end")
+    for v in [0, 0.25, 0.5, 0.75, 1.0]:
+        o.append(f'<line x1="{X0}" y1="{syd(v):.1f}" x2="{X1}" y2="{syd(v):.1f}" stroke="#e5e7eb"/>')
+        txt(o, X0-8, syd(v)+4, f"{v:g}", 11.5, None, "#333", "end", halo=False)
+    for k, v in enumerate(d, 1):
+        inb = (k > 1) and v < 2*d[0]
+        col = C_G if k == 1 else (C_FR if inb else "#9ca3af")
+        o.append(f'<circle cx="{sxr(k):.1f}" cy="{syd(v):.1f}" r="{6 if k == 1 else 4}" fill="{col}" stroke="#fff" stroke-width="1.2"/>')
+    o.append(f'<circle cx="{sxr(1):.1f}" cy="{syd(d[0]):.1f}" r="10" fill="none" stroke="{C_G_T}" stroke-width="2"/>')
+    txt(o, sxr(1)+16, syd(d[0])+22, "d_1", 12.5, 700, C_G_T, "start")
+    o.append(f'<line x1="{X0}" y1="{Y1}" x2="{X1}" y2="{Y1}" stroke="#222" stroke-width="1.5"/>')
+    o.append(f'<line x1="{X0}" y1="{Y0}" x2="{X0}" y2="{Y1}" stroke="#222" stroke-width="1.5"/>')
+    txt(o, (X0+X1)/2, Y1+34, "rango k nella lista ordinata", 12.5, None, "#222", halo=False)
+    box(o, (X0+X1)/2, 462, 360, 54, [f"|N_b| = {nb} su |G| = {NGAL-1} (primo escluso)  →  φ = {phi:.3f}",
+        f"Relative Distance (d_2 − d_1)/d_max = {phi_relative(d):.3f}"], C_OK_BG if ok else C_FR_BG, C_G_T if ok else C_FR_T, 12.5)
+txt(o, W/2, H-14, "arancione = template nella nube (contano in N_b) · grigio = lontani · verde = primo candidato (escluso) · φ alto = nube poco affollata", 11.5, None, "#555", halo=False)
+save(o, 'fig13_density_ratio.svg')
+print(round(phiA, 3), round(phiB, 3), nbA, nbB)
+```
+
+<img src="./img/fig13_density_ratio.svg" alt="Density Ratio per due probe" style="display:block; margin:1.5em auto; max-width:100%;">
+
+#### Valore critico $\varphi_k$
+
+Serve un valore che favorisca una corretta separazione tra **false esclusioni di soggetti iscritti** e **riconoscimenti sbagliati di non iscritti**, entrambi sostenuti dal valore di reliability.
+
+Il valore critico $\varphi_k$ è quello che minimizza le stime sbagliate della funzione $\varphi(p)$, cioè: non iscritti riconosciuti per errore (FA, per distanza sotto la soglia di accettazione o similarità sopra) **con $\varphi(p)$ sopra $\varphi_k$**; oppure genuini respinti o non confermati **con $\varphi(p)$ sotto $\varphi_k$**. La distanza tra $\varphi(p)$ e $\varphi_k$ è significativa per l'affidabilità.
+
+**Come leggere la figura (stile delle slide).** In alto, la «reliability di $\varphi(p)$ rispetto alla soglia»: la curva raggiunge un massimo (il $\varphi_k$ ottimo). In basso, $\varphi(p)$ per ciascuna probe: **cerchi rossi = GA**, **quadrati blu = FA**. Quadrati blu **sopra** $\varphi_k$ = FA *confermati* da un valore alto di $\varphi$; cerchi rossi **sotto** $\varphi_k$ = GA *non confermati* per un valore basso di $\varphi$. I dati sono simulati con la forma delle slide (il Density Ratio ha $\varphi_k$ piccolo, la Relative Distance intermedio).
+
+```python
+# =====================================================================
+# 31 — Valore critico φ_k: separare GA e FA con la reliability  (richiede 01, 05)
+# Produce: fig13d_phi_critico.svg
+# DATI SIMULATI: stessa forma delle slide (Density Ratio con φ_k piccolo, Relative Distance con φ_k intermedio).
+# =====================================================================
+random.seed(17)
+cl = lambda v, a, b: max(a, min(b, v))
+def make_probes(ga_f, fa_f, n_ga=55, n_fa=50):
+    return [(ga_f(), True) for _ in range(n_ga)] + [(fa_f(), False) for _ in range(n_fa)]
+SETS = {"Density Ratio": make_probes(lambda: cl(random.gauss(0.15, 0.09), 0.01, 0.39), lambda: cl(random.expovariate(1/0.035), 0.0, 0.12)),
+        "Relative Distance": make_probes(lambda: cl(random.gauss(0.60, 0.26), 0.05, 1.0), lambda: cl(random.expovariate(1/0.14), 0.0, 0.62))}
+SCAL = {"Density Ratio": 0.4, "Relative Distance": 1.0}
+
+def reliab(pr, th):     # frazione di probe in cui φ è coerente con l'esito: GA con φ ≥ th, FA con φ < th
+    return sum((p >= th) == ga for p, ga in pr)/len(pr)
+
+W, H = 920, 640
+o = new_svg(W, H)
+header(o, W, "Valore critico φ_k: separare i GA dai FA con la reliability",
+       "Cerchi rossi = GA (genuini accettati) · quadrati blu = FA (impostori accettati) · φ_k = soglia che massimizza la coerenza (dati simulati)")
+res_k = {}
+for c, (nm, pr) in enumerate(SETS.items()):
+    X0, X1 = 80 + c*440, 400 + c*440
+    smax = SCAL[nm]
+    ths = [smax*i/200 for i in range(201)]
+    rv = [reliab(pr, t) for t in ths]
+    k_best = max(range(len(ths)), key=lambda i: rv[i])
+    phik = ths[k_best]
+    ga_low = sum(p < phik and ga for p, ga in pr); fa_high = sum(p >= phik and not ga for p, ga in pr)
+    res_k[nm] = (phik, rv[k_best], fa_high, ga_low)
+    txt(o, (X0+X1)/2, 92, nm, 15, 700, "#111", halo=False)
+    # alto: reliability vs th
+    T0, T1 = 125, 255
+    sxt = lambda t: X0 + t/smax*(X1-X0)
+    syt = lambda v: T1 - (v-0.4)/0.6*(T1-T0)
+    for v in [0.4, 0.6, 0.8, 1.0]:
+        o.append(f'<line x1="{X0}" y1="{syt(v):.1f}" x2="{X1}" y2="{syt(v):.1f}" stroke="#e5e7eb"/>')
+        txt(o, X0-6, syt(v)+4, f"{v:.1f}", 11, None, "#333", "end", halo=False)
+    o.append('<path d="M ' + " L ".join(f"{sxt(t):.1f},{syt(max(0.4, v)):.1f}" for t, v in zip(ths, rv)) + f'" fill="none" stroke="{C_I}" stroke-width="2.6"/>')
+    o.append(f'<line x1="{sxt(phik):.1f}" y1="{T0}" x2="{sxt(phik):.1f}" y2="{T1}" stroke="#9ca3af" stroke-width="1.4"/>')
+    o.append(f'<path d="M {sxt(phik)-7:.1f},{syt(rv[k_best])-7:.1f} l 14,14 m -14,0 l 14,-14" stroke="{C_FA}" stroke-width="2.4"/>')
+    txt(o, sxt(phik)+10, syt(rv[k_best])-8, f"φ_k = {phik:.3f}", 12, 700, C_FA_T, "start")
+    o.append(f'<line x1="{X0}" y1="{T1}" x2="{X1}" y2="{T1}" stroke="#222" stroke-width="1.5"/>')
+    o.append(f'<line x1="{X0}" y1="{T0}" x2="{X0}" y2="{T1}" stroke="#222" stroke-width="1.5"/>')
+    txt(o, X0, T0-8, "reliability di φ(p) vs soglia", 12, 700, "#444", "start", halo=False)
+    for t in [0, smax/2, smax]:
+        txt(o, sxt(t), T1+15, f"{t:g}", 11, None, "#333", halo=False)
+    # basso: scatter
+    S0, S1 = 330, 520
+    syp = lambda v: S1 - v/smax*(S1-S0)
+    sxp = lambda i: X0 + i/105*(X1-X0)
+    txt(o, X0, S0-12, "φ(p) per ciascuna probe", 12, 700, "#444", "start", halo=False)
+    for v in [0, smax/2, smax]:
+        o.append(f'<line x1="{X0}" y1="{syp(v):.1f}" x2="{X1}" y2="{syp(v):.1f}" stroke="#e5e7eb"/>')
+        txt(o, X0-6, syp(v)+4, f"{v:g}", 11, None, "#333", "end", halo=False)
+    order = list(range(len(pr))); random.shuffle(order)
+    for i, k in enumerate(order):
+        p, ga = pr[k]
+        if ga:
+            o.append(f'<circle cx="{sxp(i):.1f}" cy="{syp(p):.1f}" r="3.8" fill="none" stroke="{C_FA}" stroke-width="1.5"/>')
+        else:
+            o.append(f'<rect x="{sxp(i)-3.5:.1f}" y="{syp(p)-3.5:.1f}" width="7" height="7" fill="none" stroke="{C_I}" stroke-width="1.5"/>')
+    o.append(f'<line x1="{X0}" y1="{syp(phik):.1f}" x2="{X1}" y2="{syp(phik):.1f}" stroke="#111" stroke-width="1.8"/>')
+    txt(o, X1-2, syp(phik)-6, f"φ_k = {phik:.3f}", 12, 700, "#111", "end")
+    o.append(f'<line x1="{X0}" y1="{S1}" x2="{X1}" y2="{S1}" stroke="#222" stroke-width="1.5"/>')
+    o.append(f'<line x1="{X0}" y1="{S0}" x2="{X0}" y2="{S1}" stroke="#222" stroke-width="1.5"/>')
+    txt(o, (X0+X1)/2, S1+18, "probe", 12, None, "#222", halo=False)
+    txt(o, X0, S1+40, f"FA sopra φ_k (confermati da φ alto): {fa_high}", 11.5, 700, C_I, "start", halo=False)
+    txt(o, X0, S1+57, f"GA sotto φ_k (non confermati da φ basso): {ga_low}", 11.5, 700, C_FA_T, "start", halo=False)
+txt(o, W/2, 618, "Quadrati blu sopra φ_k = FA confermati da un φ alto · cerchi rossi sotto φ_k = GA non confermati per un φ basso: φ_k è scelto per ridurre questi casi.", 11.5, None, "#555", halo=False)
+save(o, 'fig13d_phi_critico.svg')
+print(res_k)
+```
+
+<img src="./img/fig13d_phi_critico.svg" alt="Valore critico phi_k per Density Ratio e Relative Distance" style="display:block; margin:1.5em auto; max-width:100%;">
+
+#### Normalizzazione finale (SRR)
+
+Si definisce $S$ come la **larghezza del sottointervallo da $\bar\varphi$ all'estremo opportuno** dell'intervallo $[0,1)$ dei valori possibili, a seconda del confronto tra il $\varphi(p)$ corrente e $\bar\varphi$ (cioè $\varphi_k$):
+
+$$
+S(\varphi(p), \bar\varphi) =
 \begin{cases}
-1 - \overline{\varphi} & \text{se } \varphi(p) > \overline{\varphi} \\
-\overline{\varphi} & \text{altrimenti}
+1 - \bar\varphi & \text{se } \varphi(p) > \bar\varphi \\
+\bar\varphi & \text{altrimenti}
 \end{cases}
+\qquad\qquad
+SRR = \frac{\varphi(p) - \bar\varphi}{S(\bar\varphi)}
 $$
 
+Nella formula finale delle slide la $S$ è scritta $S(\bar\varphi)$: la dipendenza da $\varphi(p)$ è implicita nel caso scelto. Sopra il valore critico si divide per lo spazio disponibile verso 1, sotto per quello verso 0.
+
+Con **due soglie** finali nel sistema, una per l'accettazione (FAR/FRR) e una per la reliability della risposta, si può **rifiutare un'identificazione anche se formalmente accettata**, se non ritenuta affidabile.
+
+**Come leggere la figura.** A sinistra la funzione $\varphi\mapsto SRR$ con le due probe del grafico precedente ($\bar\varphi = 0.8$): A ($\varphi=1$) ha $SRR=+1$, B ($\varphi\approx0.69$) ha $SRR\approx-0.13$. A destra il piano delle due decisioni: asse $x$ = distanza del primo candidato (si accetta se $d_1\le t$), asse $y$ = SRR. Tre zone: **accettato e affidabile** (output), **accettato ma non affidabile** (rifiutato dalla reliability), **rifiutato dalla soglia**. La probe B supera la soglia di accettazione ma viene bloccata dalla reliability: è il caso che il solo FAR/FRR non sa gestire.
+
+```python
+# =====================================================================
+# 32 — Da φ a SRR e doppia soglia  (richiede 01, 05, 30)
+# Produce: fig14_srr_doppia_soglia.svg
+# =====================================================================
+PHI_BAR = 0.80                         # valore critico φ̄ (soglia di reliability)
+T_ACC_S = 0.35                         # soglia di accettazione sulla distanza d_1 (si accetta se d_1 ≤ t)
+
+def srr_of(phi, pbar=PHI_BAR):
+    S = (1-pbar) if phi > pbar else pbar        # S(φ, φ̄)
+    return (phi - pbar)/S
+
+W, H = 920, 540
+o = new_svg(W, H)
+header(o, W, "Dal valore φ all'indice SRR e decisione a doppia soglia",
+       f"φ̄ = {PHI_BAR} (valore critico) · srr = (φ − φ̄) / S(φ, φ̄) ∈ [−1, 1] · srr > 0 = risposta ritenuta affidabile")
+# pannello A: mappa φ -> srr
+AX0, AX1, AY0, AY1 = 80, 400, 120, 420
+sxa = lambda p: AX0 + p*(AX1-AX0)
+sya = lambda s: AY1 - (s+1)/2*(AY1-AY0)
+txt(o, (AX0+AX1)/2, 100, "A · normalizzazione SRR", 14, 700, "#111", halo=False)
+o.append(f'<rect x="{AX0}" y="{sya(0):.1f}" width="{AX1-AX0}" height="{AY1-sya(0):.1f}" fill="{C_FR}" fill-opacity="0.12"/>')
+o.append(f'<rect x="{AX0}" y="{AY0}" width="{AX1-AX0}" height="{sya(0)-AY0:.1f}" fill="{C_G}" fill-opacity="0.10"/>')
+for v in [-1, -0.5, 0, 0.5, 1]:
+    o.append(f'<line x1="{AX0}" y1="{sya(v):.1f}" x2="{AX1}" y2="{sya(v):.1f}" stroke="{"#111" if v == 0 else "#e5e7eb"}"/>')
+    txt(o, AX0-8, sya(v)+4, f"{v:g}", 11.5, None, "#333", "end", halo=False)
+for v in [0, 0.2, 0.4, 0.6, 0.8, 1.0]:
+    txt(o, sxa(v), AY1+18, f"{v:.1f}", 11.5, None, "#333", halo=False)
+pts = [(sxa(p/200), sya(srr_of(p/200))) for p in range(0, 201)]
+o.append('<path d="M ' + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts) + f'" fill="none" stroke="{C_I}" stroke-width="3.2"/>')
+o.append(f'<line x1="{sxa(PHI_BAR):.1f}" y1="{AY0}" x2="{sxa(PHI_BAR):.1f}" y2="{AY1}" stroke="#111" stroke-width="1.5" stroke-dasharray="6,4"/>')
+txt(o, sxa(PHI_BAR)+6, sya(-0.5), f"φ̄ = {PHI_BAR}", 12, 700, "#111", "start")
+for nm, ph, c in [("A", phiA, C_G_T), ("B", phiB, C_FR_T)]:
+    o.append(f'<circle cx="{sxa(ph):.1f}" cy="{sya(srr_of(ph)):.1f}" r="7" fill="{c}" stroke="#fff" stroke-width="2"/>')
+    lx, ly_, anc = (sxa(PHI_BAR)-8, sya(srr_of(ph))-4, "end") if nm == "A" else (sxa(PHI_BAR)-8, sya(srr_of(ph))+34, "end")
+    txt(o, lx, ly_, f"{nm}: φ = {ph:.2f}", 12, 700, c, anc)
+    txt(o, lx, ly_+15, f"srr = {srr_of(ph):+.2f}", 12, 700, c, anc)
+txt(o, AX0+8, AY0+16, "affidabile", 12, 700, C_G_T, "start", halo=False)
+txt(o, AX1-8, AY1-10, "non affidabile", 12, 700, C_FR_T, "end", halo=False)
+o.append(f'<line x1="{AX0}" y1="{AY1}" x2="{AX1}" y2="{AY1}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{AX0}" y1="{AY0}" x2="{AX0}" y2="{AY1}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (AX0+AX1)/2, AY1+40, "φ(p)", 13, None, "#222", halo=False)
+o.append(f'<text transform="translate(34,{(AY0+AY1)/2}) rotate(-90)" text-anchor="middle" font-size="13" fill="#222">srr</text>')
+# pannello B: piano (d_1, srr)
+BX0, BX1, BY0, BY1 = 520, 880, 120, 420
+DMAX = 0.6
+sxb = lambda d: BX0 + d/DMAX*(BX1-BX0)
+syb = lambda s: BY1 - (s+1)/2*(BY1-BY0)
+txt(o, (BX0+BX1)/2, 100, "B · due soglie: accettazione e reliability", 14, 700, "#111", halo=False)
+o.append(f'<rect x="{BX0}" y="{BY0}" width="{sxb(T_ACC_S)-BX0:.1f}" height="{syb(0)-BY0:.1f}" fill="{C_G}" fill-opacity="0.18"/>')
+o.append(f'<rect x="{BX0}" y="{syb(0):.1f}" width="{sxb(T_ACC_S)-BX0:.1f}" height="{BY1-syb(0):.1f}" fill="{C_FR}" fill-opacity="0.22"/>')
+o.append(f'<rect x="{sxb(T_ACC_S):.1f}" y="{BY0}" width="{BX1-sxb(T_ACC_S):.1f}" height="{BY1-BY0}" fill="#9ca3af" fill-opacity="0.18"/>')
+o.append(f'<line x1="{sxb(T_ACC_S):.1f}" y1="{BY0}" x2="{sxb(T_ACC_S):.1f}" y2="{BY1}" stroke="#111" stroke-width="2" stroke-dasharray="7,5"/>')
+o.append(f'<line x1="{BX0}" y1="{syb(0):.1f}" x2="{BX1}" y2="{syb(0):.1f}" stroke="#111" stroke-width="2" stroke-dasharray="7,5"/>')
+txt(o, (BX0+sxb(T_ACC_S))/2, syb(0.40), "accettato", 12.5, 700, C_G_T)
+txt(o, (BX0+sxb(T_ACC_S))/2, syb(0.40)+16, "e affidabile → output", 12, None, "#333")
+txt(o, (BX0+sxb(T_ACC_S))/2, BY1-34, "accettato ma non affidabile", 12, 700, C_FR_T)
+txt(o, (BX0+sxb(T_ACC_S))/2, BY1-18, "→ rifiutato dalla reliability", 12, None, "#333")
+txt(o, (sxb(T_ACC_S)+BX1)/2, BY0+22, "rifiutato", 12.5, 700, "#374151")
+txt(o, (sxb(T_ACC_S)+BX1)/2, BY0+38, "dalla soglia t", 12, None, "#333")
+for nm, d1, sr, c in [("A", d1A, srr_of(phiA), C_G_T), ("B", d1B, srr_of(phiB), C_FR_T), ("C", 0.48, 0.45, "#374151")]:
+    o.append(f'<circle cx="{sxb(d1):.1f}" cy="{syb(sr):.1f}" r="7" fill="{c}" stroke="#fff" stroke-width="2"/>')
+    txt(o, sxb(d1)+11, syb(sr)+4, nm, 13, 700, c, "start")
+for v in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6]:
+    txt(o, sxb(v), BY1+18, f"{v:.1f}", 11.5, None, "#333", halo=False)
+txt(o, sxb(T_ACC_S), BY1+34, f"t = {T_ACC_S}", 12, 700, "#111", halo=False)
+for v in [-1, 0, 1]:
+    txt(o, BX0-8, syb(v)+4, f"{v:g}", 11.5, None, "#333", "end", halo=False)
+o.append(f'<line x1="{BX0}" y1="{BY1}" x2="{BX1}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{BX0}" y1="{BY0}" x2="{BX0}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (BX0+BX1)/2, BY1+52, "distanza del primo candidato d_1", 13, None, "#222", halo=False)
+txt(o, W/2, H-30, "A e B hanno d_1 sotto soglia, ma solo A è una risposta affidabile; C non supera nemmeno la soglia di accettazione.", 12, None, "#444", halo=False)
+save(o, 'fig14_srr_doppia_soglia.svg')
+print(srr_of(phiA), srr_of(phiB))
+```
+
+<img src="./img/fig14_srr_doppia_soglia.svg" alt="SRR e doppia soglia" style="display:block; margin:1.5em auto; max-width:100%;">
+
+### 13.5 Una soglia per l'SRR: stima automatica (th)
+
+Il **reliability threshold** ($th$) può essere stimato automaticamente sfruttando un certo numero $M$ di osservazioni successive (es. $M$ frame consecutivi di un video, o $M$ acquisizioni ripetute). Si vuole una **media alta** (il sistema è in generale affidabile) e una **varianza bassa** (il sistema è stabile). Per l'i-esimo soggetto/serie di osservazioni $S_i$:
+
 $$
-SRR = \frac{\varphi(p) - \overline{\varphi}}{S(\overline{\varphi})}
+th_i = \left|\frac{E[\overline{S_i}]^2 - \sigma[\overline{S_i}]}{E[\overline{S_i}]}\right|
 $$
 
-Con **due soglie** finali nel sistema: una per l'accettazione (FAR/FRR) e una per la reliability della risposta — quest'ultima permette di **rifiutare un'identificazione anche se formalmente accettata**, se non ritenuta affidabile.
+dove $E[\overline{S_i}]$ è la **media** dei valori di reliability osservati sulle $M$ osservazioni e $\sigma[\overline{S_i}]$ la loro **deviazione standard** (nell'esempio di codice: deviazione standard della popolazione delle $M$ osservazioni).
 
-### 13.4 Stima automatica della soglia di reliability (th)
+> La formula coincide con quella delle slide. Si nota che il numeratore mescola una media al quadrato con una deviazione standard (non al quadrato): non è dimensionalmente omogeneo, ma è così che è definita.
 
-Il **reliability threshold** ($th$) può essere stimato automaticamente sfruttando un certo numero $M$ di osservazioni successive dello stesso soggetto (es. $M$ frame consecutivi di un video, o $M$ acquisizioni ripetute). Si vuole una soglia che rifletta un compromesso tra due esigenze:
+> Intuizione: il numeratore penalizza sia una media bassa (poco affidabile) sia un'alta variabilità (poco stabile); dividere per la media normalizza il risultato. La soglia $th_i$ si adatta al comportamento tipico di quel soggetto/sistema, invece di usare un valore fisso globale.
 
-- **Media alta** dei valori di SRR osservati → il sistema è generalmente affidabile.
-- **Varianza bassa** → il sistema è stabile (le risposte non oscillano troppo tra affidabili e non affidabili).
+**Come leggere la figura.** Due soggetti con trenta osservazioni ciascuno. Il soggetto **stabile** ha media alta e $\sigma$ piccola: $th$ resta vicina alla media e scarta solo i pochi valori davvero anomali. Il soggetto **instabile** ha media simile ma $\sigma$ molto più grande: $th$ scende, altrimenti quasi metà delle risposte verrebbe giudicata inaffidabile. I punti rossi sono le osservazioni sotto $th$.
 
-Per l'i-esimo soggetto/serie di osservazioni $S_i$, la soglia si stima come:
+```python
+# =====================================================================
+# 33 — Stima automatica della soglia di reliability th_i  (richiede 01, 05)
+# Produce: fig15_soglia_reliability.svg
+# =====================================================================
+random.seed(3)
+MOBS = 30
+clip = lambda v: max(0.0, min(1.0, v))
+subjects = [("Soggetto stabile", [clip(random.gauss(0.80, 0.05)) for _ in range(MOBS)]),
+            ("Soggetto instabile", [clip(random.gauss(0.75, 0.20)) for _ in range(MOBS)])]
 
-$$
-th_i = \left|\frac{\, E[\overline{S_i}]^2 - \sigma[\overline{S_i}] \,}{E[\overline{S_i}]}\right|
-$$
+def th_estimate(vals):
+    E, sd = sum(vals)/len(vals), pstdev(vals)
+    return abs(E**2 - sd)/E, E, sd
 
-dove:
-- $E[\overline{S_i}]$ è la **media** dei valori di reliability osservati sulle $M$ osservazioni;
-- $\sigma[\overline{S_i}]$ è la loro **deviazione standard (varianza)**.
+W, H = 920, 600
+o = new_svg(W, H)
+header(o, W, "Stima automatica della soglia di reliability dalle M osservazioni",
+       "th_i = | E[S_i]² − σ[S_i] | / E[S_i] · la soglia si adatta a media e stabilità del soggetto")
+X0, X1 = 80, 860
+for r, (nm, vals) in enumerate(subjects):
+    Y0, Y1 = 105 + r*240, 285 + r*240
+    th, E, sd = th_estimate(vals)
+    sxm = lambda m: X0 + (m-0.5)/MOBS*(X1-X0)
+    syv = lambda v, Y0=Y0, Y1=Y1: Y1 - v*(Y1-Y0)
+    txt(o, X0, Y0-8, nm, 14.5, 700, "#111", "start", halo=False)
+    o.append(f'<rect x="{X0}" y="{syv(min(1,E+sd)):.1f}" width="{X1-X0}" height="{syv(max(0,E-sd))-syv(min(1,E+sd)):.1f}" fill="{C_I}" fill-opacity="0.12"/>')
+    for v in [0, 0.5, 1.0]:
+        o.append(f'<line x1="{X0}" y1="{syv(v):.1f}" x2="{X1}" y2="{syv(v):.1f}" stroke="#e5e7eb"/>')
+        txt(o, X0-8, syv(v)+4, f"{v:g}", 11.5, None, "#333", "end", halo=False)
+    o.append(f'<line x1="{X0}" y1="{syv(E):.1f}" x2="{X1}" y2="{syv(E):.1f}" stroke="{C_I}" stroke-width="1.8"/>')
+    o.append(f'<line x1="{X0}" y1="{syv(th):.1f}" x2="{X1}" y2="{syv(th):.1f}" stroke="#111" stroke-width="2.2" stroke-dasharray="7,5"/>')
+    txt(o, X1+2, syv(E)+4, f"E = {E:.2f}", 11.5, 700, C_I, "start", halo=False)
+    txt(o, X1+2, syv(th)+(16 if th < E else -4), f"th = {th:.2f}", 12, 700, "#111", "start", halo=False)
+    nok = sum(v >= th for v in vals)
+    o.append('<path d="M ' + " L ".join(f"{sxm(m):.1f},{syv(v):.1f}" for m, v in enumerate(vals, 1)) + '" fill="none" stroke="#6b7280" stroke-width="1.4"/>')
+    for m, v in enumerate(vals, 1):
+        o.append(f'<circle cx="{sxm(m):.1f}" cy="{syv(v):.1f}" r="4.2" fill="{C_G if v >= th else C_FA}" stroke="#fff" stroke-width="1.2"/>')
+    o.append(f'<line x1="{X0}" y1="{Y1}" x2="{X1}" y2="{Y1}" stroke="#222" stroke-width="1.5"/>')
+    o.append(f'<line x1="{X0}" y1="{Y0}" x2="{X0}" y2="{Y1}" stroke="#222" stroke-width="1.5"/>')
+    txt(o, X0+8, Y0+16, f"σ = {sd:.2f}  ·  {nok}/{MOBS} osservazioni affidabili (≥ th)", 12.5, 700, "#333", "start")
+    if r == 1:
+        for m in range(1, MOBS+1, 3):
+            txt(o, sxm(m), Y1+16, str(m), 11, None, "#555", halo=False)
+        txt(o, (X0+X1)/2, Y1+34, "osservazione m (es. frame consecutivo)", 12.5, None, "#222", halo=False)
+txt(o, W/2, H-10, "Verde = sopra th, rosso = sotto th · banda azzurra = media ± σ · soggetto instabile → soglia più bassa, altrimenti rifiuterebbe troppe risposte", 11.5, None, "#555", halo=False)
+save(o, 'fig15_soglia_reliability.svg')
+print([tuple(round(x, 3) for x in th_estimate(v)) for _, v in subjects])
+```
 
-> Intuizione: il numeratore penalizza sia una media bassa (poco affidabile) sia un'alta variabilità (poco stabile); dividere per la media normalizza il risultato. Una soglia $th_i$ così calcolata si adatta automaticamente al comportamento tipico di quel soggetto/sistema, invece di usare un valore fisso globale.
+<img src="./img/fig15_soglia_reliability.svg" alt="Stima automatica della soglia di reliability" style="display:block; margin:1.5em auto; max-width:100%;">
 
 ---
 
@@ -3425,6 +4275,89 @@ $$
 d_{sym}(A,B) = \frac{d(A,B) + d(B,A)}{2}
 $$
 
+**Perché interessa la disuguaglianza triangolare.** Se i template stanno in uno spazio metrico, se $x$ è vicino a $y$ e $y$ è vicino a $z$ allora $x$ e $z$ non possono essere lontanissimi: questa garanzia permette di usare strutture di indicizzazione (alberi metrici, pruning) e rende sensate molte analisi sulle matrici di distanza. Le misure di matching reali spesso la violano.
+
+**Come leggere la figura.** Pannello A: con la distanza euclidea il lato $d(x,z)$ è sempre non maggiore della somma degli altri due. Pannello B: con una misura elastica (come la DTW, che allinea le serie temporali "deformandole") può capitare che $x$ e $z$ risultino molto più lontani della somma tramite $y$: la disuguaglianza triangolare è violata e la misura è solo una semimetrica. Pannello C: una misura asimmetrica ($d(A,B)\neq d(B,A)$) viene simmetrizzata con la media, ma ciò non ripristina la disuguaglianza triangolare. In basso il test sulla matrice `M6` del §9, eseguito in codice.
+
+```python
+# =====================================================================
+# 34 — Proprietà di una metrica: triangolare e simmetria  (richiede 01, 05, 15)
+# Produce: fig16_metrica.svg
+# =====================================================================
+from itertools import combinations
+def tri_violations(Mx):
+    n = len(Mx); bad = 0; tot = 0
+    for a, b, c in combinations(range(n), 3):
+        tot += 1
+        d = [Mx[a][b], Mx[b][c], Mx[a][c]]
+        if any(d[i] > d[(i+1) % 3] + d[(i+2) % 3] + 1e-12 for i in range(3)):
+            bad += 1
+    return bad, tot
+bad6, tot6 = tri_violations(M6)
+
+W, H = 920, 560
+o = new_svg(W, H)
+header(o, W, "Proprietà di una metrica: disuguaglianza triangolare e simmetria",
+       "d(x,z) ≤ d(x,y) + d(y,z) · d(x,y) = d(y,x) · una misura che le viola è solo una semimetrica (o nemmeno)")
+
+def tri_panel(cx0, title, pos, dxy, dyz, dxz, ok, sub):
+    PWd = 280
+    rect(o, cx0, 78, PWd, 420, "#fff", "#e5e7eb", 1.5, 12)
+    txt(o, cx0+PWd/2, 102, title, 14, 700, C_G_T if ok else C_FA_T, halo=False)
+    txt(o, cx0+PWd/2, 120, sub, 11.5, None, "#555", halo=False)
+    P = {k: (cx0+v[0], 140+v[1]) for k, v in pos.items()}
+    for a, b, dv in [("x", "y", dxy), ("y", "z", dyz), ("x", "z", dxz)]:
+        (xa, ya), (xb, yb) = P[a], P[b]
+        o.append(f'<line x1="{xa:.1f}" y1="{ya:.1f}" x2="{xb:.1f}" y2="{yb:.1f}" stroke="{"#374151" if (a, b) != ("x", "z") else (C_G_T if ok else C_FA_T)}" stroke-width="{2.4 if (a, b) == ("x", "z") else 1.8}"/>')
+        txt(o, (xa+xb)/2 + (0 if (a, b) == ("x", "z") else (-14 if a == "x" else 14)), (ya+yb)/2 + (18 if (a, b) == ("x", "z") else -4), f"d({a},{b}) = {dv:.2f}", 11.5, 700, "#222")
+    for k, (px_, py_) in P.items():
+        o.append(f'<circle cx="{px_:.1f}" cy="{py_:.1f}" r="9" fill="{BLU_BG}" stroke="{C_I}" stroke-width="2"/>')
+        txt(o, px_, py_+4.5, k, 12.5, 700, C_I, halo=False)
+    # barre di confronto
+    by = 330; sc = 200/max(dxz, dxy+dyz)
+    txt(o, cx0+20, by-8, "confronto", 12, 700, "#555", "start", halo=False)
+    o.append(f'<rect x="{cx0+20}" y="{by}" width="{dxz*sc:.1f}" height="22" fill="{C_G if ok else C_FA}" fill-opacity="0.8"/>')
+    txt(o, cx0+26, by+16, f"d(x,z) = {dxz:.2f}", 12, 700, "#fff", "start", halo=False)
+    o.append(f'<rect x="{cx0+20}" y="{by+32}" width="{dxy*sc:.1f}" height="22" fill="{C_I}" fill-opacity="0.8"/>')
+    o.append(f'<rect x="{cx0+20+dxy*sc:.1f}" y="{by+32}" width="{dyz*sc:.1f}" height="22" fill="#60a5fa" fill-opacity="0.9"/>')
+    txt(o, cx0+26, by+48, f"d(x,y) + d(y,z) = {dxy+dyz:.2f}", 12, 700, "#fff", "start", halo=False)
+    verdict = "d(x,z) ≤ somma → rispettata" if ok else "d(x,z) > somma → VIOLATA"
+    box(o, cx0+PWd/2, 450, 240, 34, [verdict], C_OK_BG if ok else C_FA_BG, C_G_T if ok else C_FA_T, 12.5)
+
+# A: euclidea (coordinate reali)
+pts_e = {"x": (0, 0), "y": (3, 2), "z": (6, 0)}
+de = lambda a, b: math.dist(pts_e[a], pts_e[b])
+tri_panel(20, "A · Distanza euclidea", {"x": (30, 140), "y": (140, 30), "z": (250, 140)}, de("x", "y"), de("y", "z"), de("x", "z"), True, "è una metrica")
+# B: misura elastica (valori ipotetici, tipo DTW)
+tri_panel(320, "B · Misura elastica (tipo DTW)", {"x": (30, 140), "y": (140, 30), "z": (250, 140)}, 0.30, 0.30, 0.90, False, "valori ipotetici: semimetrica")
+# C: asimmetria
+rect(o, 620, 78, 280, 420, "#fff", "#e5e7eb", 1.5, 12)
+txt(o, 760, 102, "C · Asimmetria e simmetrizzazione", 14, 700, C_FR_T, halo=False)
+txt(o, 760, 120, "d(A,B) ≠ d(B,A) → si media nelle due direzioni", 11.5, None, "#555", halo=False)
+for k, (px_, py_) in {"A": (670, 230), "B": (850, 230)}.items():
+    o.append(f'<circle cx="{px_}" cy="{py_}" r="14" fill="{BLU_BG}" stroke="{C_I}" stroke-width="2"/>')
+    txt(o, px_, py_+5, k, 14, 700, C_I, halo=False)
+arrow(o, 686, 214, 834, 214, C_FR_T, 2.2); txt(o, 760, 200, "d(A,B) = 0.80", 12.5, 700, C_FR_T)
+arrow(o, 834, 246, 686, 246, C_G_T, 2.2); txt(o, 760, 268, "d(B,A) = 0.40", 12.5, 700, C_G_T)
+box(o, 760, 340, 240, 54, ["d_sym(A,B) = (d(A,B)+d(B,A)) / 2", "= (0.80 + 0.40) / 2 = 0.60"], C_FR_BG, C_FR_T, 12.5)
+txt(o, 760, 400, "d_sym è simmetrica, ma resta una semimetrica", 12, None, "#333")
+txt(o, 760, 418, "se non rispetta la disuguaglianza triangolare", 12, None, "#333")
+txt(o, W/2, H-34, f"Test sulla matrice M6 del §9: {bad6} triple su {tot6} violano la disuguaglianza triangolare "
+    f"→ {'è una metrica' if bad6 == 0 else 'è solo una semimetrica (simmetrica, diagonale nulla)'}.", 12.5, 700, "#222", halo=False)
+save(o, 'fig16_metrica.svg')
+print(bad6, tot6)
+```
+
+<img src="./img/fig16_metrica.svg" alt="Metrica, semimetrica e simmetrizzazione" style="display:block; margin:1.5em auto; max-width:100%;">
+
+| Misura | Non neg. | Identità | Simmetria | Triang. | Tipo |
+|---|---|---|---|---|---|
+| Euclidea | sì | sì | sì | sì | metrica |
+| Distanza coseno ($1-\cos$) | sì | no (stessa direzione, modulo diverso) | sì | no | semimetrica |
+| DTW | sì | no/dipende | sì | no | semimetrica |
+| Bhattacharyya | sì | sì | sì | no | semimetrica |
+| Divergenza KL | sì | sì | **no** | no | né simmetrica né metrica |
+
 ---
 
 ## 15. Considerazioni per un confronto affidabile tra sistemi
@@ -3440,16 +4373,346 @@ Per confrontare sistemi in modo equo bisogna considerare:
 
 I FoM (**Figures of Merit**: FAR, FRR, EER, ROC, CMS, ecc.) sono misure **ex-post**, legate al dataset/ground truth usato: nel mondo reale il contesto operativo può cambiare (utenti non familiari col sistema, condizioni diverse), quindi la distribuzione degli score può variare.
 
+### 15.1 Un solo numero non basta: due sistemi a confronto
+
+Due sistemi possono avere un'AUC quasi uguale (o una più alta dell'altra) e comportarsi in modo opposto in zone diverse della curva. Nell'esempio il **Sistema A** ha genuini concentrati e impostori larghi; il **Sistema B** ha impostori molto concentrati e genuini molto dispersi. A ha l'AUC più alta, ma le due curve DET si **incrociano** (al FAR ≈ 2.3%):
+
+- a FAR **alto** (applicazioni comode) vince A (FRR più bassa);
+- a FAR **basso** (alta sicurezza) vince B, perché i suoi impostori hanno una coda corta.
+
+Il pannello di destra quantifica la differenza con l'FRR a tre valori di FAR fissati. È la regola del §17.1 applicata: *a parità di FAR vince il FRR inferiore*. L'AUC è una sintesi su **tutte** le soglie, anche quelle che non si useranno mai.
+
+```python
+# =====================================================================
+# 35 — Confronto tra due sistemi: DET, AUC e punti operativi  (richiede 01, 05)
+# Produce: fig17_confronto_sistemi.svg
+# =====================================================================
+PhiN, PhiInv = NormalDist().cdf, NormalDist().inv_cdf
+SYS = {"Sistema A": (0.70, 0.10, 0.40, 0.10),      # (μ_G, σ_G, μ_I, σ_I) similarità
+       "Sistema B": (0.72, 0.20, 0.40, 0.06)}
+SC = {"Sistema A": C_I, "Sistema B": C_FA}
+far_s = lambda t, s: 1 - PhiN((t-s[2])/s[3])
+frr_s = lambda t, s: PhiN((t-s[0])/s[1])
+auc_s = lambda s: PhiN((s[0]-s[2])/math.sqrt(s[1]**2+s[3]**2))
+frr_at_far = lambda f, s: frr_s(s[2]+PhiInv(1-f)*s[3], s)
+
+XMIN = 1e-3
+W, H = 920, 560
+o = new_svg(W, H)
+header(o, W, "Confrontare due sistemi: l'AUC non basta, conta il punto operativo",
+       "Gaussiane diverse per genuini e impostori · DET in scala log · A: più separato in media, B: impostori molto concentrati")
+L0, R0, TOP, BOT = 90, 500, 100, 450
+lgx = lambda v: (math.log10(v)-math.log10(XMIN))/(0-math.log10(XMIN))
+sx = lambda x: L0 + lgx(x)*(R0-L0)
+sy = lambda y: BOT - lgx(y)*(BOT-TOP)
+for v, lab in {1e-3: "0.1%", 1e-2: "1%", 1e-1: "10%", 1.0: "100%"}.items():
+    o.append(f'<line x1="{sx(v):.1f}" y1="{TOP}" x2="{sx(v):.1f}" y2="{BOT}" stroke="#d1d5db"/>')
+    o.append(f'<line x1="{L0}" y1="{sy(v):.1f}" x2="{R0}" y2="{sy(v):.1f}" stroke="#d1d5db"/>')
+    txt(o, sx(v), BOT+18, lab, 11.5, None, "#333", halo=False)
+    txt(o, L0-8, sy(v)+4, lab, 11.5, None, "#333", "end", halo=False)
+frame(o, L0, R0, TOP, BOT, "FAR (scala log)", None)
+txt(o, L0-52, (TOP+BOT)/2, "FRR (scala log)", 13, None, "#222", halo=False, extra=f' transform="rotate(-90 {L0-52} {(TOP+BOT)/2})"')
+for nm, s in SYS.items():
+    pts = [(far_s(t, s), frr_s(t, s)) for t in [-0.3+1.8*i/3000 for i in range(3001)]]
+    pts = [(x, y) for x, y in pts if XMIN <= x <= 1 and XMIN <= y <= 1]
+    o.append('<path d="M ' + " L ".join(f"{sx(x):.1f},{sy(y):.1f}" for x, y in pts) + f'" fill="none" stroke="{SC[nm]}" stroke-width="3.2"/>')
+# incrocio
+fs = [10**(-3+2.99*i/2000) for i in range(2001)]
+diff = [frr_at_far(f, SYS["Sistema A"]) - frr_at_far(f, SYS["Sistema B"]) for f in fs]
+cross = next((fs[i] for i in range(1, len(fs)) if diff[i-1]*diff[i] < 0), None)
+if cross:
+    yc = frr_at_far(cross, SYS["Sistema A"])
+    o.append(f'<circle cx="{sx(cross):.1f}" cy="{sy(yc):.1f}" r="7" fill="#fff" stroke="#111" stroke-width="2.4"/>')
+    txt(o, sx(cross)+12, sy(yc)-12, f"incrocio: FAR ≈ {cross:.1%}", 12, 700, "#111", "start")
+txt(o, sx(0.0015), sy(0.9), "B migliore", 13, 700, C_FA_T, "start", halo=False)
+txt(o, sx(0.0015), sy(0.9)+15, "(sicurezza alta)", 11.5, None, "#333", "start", halo=False)
+txt(o, sx(0.30), sy(0.0045), "A migliore", 13, 700, C_I, "end", halo=False)
+txt(o, sx(0.30), sy(0.0045)+15, "(comodità)", 11.5, None, "#333", "end", halo=False)
+txt(o, L0+8, BOT-8, "↙ migliore", 12.5, 700, C_G_T, "start", halo=False)
+for j, (nm, s) in enumerate(SYS.items()):
+    o.append(f'<rect x="{L0+150}" y="{TOP+10+j*20}" width="18" height="5" fill="{SC[nm]}"/>')
+    txt(o, L0+174, TOP+17+j*20, f"{nm}: AUC = {auc_s(s):.3f}", 12, 700, SC[nm], "start", halo=False)
+# pannello destro: FRR a FAR fissata
+BX0, BX1, BY0, BY1 = 600, 880, 130, 450
+txt(o, (BX0+BX1)/2, 104, "FRR a FAR fissata", 14, 700, "#111", halo=False)
+fars = [0.1, 0.01, 0.001]
+syb = lambda v: BY1 - v*(BY1-BY0)
+for v in [0, 0.25, 0.5, 0.75, 1.0]:
+    o.append(f'<line x1="{BX0}" y1="{syb(v):.1f}" x2="{BX1}" y2="{syb(v):.1f}" stroke="#e5e7eb"/>')
+    txt(o, BX0-6, syb(v)+4, f"{v:.0%}", 11, None, "#333", "end", halo=False)
+gw = (BX1-BX0)/len(fars)
+for g, f in enumerate(fars):
+    for j, (nm, s) in enumerate(SYS.items()):
+        v = frr_at_far(f, s)
+        x = BX0 + g*gw + 12 + j*(gw/2-8)
+        o.append(f'<rect x="{x:.1f}" y="{syb(v):.1f}" width="{gw/2-12:.1f}" height="{BY1-syb(v):.1f}" fill="{SC[nm]}" fill-opacity="0.85"/>')
+        txt(o, x+(gw/2-12)/2, syb(v)-5, f"{v:.0%}", 11.5, 700, SC[nm])
+    txt(o, BX0+g*gw+gw/2, BY1+18, f"FAR = {f:.1%}", 11.5, None, "#333", halo=False)
+o.append(f'<line x1="{BX0}" y1="{BY1}" x2="{BX1}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+gap_ = frr_at_far(0.001, SYS["Sistema A"]) - frr_at_far(0.001, SYS["Sistema B"])
+txt(o, W/2, H-44, f"A ha l'AUC più alta ma a FAR = 0.1% ha {gap_*100:.0f} punti di FRR in più di B: la scelta dipende dall'applicazione, non dall'AUC.", 12.5, 700, "#222", halo=False)
+txt(o, W/2, H-24, "A parità di FAR vince chi ha FRR inferiore; a parità di FRR chi ha FAR inferiore; senza vincoli si confrontano le AUC e le curve.", 11.5, None, "#555", halo=False)
+save(o, 'fig17_confronto_sistemi.svg')
+print({n: round(auc_s(s), 3) for n, s in SYS.items()}, cross, {n: [round(frr_at_far(f, s), 3) for f in fars] for n, s in SYS.items()})
+```
+
+<img src="./img/fig17_confronto_sistemi.svg" alt="Confronto tra due sistemi con DET che si incrociano" style="display:block; margin:1.5em auto; max-width:100%;">
+
+### 15.2 Perché le prestazioni sono "ex-post": il dataset shift
+
+La soglia si sceglie su un insieme di valutazione (offline), ma poi il sistema lavora con utenti nuovi e condizioni diverse. Se la distribuzione degli score cambia, **FAR e FRR cambiano anche a soglia invariata**. Nell'esempio la soglia è scelta all'EER in laboratorio (FAR = FRR = 4.0%); sul campo i genuini hanno medie più basse e code più larghe e gli impostori sono un po' più simili: la stessa soglia produce FAR ≈ 9.4% e FRR ≈ 33.6%. Per questo gli standard distinguono valutazioni *tecnologiche*, *di scenario* e *operative*, e per questo il **template update** (§16) e la ri-calibrazione sul campo sono necessari.
+
+```python
+# =====================================================================
+# 36 — Dataset shift: dal laboratorio al campo  (richiede 01, 05)
+# Produce: fig18_shift_operativo.svg
+# =====================================================================
+PhiN = NormalDist().cdf
+LAB = (0.70, 0.10, 0.35, 0.10)           # μ_G, σ_G, μ_I, σ_I misurati offline
+OPS_ = (0.58, 0.13, 0.38, 0.11)          # stessa tecnologia, utenti/condizioni diverse
+T_LAB = (LAB[0]+LAB[2])/2                # soglia scelta all'EER in laboratorio
+
+W, H = 920, 640
+o = new_svg(W, H)
+header(o, W, "Le prestazioni sono ex-post: la soglia scelta offline non vale in produzione",
+       f"Soglia fissata in laboratorio all'EER: t = {T_LAB:.3f} (si accetta se s ≥ t)")
+L0, R0 = 70, 880
+XMIN, XMAX, YMAX = -0.1, 1.1, 4.4
+sx = lambda x: L0 + (x-XMIN)/(XMAX-XMIN)*(R0-L0)
+for r, (nm, s) in enumerate([("Valutazione offline (laboratorio)", LAB), ("Uso reale (utenti nuovi, condizioni variabili)", OPS_)]):
+    TOP, BOT = 100 + r*270, 270 + r*270
+    sy = lambda y, TOP=TOP, BOT=BOT: BOT - y/YMAX*(BOT-TOP)
+    mg, sg, mi, si = s
+    fa_ = 1 - PhiN((T_LAB-mi)/si); fr_ = PhiN((T_LAB-mg)/sg)
+    o.append(f'<path d="{g_area(mi,si,XMIN,T_LAB,sx,sy,BOT)}" fill="{C_I}" fill-opacity="0.15"/>')
+    o.append(f'<path d="{g_area(mg,sg,T_LAB,XMAX,sx,sy,BOT)}" fill="{C_G}" fill-opacity="0.15"/>')
+    o.append(f'<path d="{g_area(mi,si,T_LAB,XMAX,sx,sy,BOT)}" fill="{C_FA}" fill-opacity="0.85"/>')
+    o.append(f'<path d="{g_area(mg,sg,XMIN,T_LAB,sx,sy,BOT)}" fill="{C_FR}" fill-opacity="0.85"/>')
+    o.append(f'<path d="{g_line(mi,si,XMIN,XMAX,sx,sy)}" fill="none" stroke="{C_I}" stroke-width="2.4"/>')
+    o.append(f'<path d="{g_line(mg,sg,XMIN,XMAX,sx,sy)}" fill="none" stroke="{C_G}" stroke-width="2.4"/>')
+    o.append(f'<line x1="{L0}" y1="{BOT}" x2="{R0}" y2="{BOT}" stroke="#222" stroke-width="1.5"/>')
+    o.append(f'<line x1="{sx(T_LAB):.1f}" y1="{TOP}" x2="{sx(T_LAB):.1f}" y2="{BOT}" stroke="#111" stroke-width="2" stroke-dasharray="7,5"/>')
+    txt(o, L0, TOP-6, nm, 14.5, 700, "#111", "start", halo=False)
+    txt(o, sx(mi)-60, sy(pdf(mi, mi, si))+16, "impostori", 12.5, 700, C_I, halo=False)
+    txt(o, sx(mg)+60, sy(pdf(mg, mg, sg))+16, "genuini", 12.5, 700, C_G_T, halo=False)
+    txt(o, R0-6, TOP+22, f"FAR = {fa_:.1%}", 15, 700, C_FA_T, "end", halo=False)
+    txt(o, R0-6, TOP+42, f"FRR = {fr_:.1%}", 15, 700, C_FR_T, "end", halo=False)
+    for v in [0, 0.2, 0.4, 0.6, 0.8, 1.0]:
+        txt(o, sx(v), BOT+17, f"{v:.1f}", 11.5, None, "#333", halo=False)
+txt(o, W/2, 618, "Stessa soglia e stessa tecnologia: medie più basse e code più larghe spostano FAR e FRR. Per questo si ri-valuta sul campo (valutazione di scenario/operativa).", 12, None, "#555", halo=False)
+save(o, 'fig18_shift_operativo.svg')
+print(round(1-PhiN((T_LAB-OPS_[2])/OPS_[3]), 4), round(PhiN((T_LAB-OPS_[0])/OPS_[1]), 4))
+```
+
+<img src="./img/fig18_shift_operativo.svg" alt="Dataset shift: FAR e FRR a soglia fissa" style="display:block; margin:1.5em auto; max-width:100%;">
+
 ---
 
 ## 16. Aggiornamento del template (Template Update)
 
-Per migliorare l'affidabilità nel tempo:
-- Aggiungere nuovi template in gallery quando il riconoscimento è affidabile (mantenendo anche i vecchi → utile contro le intra-class variation).
-- Necessario in caso di **invecchiamento** del tratto biometrico.
-- Gestione delle nuove tecnologie (es. sensori a risoluzione più alta).
-- Modalità: **Supervised** (un operatore conferma) o **Semi-Supervised** (automatica, tramite confronto statistico).
-- Selezione dei template più rappresentativi: **Online** (appena arrivano nuovi dati) o **Offline** (dopo un certo periodo di raccolta).
+Per migliorare qualità e affidabilità nel tempo una delle soluzioni è l'aggiornamento dei template.
+
+### 16.1 Che cos'è un template
+
+Le **feature estratte da un sample** di un tratto biometrico, etichettate con l'identità dell'individuo, costituiscono il suo **template**.
+
+- Il matching usa il template, **non il sample**.
+- Un template «non dovrebbe permettere di ricostruire» un sample valido.
+- La sua dimensione ridotta facilita la codifica e l'archiviazione su più dispositivi.
+- **Ogni volta** che l'individuo fornisce un campione biometrico viene generato un template **diverso**.
+
+Durante l'esercizio del sistema diventano disponibili molti più dati biometrici, acquisiti nel tempo: il sistema può usarli per **aggiornare con regolarità i template della gallery**, per affrontare il **template ageing** (il tratto cambia nel tempo) e il **template enhancing** (migliorare i template con più dati).
+
+```python
+# =====================================================================
+# 37 — Dal sample al template (e perché ogni acquisizione ne produce uno diverso)  (richiede 01, 05)
+# Produce: fig19a_template_schema.svg
+# Schema illustrativo con punti-minuzia simulati (seed fisso).
+# =====================================================================
+random.seed(31)
+BASE_PTS = [(random.uniform(0.12, 0.88), random.uniform(0.1, 0.9)) for _ in range(16)]
+
+def acquisition(jitter=0.025, drop=2, add=1):
+    pts = [(x+random.gauss(0, jitter), y+random.gauss(0, jitter)) for x, y in BASE_PTS]
+    for _ in range(drop): pts.pop(random.randrange(len(pts)))
+    for _ in range(add):  pts.append((random.uniform(0.12, 0.88), random.uniform(0.1, 0.9)))
+    return pts
+
+def sample_icon(o, x, y, w, h, uid, tilt=0.0):
+    o.append(f'<clipPath id="{uid}"><rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6"/></clipPath>')
+    o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.6"/>')
+    cx, cy = x+w/2+tilt*w, y+h*0.55
+    for k in range(1, 9):
+        o.append(f'<ellipse cx="{cx:.1f}" cy="{cy:.1f}" rx="{k*w*0.075:.1f}" ry="{k*h*0.085:.1f}" fill="none" stroke="#6b7280" stroke-width="1.6" clip-path="url(#{uid})"/>')
+
+def template_icon(o, x, y, w, h, pts, color=C_FA):
+    rect(o, x, y, w, h, "#fff", "#374151", 1.6, 6)
+    for px_, py_ in pts:
+        o.append(f'<circle cx="{x+px_*w:.1f}" cy="{y+py_*h:.1f}" r="2.8" fill="{color}"/>')
+
+W, H = 920, 600
+o = new_svg(W, H)
+header(o, W, "Template: dal sample alla gallery",
+       "Il matching usa il template (feature etichettate con l'identità), non il sample · ogni acquisizione genera un template diverso")
+# sinistra: pipeline singola
+sample_icon(o, 40, 120, 120, 150, "s0")
+txt(o, 100, 290, "sample", 13, 700, "#111", halo=False)
+txt(o, 100, 307, "(es. impronta)", 11.5, None, "#555", halo=False)
+arrow(o, 168, 195, 238, 195, "#111", 2.2)
+txt(o, 203, 180, "estrazione", 11.5, 700, "#111"); txt(o, 203, 213, "feature", 11.5, 700, "#111")
+template_icon(o, 246, 120, 120, 150, BASE_PTS)
+txt(o, 306, 290, "template", 13, 700, C_FA_T, halo=False)
+txt(o, 306, 307, "{(x, y, θ) ...} + identità", 11.5, None, "#555", halo=False)
+box(o, 203, 385, 340, 80, ["Proprietà del template", "• sta in uno spazio ridotto: facile da codificare e archiviare", "• non deve permettere di ricostruire un sample valido"], BLU_BG, C_I, 11.5)
+# destra: tre acquisizioni
+txt(o, 640, 104, "Stessa persona, tre acquisizioni", 14, 700, "#111", halo=False)
+for j in range(3):
+    x0 = 440 + j*150
+    sample_icon(o, x0, 120, 110, 120, f"s{j+1}", tilt=(j-1)*0.05)
+    arrow(o, x0+55, 246, x0+55, 270, "#111", 1.8)
+    template_icon(o, x0, 276, 110, 120, acquisition())
+    txt(o, x0+55, 414, f"template T{j+1}", 12, 700, C_FA_T, halo=False)
+box(o, 640, 480, 440, 60, ["T1 ≠ T2 ≠ T3 anche per lo stesso soggetto", "→ la gallery può contenere più template per identità (§9, multiple template)"], C_FR_BG, C_FR_T, 12)
+txt(o, W/2, 580, "In esercizio arrivano molti più dati che all'enrollment: usarli per aggiornare i template risolve invecchiamento e qualità (§16).", 12, None, "#555", halo=False)
+save(o, 'fig19a_template_schema.svg')
+```
+
+<img src="./img/fig19a_template_schema.svg" alt="Dal sample al template" style="display:block; margin:1.5em auto; max-width:100%;">
+
+### 16.2 Come si aggiorna: etichette e selezione
+
+Due scelte indipendenti:
+
+- **Assegnazione delle etichette**
+  - **Supervised**: serve un supervisore che assegna le identità ai dati acquisiti durante l'esercizio; di solito lavora offline.
+  - **Semi-supervised**: usa l'unione di dati etichettati e non etichettati; lavora sia online sia offline (tipicamente con un confronto statistico automatico).
+- **Selezione dei template più rappresentativi**
+  - **Online**: la selezione avviene appena il sistema acquisisce nuovi dati.
+  - **Offline**: la selezione avviene dopo aver raccolto una certa quantità di dati in un certo intervallo di tempo.
+
+Inoltre: si aggiungono nuovi template in gallery quando il riconoscimento è affidabile (mantenendo anche i vecchi, utile contro le intra-class variation), è necessario in caso di **invecchiamento** del tratto, e serve per gestire nuove tecnologie (es. sensori a risoluzione più alta).
+
+```python
+# =====================================================================
+# 38 — Template updating: assegnazione delle etichette e selezione dei template  (richiede 01, 05)
+# Produce: fig19b_template_tassonomia.svg
+# =====================================================================
+W, H = 920, 670
+o = new_svg(W, H)
+header(o, W, "Template updating: due scelte indipendenti",
+       "Come si assegnano le etichette ai nuovi dati · quando si scelgono i template più rappresentativi")
+# colonne di scelta
+txt(o, 230, 96, "Assegnazione delle etichette", 15, 700, "#111", halo=False)
+box(o, 230, 170, 400, 98, ["Supervised", "serve un supervisore che assegna le identità ai nuovi dati", "durante l'esercizio del sistema", "di solito lavora offline"], C_OK_BG, C_G_T, 12.5)
+box(o, 230, 290, 400, 98, ["Semi-supervised", "usa l'unione di dati etichettati e non etichettati", "lavora sia online sia offline", ""], C_FR_BG, C_FR_T, 12.5)
+txt(o, 690, 96, "Selezione dei template più rappresentativi", 15, 700, "#111", halo=False)
+box(o, 690, 170, 400, 98, ["Online", "la selezione avviene appena il sistema acquisisce", "nuovi dati in ingresso", ""], BLU_BG, C_I, 12.5)
+box(o, 690, 290, 400, 98, ["Offline", "la selezione avviene dopo aver raccolto una certa quantità", "di dati in un certo intervallo di tempo", ""], GREY_BG, "#374151", 12.5)
+# linee temporali
+TX0, TX1 = 150, 860
+txt(o, 40, 360, "Come cambia nel tempo", 13.5, 700, "#111", "start", halo=False)
+acq = [190, 270, 340, 430, 520, 590, 680, 760]
+for r, (nm, col) in enumerate([("Online", C_I), ("Offline", "#374151")]):
+    y = 420 + r*110
+    txt(o, 40, y+4, nm, 13, 700, col, "start", halo=False)
+    if r == 1:
+        for wx, ww, lab in [(170, 300, "finestra di raccolta"), (640, 220, "finestra successiva")]:
+            o.append(f'<rect x="{wx}" y="{y-18}" width="{ww}" height="36" rx="6" fill="{C_FR}" fill-opacity="0.15" stroke="{C_FR_T}" stroke-width="1.5" stroke-dasharray="6,4"/>')
+            txt(o, wx+ww/2, y-26, lab, 11.5, 700, C_FR_T)
+    o.append(f'<line x1="{TX0}" y1="{y}" x2="{TX1}" y2="{y}" stroke="#9ca3af" stroke-width="2"/>')
+    arrow(o, TX1-6, y, TX1+10, y, "#9ca3af", 2, 8)
+    for i, x in enumerate(acq):
+        o.append(f'<circle cx="{x}" cy="{y}" r="6" fill="{C_G}" stroke="#fff" stroke-width="2"/>')
+        if r == 0:
+            arrow(o, x, y+10, x, y+36, col, 1.4, 6)
+    if r == 0:
+        txt(o, (TX0+TX1)/2, y+56, "ogni nuova acquisizione può aggiornare subito la gallery", 11.5, None, "#333", halo=False)
+    else:
+        arrow(o, 470, y+34, 470, y+20, "#374151", 1.6, 7)
+        txt(o, 470, y+50, "selezione dei template in blocco, alla fine di ogni finestra", 11.5, None, "#333", halo=False)
+txt(o, 40, 640, "Obiettivi:", 12.5, 700, "#111", "start", halo=False)
+box(o, 320, 636, 360, 36, ["Template ageing: il tratto cambia nel tempo"], C_FA_BG, C_FA_T, 11.5)
+box(o, 710, 636, 360, 36, ["Template enhancing: più dati → template migliori"], C_OK_BG, C_G_T, 11.5)
+save(o, 'fig19b_template_tassonomia.svg')
+```
+
+<img src="./img/fig19b_template_tassonomia.svg" alt="Tassonomia del template updating" style="display:block; margin:1.5em auto; max-width:100%;">
+
+### 16.3 Perché serve: un modello semplice dell'invecchiamento
+
+Si assume che lo score atteso di un genuino diminuisca di 0.05 per ogni sessione di distanza dal template più recente (invecchiamento, cambio di condizioni). Con soglia di accettazione $t=0.55$ e nessun aggiornamento, il FRR sale da pochi punti percentuali a quasi il 100% in dodici sessioni. Tre politiche a confronto, su 3000 utenti simulati:
+
+- **nessun aggiornamento**: lo score medio scende sotto $t$ e il sistema smette di riconoscere l'utente;
+- **semi-supervised**: si aggiunge un template solo quando lo score è molto alto (qui $\ge 0.65$): il FRR resta basso ma non nullo, perché chi «scivola» sotto la soglia di update smette di rinnovarsi;
+- **supervised**: l'operatore conferma ogni genuino e il template si rinnova sempre.
+
+Il rischio del semi-supervised è l'**avvelenamento della gallery**: un impostore con score sopra la soglia di update verrebbe aggiunto. Per questo la soglia di update è più severa di quella di accettazione e si tengono anche i template vecchi.
+
+```python
+# =====================================================================
+# 39 — Template update: invecchiamento e politiche di aggiornamento  (richiede 01, 05)
+# Produce: fig19_template_update.svg
+# =====================================================================
+random.seed(8)
+NU, NS = 3000, 12
+T_ACC, T_UPD, SIGM = 0.55, 0.65, 0.08
+mu_gap = lambda a: 0.80 - 0.05*a             # score atteso del genuino a distanza a sessioni dal template più recente
+
+def simulate(policy):
+    age = [1]*NU
+    fr_s, mean_s = [], []
+    for s in range(1, NS+1):
+        scores = [random.gauss(mu_gap(a), SIGM) for a in age]
+        fr_s.append(sum(x < T_ACC for x in scores)/NU)
+        mean_s.append(sum(scores)/NU)
+        for u, x in enumerate(scores):
+            if policy == "none":            age[u] += 1
+            elif policy == "supervised":    age[u] = 1                           # l'operatore conferma sempre: nuovo template
+            else:                           age[u] = 1 if x >= T_UPD else age[u]+1   # semi-supervised: solo se molto affidabile
+    return fr_s, mean_s
+
+pol = [("none", "nessun aggiornamento", "#dc2626"), ("semi", f"semi-supervised (s ≥ {T_UPD})", "#f59e0b"), ("supervised", "supervised (operatore)", "#16a34a")]
+res = {k: simulate(k) for k, _, _ in pol}
+p_poison = 1 - NormalDist().cdf((T_UPD-0.35)/0.10)     # impostore (μ=0.35, σ=0.10) che supera la soglia di update
+
+W, H = 920, 560
+o = new_svg(W, H)
+header(o, W, "Template update: l'invecchiamento del tratto e le politiche di aggiornamento",
+       f"{NU} utenti simulati · score genuino atteso = 0.80 − 0.05·(distanza dal template più recente) · t = {T_ACC}")
+def panel(X0, X1, Y0, Y1, key, ymin, ymax, title, fmt, thr=None):
+    sxs = lambda s: X0 + (s-1)/(NS-1)*(X1-X0)
+    sys_ = lambda v: Y1 - (v-ymin)/(ymax-ymin)*(Y1-Y0)
+    txt(o, (X0+X1)/2, Y0-14, title, 14, 700, "#111", halo=False)
+    for j in range(5):
+        v = ymin + (ymax-ymin)*j/4
+        o.append(f'<line x1="{X0}" y1="{sys_(v):.1f}" x2="{X1}" y2="{sys_(v):.1f}" stroke="#e5e7eb"/>')
+        txt(o, X0-8, sys_(v)+4, fmt(v), 11.5, None, "#333", "end", halo=False)
+    for s in range(1, NS+1):
+        txt(o, sxs(s), Y1+18, str(s), 11.5, None, "#333", halo=False)
+    txt(o, (X0+X1)/2, Y1+38, "sessione dopo l'enrollment", 12.5, None, "#222", halo=False)
+    if thr is not None:
+        o.append(f'<line x1="{X0}" y1="{sys_(thr):.1f}" x2="{X1}" y2="{sys_(thr):.1f}" stroke="#111" stroke-width="1.6" stroke-dasharray="6,4"/>')
+        txt(o, X1, sys_(thr)-6, f"t = {thr}", 12, 700, "#111", "end")
+    for k, nm, c in pol:
+        ys = res[k][key]
+        o.append('<path d="M ' + " L ".join(f"{sxs(s):.1f},{sys_(v):.1f}" for s, v in enumerate(ys, 1)) + f'" fill="none" stroke="{c}" stroke-width="3"/>')
+        for s, v in enumerate(ys, 1):
+            o.append(f'<circle cx="{sxs(s):.1f}" cy="{sys_(v):.1f}" r="3.4" fill="{c}"/>')
+    o.append(f'<line x1="{X0}" y1="{Y1}" x2="{X1}" y2="{Y1}" stroke="#222" stroke-width="1.5"/>')
+    o.append(f'<line x1="{X0}" y1="{Y0}" x2="{X0}" y2="{Y1}" stroke="#222" stroke-width="1.5"/>')
+panel(80, 430, 110, 380, 1, 0.15, 0.80, "A · score genuino medio", lambda v: f"{v:.2f}", T_ACC)
+panel(520, 870, 110, 380, 0, 0.0, 1.0, "B · FRR (a soglia fissa)", lambda v: f"{v:.0%}")
+for j, (k, nm, c) in enumerate(pol):
+    yy = 452 + j*20
+    o.append(f'<rect x="80" y="{yy-8}" width="22" height="6" fill="{c}"/>')
+    txt(o, 110, yy, f"{nm}: FRR alla sessione 12 = {res[k][0][-1]:.0%}", 12.5, None, "#222", "start", halo=False)
+txt(o, 80, 524, f"Rischio del semi-supervised: un impostore con score ≥ {T_UPD} entrerebbe in gallery (qui p ≈ {p_poison:.3%} per tentativo).", 11.5, None, "#555", "start", halo=False)
+txt(o, 80, 542, "La soglia di update va tenuta più severa di quella di accettazione. I template vecchi si conservano: l'update aggiunge, non sostituisce.", 11.5, None, "#555", "start", halo=False)
+save(o, 'fig19_template_update.svg')
+print({k: [round(v, 2) for v in res[k][0]] for k in res}, p_poison)
+```
+
+<img src="./img/fig19_template_update.svg" alt="Template update: score medio e FRR per politica" style="display:block; margin:1.5em auto; max-width:100%;">
 
 ---
 
@@ -3460,6 +4723,8 @@ Per migliorare l'affidabilità nel tempo:
 - **A parità di FAR:** si sceglie il sistema con il **FRR inferiore** a quella stessa soglia (più utenti genuini vengono accettati, GAR più alto).
 - **A parità di FRR:** si sceglie il sistema con il **FAR inferiore** (maggiore sicurezza contro gli impostori).
 - **In senso globale (nessun vincolo di parità):** si confronta l'**AUC** delle rispettive curve ROC. Si seleziona il sistema con l'AUC maggiore, perché indica prestazioni complessivamente migliori su tutto il range di soglie possibili.
+
+> Attenzione: se le curve si incrociano (figura del §15.1), l'AUC maggiore non garantisce di vincere nella zona operativa che interessa. In quel caso si confrontano i FRR **al FAR richiesto dall'applicazione**.
 
 ### 17.2 Detection Rate vs Identification Rate
 
@@ -3473,6 +4738,47 @@ Per migliorare l'affidabilità nel tempo:
 Se si calcolassero i tassi di errore dividendo semplicemente per il **numero totale di probe** (come fa l'accuracy standard in ML), si otterrebbe un valore che **nasconde comportamenti critici asimmetrici**. 
 
 **Esempio:** un sistema può mostrare un'accuracy dell'80% pur accettando il 100% degli impostori (FAR = 1, gravissimo per la sicurezza) oppure rifiutando il 100% degli utenti legittimi (FRR = 1, sistema inutilizzabile). L'accuracy aggrega tutto in un unico numero medio e può mascherare uno dei due errori. Le metriche biometriche FAR/FRR, invece, **separano sempre genuini e impostori**, rendendo visibile ogni comportamento anomalo.
+
+**Come leggere la figura.** Tre sistemi con **lo stesso numero di errori** (10 FR + 10 FA su 100 probe) e quindi la stessa accuracy dell'80%, ma con composizioni diverse del test set. Il Sistema 1 ha il 100% di FAR, il Sistema 3 il 100% di FRR, il Sistema 2 (test bilanciato) ha 20% e 20%. Solo FAR e FRR rendono visibile la differenza.
+
+```python
+# =====================================================================
+# 40 — Perché l'accuracy non basta  (richiede 01, 05)
+# Produce: fig20_accuracy_trappola.svg
+# =====================================================================
+# (nome, n genuini, n impostori, FR, FA): tre sistemi con la stessa accuracy
+SYS3 = [("Sistema 1", 90, 10, 10, 10), ("Sistema 2", 50, 50, 10, 10), ("Sistema 3", 10, 90, 10, 10)]
+W, H = 920, 520
+o = new_svg(W, H)
+header(o, W, "Accuracy classica vs FAR/FRR: 100 probe, 20 errori, stessa accuracy",
+       "L'accuracy divide per tutte le probe; FAR e FRR dividono per i tentativi della propria categoria")
+X0, X1, Y0, Y1 = 80, 880, 110, 360
+sy = lambda v: Y1 - v*(Y1-Y0)
+for v in [0, 0.25, 0.5, 0.75, 1.0]:
+    o.append(f'<line x1="{X0}" y1="{sy(v):.1f}" x2="{X1}" y2="{sy(v):.1f}" stroke="#e5e7eb"/>')
+    txt(o, X0-8, sy(v)+4, f"{v:.0%}", 11.5, None, "#333", "end", halo=False)
+gw = (X1-X0)/3
+bw = 62
+for g, (nm, ng, ni, fr_, fa_) in enumerate(SYS3):
+    acc = 1 - (fr_+fa_)/(ng+ni)
+    vals = [("accuracy", acc, C_I), ("FAR", fa_/ni, C_FA), ("FRR", fr_/ng, C_FR)]
+    gx = X0 + g*gw + gw/2 - 1.5*bw - 10
+    for j, (lab, v, c) in enumerate(vals):
+        x = gx + j*(bw+10)
+        o.append(f'<rect x="{x:.1f}" y="{sy(v):.1f}" width="{bw}" height="{Y1-sy(v):.1f}" fill="{c}" fill-opacity="0.85"/>')
+        txt(o, x+bw/2, sy(v)-6, f"{v:.0%}", 13, 700, {C_I: "#1d4ed8", C_FA: C_FA_T, C_FR: C_FR_T}[c])
+        txt(o, x+bw/2, Y1+16, lab, 11.5, None, "#333", halo=False)
+    txt(o, X0+g*gw+gw/2, Y1+40, nm, 14, 700, "#111", halo=False)
+    txt(o, X0+g*gw+gw/2, Y1+58, f"{ng} genuini · {ni} impostori · FR = {fr_} · FA = {fa_}", 11.5, None, "#444", halo=False)
+o.append(f'<line x1="{X0}" y1="{Y1}" x2="{X1}" y2="{Y1}" stroke="#222" stroke-width="1.5"/>')
+box(o, 230, 452, 330, 40, ["Sistema 1: accetta il 100% degli impostori", "inutilizzabile per la sicurezza, ma accuracy 80%"], C_FA_BG, C_FA_T, 11.5)
+box(o, 690, 452, 330, 40, ["Sistema 3: rifiuta il 100% dei genuini", "inutilizzabile per l'utente, ma accuracy 80%"], C_FR_BG, C_FR_T, 11.5)
+txt(o, W/2, 500, "FAR = FA / TI · FRR = FR / TG: la normalizzazione per categoria rende visibile l'errore che l'accuracy media nasconde.", 12, None, "#555", halo=False)
+save(o, 'fig20_accuracy_trappola.svg')
+print([(n, 1-(a+b)/(g+i), b/i, a/g) for n, g, i, a, b in SYS3])
+```
+
+<img src="./img/fig20_accuracy_trappola.svg" alt="Accuracy uguale, FAR e FRR molto diversi" style="display:block; margin:1.5em auto; max-width:100%;">
 
 ### 17.4 FAR/FRR vs Precision/Recall (confronto con le metriche ML)
 
@@ -3494,11 +4800,156 @@ $$
 
 > Le due coppie partono da prospettive opposte e complementari: Precision/Recall valutano **quante risposte positive sono corrette**; FAR/FRR valutano **quanto spesso il sistema sbaglia** su ciascuna categoria di utenti (genuini vs impostori). Per questo in ambito biometrico si preferisce sempre riportare FAR/FRR (o la coppia EER/ROC) piuttosto che una singola accuracy aggregata.
 
+**Come leggere la figura.** La stessa matrice di confusione è letta in due modi. A sinistra: la *Precision* usa la **colonna** degli accettati (GA su GA+FA), la *Recall* la **riga** dei genuini; a destra FRR e FAR usano due **righe** distinte, ciascuna normalizzata per i propri tentativi (TG e TI). Una conseguenza pratica, calcolata nel riquadro: se si moltiplicano per 10 gli impostori mantenendo lo stesso comportamento, **FAR e FRR non cambiano**, mentre la Precision crolla da 0.93 a 0.58. FAR e FRR descrivono il sistema; la Precision dipende anche dalla composizione del traffico.
+
+```python
+# =====================================================================
+# 41 — FAR/FRR vs Precision/Recall sulla matrice di confusione  (richiede 01, 05)
+# Produce: fig21_far_frr_precision_recall.svg
+# =====================================================================
+GA_, FR_, FA_, GR_ = 70, 10, 5, 15
+TG_, TI_ = GA_+FR_, FA_+GR_
+prec, rec = GA_/(GA_+FA_), GA_/(GA_+FR_)
+frr_v, far_v = FR_/TG_, FA_/TI_
+k10 = 10                                               # impostori ×10, stessa FAR
+prec10 = GA_/(GA_+FA_*k10)
+
+W, H = 920, 560
+o = new_svg(W, H)
+header(o, W, "FAR/FRR e Precision/Recall sulla stessa matrice di confusione",
+       f"GA = {GA_} · FR = {FR_} · FA = {FA_} · GR = {GR_}  →  TG = {TG_} genuini, TI = {TI_} impostori")
+CW_, CH_ = 130, 70
+def conf(X0, Y0, hl_rows, hl_cols, ttl):
+    txt(o, X0+CW_, Y0-34, ttl, 14, 700, "#111", halo=False)
+    txt(o, X0+CW_/2, Y0-10, "accettato", 12, 700, "#555", halo=False)
+    txt(o, X0+1.5*CW_, Y0-10, "rifiutato", 12, 700, "#555", halo=False)
+    cells = [[("GA", GA_, C_OK_BG, C_G_T), ("FR", FR_, C_FR_BG, C_FR_T)],
+             [("FA", FA_, C_FA_BG, C_FA_T), ("GR", GR_, C_OK_BG, C_G_T)]]
+    for r, rn in enumerate(["genuino", "impostore"]):
+        txt(o, X0-8, Y0+r*CH_+CH_/2+4, rn, 12, 700, "#555", "end", halo=False)
+        for c in range(2):
+            nm, v, bg, fg = cells[r][c]
+            rect(o, X0+c*CW_, Y0+r*CH_, CW_, CH_, bg, "#9ca3af", 1, 0)
+            txt(o, X0+c*CW_+CW_/2, Y0+r*CH_+30, nm, 15, 700, fg, halo=False)
+            txt(o, X0+c*CW_+CW_/2, Y0+r*CH_+52, str(v), 14, None, "#222", halo=False)
+    for r, col, dash in hl_rows:
+        o.append(f'<rect x="{X0-3}" y="{Y0+r*CH_-3}" width="{2*CW_+6}" height="{CH_+6}" fill="none" stroke="{col}" stroke-width="3.5" stroke-dasharray="{dash}"/>')
+    for c, col, dash in hl_cols:
+        o.append(f'<rect x="{X0+c*CW_-3}" y="{Y0-3}" width="{CW_+6}" height="{2*CH_+6}" fill="none" stroke="{col}" stroke-width="3.5" stroke-dasharray="{dash}"/>')
+conf(110, 130, [(0, C_GT, "8,5")], [(0, C_I, "none")], "Prospettiva ML: sui positivi")
+conf(560, 130, [(0, C_FR_T, "none"), (1, C_FA_T, "8,5")], [], "Prospettiva biometrica: per categoria")
+txt(o, 110, 300, "Precision = GA / (GA + FA)  (colonna blu)", 12.5, 700, "#1d4ed8", "start", halo=False)
+txt(o, 110, 320, f"= {GA_} / {GA_+FA_} = {prec:.3f}", 12.5, None, "#222", "start", halo=False)
+txt(o, 110, 346, "Recall = GA / (GA + FR)  (riga viola)", 12.5, 700, C_GT, "start", halo=False)
+txt(o, 110, 366, f"= {GA_} / {TG_} = {rec:.3f}", 12.5, None, "#222", "start", halo=False)
+txt(o, 560, 300, "FRR = FR / TG  (riga genuini)", 12.5, 700, C_FR_T, "start", halo=False)
+txt(o, 560, 320, f"= {FR_} / {TG_} = {frr_v:.3f} = 1 − Recall", 12.5, None, "#222", "start", halo=False)
+txt(o, 560, 346, "FAR = FA / TI  (riga impostori)", 12.5, 700, C_FA_T, "start", halo=False)
+txt(o, 560, 366, f"= {FA_} / {TI_} = {far_v:.3f} = FP / (FP + TN)", 12.5, None, "#222", "start", halo=False)
+box(o, W/2, 450, 800, 74, [f"Dipendenza dalla composizione: con {k10}× impostori e lo stesso comportamento (FAR = {far_v:.2f}) → FA = {FA_*k10}, GA = {GA_}",
+    f"Precision scende da {prec:.3f} a {prec10:.3f}; FAR e FRR restano identici ({far_v:.2f} e {frr_v:.3f})",
+    "FAR/FRR descrivono il sistema; la Precision dipende anche da quanti impostori si presentano."], "#eff6ff", C_I, 12.5)
+txt(o, W/2, 520, "Recall = GAR = 1 − FRR · il complemento di FAR è GRR (specificità). Precision/Recall guardano i positivi, FAR/FRR separano genuini e impostori.", 11.5, None, "#555", halo=False)
+save(o, 'fig21_far_frr_precision_recall.svg')
+print(prec, prec10, rec, frr_v, far_v)
+```
+
+<img src="./img/fig21_far_frr_precision_recall.svg" alt="FAR/FRR e Precision/Recall sulla stessa matrice" style="display:block; margin:1.5em auto; max-width:100%;">
+
 ### 17.5 Relazione tra CMC, ROC, FAR e FRR
 
 Bolle et al. (2005) hanno dimostrato un risultato importante: quando un matcher 1:1 viene usato per ordinare i candidati (cioè per costruire la lista ordinata usata nel closed/open set), la **curva CMC è direttamente derivabile da FAR e FRR** — non aggiunge quindi nuova informazione statistica rispetto alla curva ROC, che già mostra il trade-off FAR/FRR al variare della soglia.
 
 > In sintesi: **CMC, ROC, FAR e FRR sono tutte rappresentazioni diverse della stessa informazione**, contenuta a monte nella Distance/Similarity Matrix (DM) calcolata tra probe e gallery. Cambia solo il modo in cui questa informazione viene "letta" e visualizzata (per rango vs per soglia).
+
+**Come si deriva (closed set, impostori indipendenti).** Si fissa lo score $s$ del genuino. Il suo rango è $1+$ il numero di impostori della gallery che lo superano; con $N-1$ impostori indipendenti, ciascuno sopra $s$ con probabilità $FAR(s)$, quel numero è una binomiale. Il genuino è entro il rango $k$ se **al più** $k-1$ impostori lo superano:
+
+$$
+CMS(k) = \int f_G(s)\ \sum_{m=0}^{k-1}\binom{N-1}{m}\,FAR(s)^{m}\,\bigl(1-FAR(s)\bigr)^{N-1-m}\, ds
+$$
+
+Nell'esempio (matcher gaussiano, $N=10$) la curva calcolata con questa formula (linea verde) coincide con quella ottenuta simulando 4000 probe (cerchi): $RR=CMS(1)\approx0.57$. Con la sola ROC (che contiene $FAR(s)$ e $f_G$) si ricostruisce quindi **tutta** la CMC. L'indipendenza degli impostori è un'ipotesi: nei dati reali i punteggi contro i diversi template sono correlati, e la formula è un'approssimazione.
+
+```python
+# =====================================================================
+# 42 — La CMC si deriva da FAR e FRR (Bolle et al.)  (richiede 01, 05)
+# Produce: fig22_cmc_da_roc.svg
+# =====================================================================
+MG_B, MI_B, SD_B, NB = 0.60, 0.40, 0.12, 10     # gallery di N = 10 identità, matcher 1:1 gaussiano
+PhiN = NormalDist().cdf
+far_b = lambda s: 1 - PhiN((s-MI_B)/SD_B)       # P(impostore ≥ s)
+gar_b = lambda s: 1 - PhiN((s-MG_B)/SD_B)
+
+def cms_analytic(k, n=NB):
+    """CMS(k) = ∫ f_G(s) · P(Binomial(N−1, FAR(s)) ≤ k−1) ds"""
+    tot, ds = 0.0, 0.002
+    s = -0.4
+    while s < 1.4:
+        f = far_b(s)
+        cum = sum(math.comb(n-1, m)*f**m*(1-f)**(n-1-m) for m in range(k))
+        tot += pdf(s, MG_B, SD_B)*cum*ds
+        s += ds
+    return tot
+random.seed(4)
+NPB = 4000
+ranks = []
+for _ in range(NPB):
+    g = random.gauss(MG_B, SD_B)
+    ranks.append(1 + sum(random.gauss(MI_B, SD_B) > g for _ in range(NB-1)))
+cms_mc = [sum(r <= k for r in ranks)/NPB for k in range(1, NB+1)]
+cms_an = [cms_analytic(k) for k in range(1, NB+1)]
+
+W, H = 920, 560
+o = new_svg(W, H)
+header(o, W, "CMC e ROC contengono la stessa informazione (Bolle et al., 2005)",
+       f"Matcher 1:1 gaussiano (d' = {(MG_B-MI_B)/SD_B:.2f}) usato su una gallery di N = {NB} identità · closed set")
+# ROC
+AX0, AX1, AY0, AY1 = 80, 400, 120, 430
+sxa = lambda v: AX0 + v*(AX1-AX0)
+sya = lambda v: AY1 - v*(AY1-AY0)
+txt(o, (AX0+AX1)/2, 100, "A · ROC del matcher 1:1", 14, 700, "#111", halo=False)
+for v in [0, 0.25, 0.5, 0.75, 1.0]:
+    o.append(f'<line x1="{AX0}" y1="{sya(v):.1f}" x2="{AX1}" y2="{sya(v):.1f}" stroke="#e5e7eb"/>')
+    o.append(f'<line x1="{sxa(v):.1f}" y1="{AY0}" x2="{sxa(v):.1f}" y2="{AY1}" stroke="#e5e7eb"/>')
+    txt(o, AX0-8, sya(v)+4, f"{v:g}", 11.5, None, "#333", "end", halo=False)
+    txt(o, sxa(v), AY1+17, f"{v:g}", 11.5, None, "#333", halo=False)
+roc_b = [(far_b(s), gar_b(s)) for s in [1.4-1.8*i/800 for i in range(801)]]
+o.append(f'<line x1="{sxa(0)}" y1="{sya(0)}" x2="{sxa(1)}" y2="{sya(1)}" stroke="#6b7280" stroke-dasharray="6,5"/>')
+o.append('<path d="M ' + " L ".join(f"{sxa(x):.1f},{sya(y):.1f}" for x, y in roc_b) + f'" fill="none" stroke="{C_I}" stroke-width="3.2"/>')
+o.append(f'<line x1="{AX0}" y1="{AY1}" x2="{AX1}" y2="{AY1}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{AX0}" y1="{AY0}" x2="{AX0}" y2="{AY1}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (AX0+AX1)/2, AY1+38, "FAR", 13, None, "#222", halo=False)
+txt(o, AX0-48, (AY0+AY1)/2, "GAR = 1 − FRR", 13, None, "#222", halo=False, extra=f' transform="rotate(-90 {AX0-48} {(AY0+AY1)/2})"')
+arrow(o, AX1+16, 270, 470, 270, "#111", 2.4)
+txt(o, 443, 252, "formula", 12, 700, "#111"); txt(o, 443, 292, "(sotto)", 11.5, None, "#555")
+# CMC
+BX0, BX1, BY0, BY1 = 540, 880, 120, 430
+sxb = lambda k: BX0 + (k-0.5)/NB*(BX1-BX0)
+syb = lambda v: BY1 - v*(BY1-BY0)
+txt(o, (BX0+BX1)/2, 100, "B · CMC derivata vs simulata", 14, 700, "#111", halo=False)
+for v in [0, 0.25, 0.5, 0.75, 1.0]:
+    o.append(f'<line x1="{BX0}" y1="{syb(v):.1f}" x2="{BX1}" y2="{syb(v):.1f}" stroke="#e5e7eb"/>')
+    txt(o, BX0-8, syb(v)+4, f"{v:g}", 11.5, None, "#333", "end", halo=False)
+for k in range(1, NB+1):
+    txt(o, sxb(k), BY1+17, str(k), 11.5, None, "#333", halo=False)
+o.append('<path d="M ' + " L ".join(f"{sxb(k):.1f},{syb(cms_an[k-1]):.1f}" for k in range(1, NB+1)) + f'" fill="none" stroke="{C_G}" stroke-width="3.2"/>')
+for k in range(1, NB+1):
+    o.append(f'<circle cx="{sxb(k):.1f}" cy="{syb(cms_mc[k-1]):.1f}" r="5.5" fill="#fff" stroke="#111" stroke-width="2"/>')
+o.append(f'<line x1="{BX0}" y1="{BY1}" x2="{BX1}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{BX0}" y1="{BY0}" x2="{BX0}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (BX0+BX1)/2, BY1+38, "rango k", 13, None, "#222", halo=False)
+txt(o, sxb(5), syb(0.35), f"RR = CMS(1): derivata {cms_an[0]:.3f} · simulata {cms_mc[0]:.3f}", 12, 700, "#111")
+o.append(f'<rect x="{BX0+12}" y="{BY1-62}" width="18" height="5" fill="{C_G}"/>')
+txt(o, BX0+36, BY1-55, "formula da FAR(s)", 12, None, "#222", "start", halo=False)
+o.append(f'<circle cx="{BX0+21}" cy="{BY1-38}" r="5" fill="#fff" stroke="#111" stroke-width="2"/>')
+txt(o, BX0+36, BY1-34, f"simulazione ({NPB} probe)", 12, None, "#222", "start", halo=False)
+box(o, W/2, 510, 840, 44, ["CMS(k) = ∫ f_G(s) · Σ_{m=0}^{k−1} C(N−1, m) · FAR(s)^m · (1 − FAR(s))^{N−1−m} ds",
+    "Il rango del genuino è 1 + (numero di impostori sopra di lui): con N − 1 impostori indipendenti è una binomiale con p = FAR(s)."], "#eff6ff", C_I, 12)
+save(o, 'fig22_cmc_da_roc.svg')
+print([round(x, 3) for x in cms_an[:5]], [round(x, 3) for x in cms_mc[:5]])
+```
+
+<img src="./img/fig22_cmc_da_roc.svg" alt="CMC derivata dalla ROC" style="display:block; margin:1.5em auto; max-width:100%;">
 
 ### 17.6 Regola pratica sulla soglia di accettazione
 
@@ -3508,6 +4959,156 @@ La soglia $t$ decide se accettare o respingere un match, e la regola dipende dal
 - se si usa una **similarità** → si accetta se $\text{similarità} \ge t$ (più alta = più simile).
 
 Cambiando $t$, FAR e FRR si muovono sempre in direzioni opposte: soglia più **alta/restrittiva** → FAR minore ma FRR maggiore; soglia più **bassa/permissiva** → FRR minore ma FAR maggiore. Non esiste una soglia "oggettivamente migliore": si sceglie il punto operativo in base al tipo di applicazione (sicurezza vs comodità utente), valutando le prestazioni su una griglia di soglie tramite le curve ROC/DET.
+
+**Similarità vs distanza.** La figura applica le due regole agli **stessi dati** (la distanza è $d=1-s$): i quattro tassi risultano identici (il codice lo verifica con un `assert`). L'unica differenza è il verso dell'accettazione e quindi cosa significa "più restrittivo": $t$ più alta per la similarità, $t$ più bassa per la distanza.
+
+```python
+# =====================================================================
+# 43 — Regola di accettazione: similarità vs distanza  (richiede 01, 05)
+# Produce: fig23_similarita_distanza.svg
+# =====================================================================
+random.seed(2)
+NS_ = 20000
+sim_g = [random.gauss(0.65, 0.12) for _ in range(NS_)]
+sim_i = [random.gauss(0.35, 0.12) for _ in range(NS_)]
+dis_g = [1-s for s in sim_g]                      # distanza = 1 − similarità
+dis_i = [1-s for s in sim_i]
+t_s, t_d = 0.55, 1-0.55
+rates = lambda g, i, acc: (sum(not acc(x) for x in g)/len(g), sum(acc(x) for x in i)/len(i))
+frr_s_, far_s_ = rates(sim_g, sim_i, lambda x: x >= t_s)
+frr_d_, far_d_ = rates(dis_g, dis_i, lambda x: x <= t_d)
+assert abs(frr_s_-frr_d_) < 1e-9 and abs(far_s_-far_d_) < 1e-9
+
+W, H = 920, 640
+o = new_svg(W, H)
+header(o, W, "Similarità e distanza: stesso sistema, disuguaglianza invertita",
+       "Similarità: si accetta se s ≥ t · Distanza: si accetta se d ≤ t · aumentando t i tassi si muovono in versi opposti")
+L0, R0 = 70, 880
+XMIN, XMAX, YMAX = -0.1, 1.1, 4.4
+sx = lambda x: L0 + (x-XMIN)/(XMAX-XMIN)*(R0-L0)
+def panel(TOP, BOT, mg, mi, thr, acc_right, ttl, xl, name_g, name_i, tcol):
+    sy = lambda y: BOT - y/YMAX*(BOT-TOP)
+    sd_ = 0.12
+    if acc_right:
+        regs = [(mi, thr, XMAX, C_FA), (mg, XMIN, thr, C_FR)]
+        acc_rect = (thr, XMAX)
+    else:
+        regs = [(mi, XMIN, thr, C_FA), (mg, thr, XMAX, C_FR)]
+        acc_rect = (XMIN, thr)
+    o.append(f'<rect x="{sx(acc_rect[0]):.1f}" y="{TOP}" width="{sx(acc_rect[1])-sx(acc_rect[0]):.1f}" height="{BOT-TOP}" fill="{C_G}" fill-opacity="0.07"/>')
+    for m, a, b, c in regs:
+        o.append(f'<path d="{g_area(m,sd_,a,b,sx,sy,BOT)}" fill="{c}" fill-opacity="0.85"/>')
+    o.append(f'<path d="{g_line(mi,sd_,XMIN,XMAX,sx,sy)}" fill="none" stroke="{C_I}" stroke-width="2.4"/>')
+    o.append(f'<path d="{g_line(mg,sd_,XMIN,XMAX,sx,sy)}" fill="none" stroke="{C_G}" stroke-width="2.4"/>')
+    o.append(f'<line x1="{L0}" y1="{BOT}" x2="{R0}" y2="{BOT}" stroke="#222" stroke-width="1.5"/>')
+    o.append(f'<line x1="{sx(thr):.1f}" y1="{TOP}" x2="{sx(thr):.1f}" y2="{BOT}" stroke="#111" stroke-width="2" stroke-dasharray="7,5"/>')
+    txt(o, L0, TOP-12, ttl, 14.5, 700, "#111", "start", halo=False)
+    txt(o, sx(thr), TOP-12, f"t = {thr:.2f}", 13, 700, "#111", halo=False)
+    ax = sx(thr)+10 if acc_right else sx(thr)-10
+    txt(o, ax, TOP+14, ("accetto →" if acc_right else "← accetto"), 12.5, 700, C_G_T, "start" if acc_right else "end", halo=False)
+    txt(o, sx(mg)+(40 if mg > mi else -40), sy(pdf(mg,sd_,mg,sd_) if False else pdf(mg, mg, sd_))+14, name_g, 12.5, 700, C_G_T, halo=False)
+    txt(o, sx(mi)+(40 if mi > mg else -40), sy(pdf(mi, mi, sd_))+14, name_i, 12.5, 700, C_I, halo=False)
+    for v in [0, 0.2, 0.4, 0.6, 0.8, 1.0]:
+        txt(o, sx(v), BOT+17, f"{v:.1f}", 11.5, None, "#333", halo=False)
+    txt(o, (L0+R0)/2, BOT+36, xl, 12.5, None, "#222", halo=False)
+panel(100, 270, 0.65, 0.35, t_s, True, "Score di similarità s", "similarità s", "genuini", "impostori", C_G)
+panel(380, 550, 0.35, 0.65, t_d, False, "Score di distanza d = 1 − s", "distanza d", "genuini", "impostori", C_G)
+txt(o, 878, 128, f"FAR = {far_s_:.2%}", 14, 700, C_FA_T, "end", halo=False)
+txt(o, 878, 148, f"FRR = {frr_s_:.2%}", 14, 700, C_FR_T, "end", halo=False)
+txt(o, 878, 408, f"FAR = {far_d_:.2%}", 14, 700, C_FA_T, "end", halo=False)
+txt(o, 878, 428, f"FRR = {frr_d_:.2%}", 14, 700, C_FR_T, "end", halo=False)
+txt(o, W/2, 608, "Stessi dati, stessi errori (verificato con assert): cambia solo il verso della disuguaglianza. Soglia più restrittiva = t ↑ per le similarità, t ↓ per le distanze.", 12, None, "#555", halo=False)
+save(o, 'fig23_similarita_distanza.svg')
+print(far_s_, frr_s_)
+```
+
+<img src="./img/fig23_similarita_distanza.svg" alt="Stessi errori con similarità e distanza" style="display:block; margin:1.5em auto; max-width:100%;">
+
+**Come si sceglie $t$ in pratica.** Un approccio è minimizzare un **costo atteso**
+
+$$
+C(t) = C_{FA}\cdot P_{imp}\cdot FAR(t) + C_{FR}\cdot P_{gen}\cdot FRR(t)
+$$
+
+dove $C_{FA}$ e $C_{FR}$ sono il costo di una falsa accettazione e di un falso rifiuto, e $P_{imp}, P_{gen}$ le probabilità a priori dei due tipi di tentativo. Nella figura, con $P_{imp}=5\%$: un'applicazione ad **alta sicurezza** ($C_{FA}=200$) spinge la soglia in alto (FAR ≈ 0.5%, FRR ≈ 9%); una **commerciale** sta nel mezzo; una **forense/di indagine** ($C_{FR}=10$, non perdere nessun sospetto) la abbassa (FRR ≈ 0%, FAR alto ma gestibile da un operatore). Sono i tre punti operativi sulla DET; coincidono con le "aree operative" del §6.6.
+
+```python
+# =====================================================================
+# 44 — Scelta della soglia: costo atteso e punti operativi  (richiede 01, 05)
+# Produce: fig24_costo_soglia.svg
+# =====================================================================
+PhiN = NormalDist().cdf
+GEN = (0.70, 0.09); IMP = (0.35, 0.09)           # (μ, σ) similarità
+far_c = lambda t: 1 - PhiN((t-IMP[0])/IMP[1])
+frr_c = lambda t: PhiN((t-GEN[0])/GEN[1])
+P_IMP = 0.05                                      # probabilità a priori che il tentativo sia un impostore
+APPS = [("Alta sicurezza", 200, 1, "#dc2626"), ("Commerciale", 10, 1, "#2563eb"), ("Indagine / forense", 1, 10, "#16a34a")]  # (nome, C_FA, C_FR, colore)
+cost = lambda t, cfa, cfr: cfa*P_IMP*far_c(t) + cfr*(1-P_IMP)*frr_c(t)
+tg = [0.2+0.75*i/1500 for i in range(1501)]
+best = {}
+for nm, cfa, cfr, c in APPS:
+    cs = [cost(t, cfa, cfr) for t in tg]
+    k = min(range(len(tg)), key=lambda j: cs[j])
+    best[nm] = (tg[k], cs[k], cs)
+
+W, H = 920, 590
+o = new_svg(W, H)
+header(o, W, "La soglia dipende dal costo degli errori",
+       f"Costo atteso C(t) = C_FA·P_imp·FAR(t) + C_FR·P_gen·FRR(t) · P_imp = {P_IMP:.0%} · ogni applicazione ha il suo minimo")
+# DET
+XMIN = 1e-4
+lgx = lambda v: (math.log10(v)-math.log10(XMIN))/(0-math.log10(XMIN))
+L0, R0, TOP, BOT = 90, 470, 110, 440
+sx = lambda x: L0 + lgx(x)*(R0-L0)
+sy = lambda y: BOT - lgx(max(y, XMIN))*(BOT-TOP)
+txt(o, (L0+R0)/2, 94, "A · punti operativi sulla DET", 14, 700, "#111", halo=False)
+for v, lab in {1e-4: "0.01%", 1e-3: "0.1%", 1e-2: "1%", 1e-1: "10%", 1.0: "100%"}.items():
+    o.append(f'<line x1="{sx(v):.1f}" y1="{TOP}" x2="{sx(v):.1f}" y2="{BOT}" stroke="#d1d5db"/>')
+    o.append(f'<line x1="{L0}" y1="{sy(v):.1f}" x2="{R0}" y2="{sy(v):.1f}" stroke="#d1d5db"/>')
+    txt(o, sx(v), BOT+17, lab, 11, None, "#333", halo=False)
+    txt(o, L0-6, sy(v)+4, lab, 11, None, "#333", "end", halo=False)
+pts = [(far_c(t), frr_c(t)) for t in [-0.1+1.2*i/3000 for i in range(3001)]]
+pts = [(x, y) for x, y in pts if XMIN <= x <= 1 and XMIN <= y <= 1]
+o.append('<path d="M ' + " L ".join(f"{sx(x):.1f},{sy(y):.1f}" for x, y in pts) + f'" fill="none" stroke="#374151" stroke-width="3"/>')
+o.append(f'<line x1="{L0}" y1="{BOT}" x2="{R0}" y2="{BOT}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{L0}" y1="{TOP}" x2="{L0}" y2="{BOT}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (L0+R0)/2, BOT+36, "FAR (log)", 12.5, None, "#222", halo=False)
+txt(o, L0-52, (TOP+BOT)/2, "FRR (log)", 12.5, None, "#222", halo=False, extra=f' transform="rotate(-90 {L0-52} {(TOP+BOT)/2})"')
+for j, (nm, cfa, cfr, c) in enumerate(APPS):
+    t_, _, _ = best[nm]
+    fx, fy = far_c(t_), frr_c(t_)
+    o.append(f'<circle cx="{sx(fx):.1f}" cy="{sy(fy):.1f}" r="7.5" fill="{c}" stroke="#fff" stroke-width="2"/>')
+    anc, dx = ("end", -12) if j == 2 else ("start", 12)
+    txt(o, sx(fx)+dx, sy(fy)-8, f"{nm}", 12, 700, c, anc)
+    txt(o, sx(fx)+dx, sy(fy)+8, f"t = {t_:.2f}", 10.5, None, "#333", anc)
+    txt(o, sx(fx)+dx, sy(fy)+21, f"FAR {fx:.2%} · FRR {fy:.1%}", 10.5, None, "#333", anc)
+# costi
+BX0, BX1, BY0, BY1 = 560, 880, 110, 440
+sxt = lambda t: BX0 + (t-0.2)/0.75*(BX1-BX0)
+syc = lambda v: BY1 - v*(BY1-BY0)
+txt(o, (BX0+BX1)/2, 94, "B · costo atteso normalizzato C(t)/C_max", 14, 700, "#111", halo=False)
+for v in [0, 0.25, 0.5, 0.75, 1.0]:
+    o.append(f'<line x1="{BX0}" y1="{syc(v):.1f}" x2="{BX1}" y2="{syc(v):.1f}" stroke="#e5e7eb"/>')
+    txt(o, BX0-6, syc(v)+4, f"{v:g}", 11, None, "#333", "end", halo=False)
+for v in [0.2, 0.4, 0.6, 0.8]:
+    txt(o, sxt(v), BY1+17, f"{v:.1f}", 11, None, "#333", halo=False)
+for nm, cfa, cfr, c in APPS:
+    t_, cmin, cs = best[nm]
+    mx = max(cs)
+    o.append('<path d="M ' + " L ".join(f"{sxt(t):.1f},{syc(v/mx):.1f}" for t, v in zip(tg[::10], cs[::10])) + f'" fill="none" stroke="{c}" stroke-width="3"/>')
+    o.append(f'<circle cx="{sxt(t_):.1f}" cy="{syc(cmin/mx):.1f}" r="6" fill="{c}" stroke="#fff" stroke-width="2"/>')
+o.append(f'<line x1="{BX0}" y1="{BY1}" x2="{BX1}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+o.append(f'<line x1="{BX0}" y1="{BY0}" x2="{BX0}" y2="{BY1}" stroke="#222" stroke-width="1.5"/>')
+txt(o, (BX0+BX1)/2, BY1+36, "soglia t (similarità)", 12.5, None, "#222", halo=False)
+for j, (nm, cfa, cfr, c) in enumerate(APPS):
+    o.append(f'<rect x="{BX0}" y="{500+j*20-6}" width="18" height="5" fill="{c}"/>')
+    txt(o, BX0+26, 500+j*20, f"{nm}: C_FA = {cfa}, C_FR = {cfr}", 11.5, None, "#222", "start", halo=False)
+txt(o, W/2, 572, "Il costo di una falsa accettazione sposta la soglia in alto (sicurezza), quello di un falso rifiuto la sposta in basso (non perdere nessun sospetto / utente).", 12, None, "#555", halo=False)
+save(o, 'fig24_costo_soglia.svg')
+print({k: round(v[0], 3) for k, v in best.items()})
+```
+
+<img src="./img/fig24_costo_soglia.svg" alt="Costo atteso e punti operativi" style="display:block; margin:1.5em auto; max-width:100%;">
 
 ### 17.7 Tabella riassuntiva: Verification vs Closed Set vs Open Set
 
@@ -3544,6 +5145,44 @@ $$
 \boxed{CMS(k) = P(\text{identità corretta nei primi } k \text{ posti})}, \quad CMS(1) = \text{Recognition Rate}
 $$
 
+$$
+\boxed{d' = \frac{|\overline{D^E}-\overline{D^I}|}{\sqrt{(\sigma_I^2+\sigma_E^2)/2}}} \qquad
+\boxed{EER=\Phi(-d'/2)\ \text{(gaussiane, } \sigma\text{ uguali)}}
+$$
+
+**Come leggere la mappa.** Tutte le metriche nascono dalla stessa matrice dei punteggi probe × gallery, con ground truth. Si leggono in tre modi: **per soglia** (verifica: FAR/FRR, ROC, DET, EER, $d'$), **per rango** (identificazione: CMS/CMC, mAP, DIR/FPIR) e **per utente** (cause: Doddington Zoo, SRR, qualità). Il collegamento di Bolle (§17.5) mostra che le prime due viste contengono la stessa informazione. In basso il promemoria che le prestazioni sono ex-post: dipendono da dataset, partizionamento e condizioni operative.
+
+```python
+# =====================================================================
+# 45 — Mappa concettuale: tutto parte dalla matrice dei punteggi  (richiede 01, 05)
+# Produce: fig25_mappa_concettuale.svg
+# =====================================================================
+W, H = 920, 640
+o = new_svg(W, H)
+header(o, W, "Mappa concettuale delle metriche di prestazione",
+       "Un'unica fonte (la matrice probe × gallery) letta in modi diversi: per soglia, per rango, per utente")
+box(o, 460, 100, 520, 54, ["Matrice dei punteggi probe × gallery  (DM)", "ground truth: ogni cella è genuina o impostore"], BLU_BG, C_I, 13)
+cols = [(150, "PER SOGLIA", "verifica 1:1", C_I, [("FAR · FRR", "= FA/TI · FR/TG"), ("ROC · DET · EER", "AUC, punti operativi"), ("d' (decidability)", "separazione delle distribuzioni")]),
+        (460, "PER RANGO", "closed set 1:N", C_G, [("CMS(k) · CMC", "RR = CMS(1)"), ("mAP (re-ID)", "più match per query"), ("DIR(t,k) · FPIR/FNIR", "open set: rango e soglia")]),
+        (770, "PER UTENTE", "analisi delle cause", C_GT, [("Doddington Zoo", "goat, lamb, wolf, dove..."), ("FRR_k · FAR_k", "per soggetto"), ("SRR · qualità", "affidabilità per singola probe")])]
+for cx, ttl, sub, c, items in cols:
+    arrow(o, 460 + (cx-460)*0.45, 128, cx, 196, c, 2.2)
+    box(o, cx, 220, 250, 44, [ttl, sub], "#fff", c, 13, sw=2.2)
+    for i, (a, b) in enumerate(items):
+        box(o, cx, 300 + i*74, 250, 54, [a, b], "#f9fafb", c, 12.5)
+        if i == 0: arrow(o, cx, 242, cx, 273, c, 1.8)
+        else: arrow(o, cx, 300+(i-1)*74+27, cx, 300+i*74-27, c, 1.5)
+# ponte Bolle
+arrow(o, 280, 300, 330, 300, "#111", 2); arrow(o, 330, 300, 280, 300, "#111", 2)
+txt(o, 305, 288, "Bolle", 11.5, 700, "#111")
+box(o, 460, 555, 760, 52, ["Le prestazioni sono ex-post: dipendono da dataset, ground truth, partizionamento probe/gallery e condizioni operative",
+    "→ intervalli di confidenza, confronto a pari FAR/FRR, ri-valutazione sul campo, template update"], C_FR_BG, C_FR_T, 12)
+txt(o, 460, 610, "ROC, CMC, FAR, FRR sono viste diverse della stessa informazione; Doddington Zoo e SRR ne spiegano le cause locali.", 12, None, "#555", halo=False)
+save(o, 'fig25_mappa_concettuale.svg')
+```
+
+<img src="./img/fig25_mappa_concettuale.svg" alt="Mappa concettuale delle metriche" style="display:block; margin:1.5em auto; max-width:100%;">
+
 **Schema dei task e loro errori possibili:**
 
 | Task | Claim identità | Soglia | Errori possibili |
@@ -3551,4 +5190,3 @@ $$
 | **Verifica** | Sì | Sì | GA, FR, GR, FA |
 | **Identificazione Open Set** | No | Sì | Correct D&I, False Rejection, False Acceptance, Genuine Reject |
 | **Identificazione Closed Set** | No | No | Solo False Rejection (nessuna FA) |
-

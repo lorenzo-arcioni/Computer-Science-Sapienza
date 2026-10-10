@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="640" viewBox="0 0 920 640">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#111827" font-weight="700">Mappa concettuale delle metriche di prestazione</text>
+<text x="460.0" y="53" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#4b5563">Un&#x27;unica fonte (la matrice probe × gallery) letta in modi diversi: per soglia, per rango, per utente</text>
+<rect x="200.0" y="73.0" width="520" height="54" rx="9" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="460" y="95.77499999999999" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#111827" font-weight="700">Matrice dei punteggi probe × gallery  (DM)</text>
+<text x="460" y="113.32499999999999" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#111827">ground truth: ogni cella è genuina o impostore</text>
+<line x1="320.5" y1="128" x2="150" y2="196" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="150" y1="196" x2="154.10" y2="190.33" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="150" y1="196" x2="156.88" y2="197.29" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="25.0" y="198.0" width="250" height="44" rx="9" fill="#fff" stroke="#2563eb" stroke-width="2.2"/>
+<text x="150" y="215.775" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#111827" font-weight="700">PER SOGLIA</text>
+<text x="150" y="233.32500000000002" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#111827">verifica 1:1</text>
+<rect x="25.0" y="273.0" width="250" height="54" rx="9" fill="#f9fafb" stroke="#2563eb" stroke-width="1.5"/>
+<text x="150" y="295.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">FAR · FRR</text>
+<text x="150" y="312.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">= FA/TI · FR/TG</text>
+<line x1="150" y1="242" x2="150" y2="273" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="150" y1="273" x2="146.25" y2="267.09" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="150" y1="273" x2="153.75" y2="267.09" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="25.0" y="347.0" width="250" height="54" rx="9" fill="#f9fafb" stroke="#2563eb" stroke-width="1.5"/>
+<text x="150" y="369.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">ROC · DET · EER</text>
+<text x="150" y="386.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">AUC, punti operativi</text>
+<line x1="150" y1="327" x2="150" y2="347" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="150" y1="347" x2="146.25" y2="341.09" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="150" y1="347" x2="153.75" y2="341.09" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="25.0" y="421.0" width="250" height="54" rx="9" fill="#f9fafb" stroke="#2563eb" stroke-width="1.5"/>
+<text x="150" y="443.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">d&#x27; (decidability)</text>
+<text x="150" y="460.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">separazione delle distribuzioni</text>
+<line x1="150" y1="401" x2="150" y2="421" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="150" y1="421" x2="146.25" y2="415.09" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="150" y1="421" x2="153.75" y2="415.09" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="460.0" y1="128" x2="460" y2="196" stroke="#16a34a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="460" y1="196" x2="456.25" y2="190.09" stroke="#16a34a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="460" y1="196" x2="463.75" y2="190.09" stroke="#16a34a" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="335.0" y="198.0" width="250" height="44" rx="9" fill="#fff" stroke="#16a34a" stroke-width="2.2"/>
+<text x="460" y="215.775" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#111827" font-weight="700">PER RANGO</text>
+<text x="460" y="233.32500000000002" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#111827">closed set 1:N</text>
+<rect x="335.0" y="273.0" width="250" height="54" rx="9" fill="#f9fafb" stroke="#16a34a" stroke-width="1.5"/>
+<text x="460" y="295.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">CMS(k) · CMC</text>
+<text x="460" y="312.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">RR = CMS(1)</text>
+<line x1="460" y1="242" x2="460" y2="273" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="460" y1="273" x2="456.25" y2="267.09" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="460" y1="273" x2="463.75" y2="267.09" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="335.0" y="347.0" width="250" height="54" rx="9" fill="#f9fafb" stroke="#16a34a" stroke-width="1.5"/>
+<text x="460" y="369.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">mAP (re-ID)</text>
+<text x="460" y="386.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">più match per query</text>
+<line x1="460" y1="327" x2="460" y2="347" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="460" y1="347" x2="456.25" y2="341.09" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="460" y1="347" x2="463.75" y2="341.09" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="335.0" y="421.0" width="250" height="54" rx="9" fill="#f9fafb" stroke="#16a34a" stroke-width="1.5"/>
+<text x="460" y="443.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">DIR(t,k) · FPIR/FNIR</text>
+<text x="460" y="460.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">open set: rango e soglia</text>
+<line x1="460" y1="401" x2="460" y2="421" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="460" y1="421" x2="456.25" y2="415.09" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="460" y1="421" x2="463.75" y2="415.09" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="599.5" y1="128" x2="770" y2="196" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="770" y1="196" x2="763.12" y2="197.29" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="770" y1="196" x2="765.90" y2="190.33" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="645.0" y="198.0" width="250" height="44" rx="9" fill="#fff" stroke="#15803d" stroke-width="2.2"/>
+<text x="770" y="215.775" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#111827" font-weight="700">PER UTENTE</text>
+<text x="770" y="233.32500000000002" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#111827">analisi delle cause</text>
+<rect x="645.0" y="273.0" width="250" height="54" rx="9" fill="#f9fafb" stroke="#15803d" stroke-width="1.5"/>
+<text x="770" y="295.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">Doddington Zoo</text>
+<text x="770" y="312.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">goat, lamb, wolf, dove...</text>
+<line x1="770" y1="242" x2="770" y2="273" stroke="#15803d" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="770" y1="273" x2="766.25" y2="267.09" stroke="#15803d" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="770" y1="273" x2="773.75" y2="267.09" stroke="#15803d" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="645.0" y="347.0" width="250" height="54" rx="9" fill="#f9fafb" stroke="#15803d" stroke-width="1.5"/>
+<text x="770" y="369.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">FRR_k · FAR_k</text>
+<text x="770" y="386.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">per soggetto</text>
+<line x1="770" y1="327" x2="770" y2="347" stroke="#15803d" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="770" y1="347" x2="766.25" y2="341.09" stroke="#15803d" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="770" y1="347" x2="773.75" y2="341.09" stroke="#15803d" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="645.0" y="421.0" width="250" height="54" rx="9" fill="#f9fafb" stroke="#15803d" stroke-width="1.5"/>
+<text x="770" y="443.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">SRR · qualità</text>
+<text x="770" y="460.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">affidabilità per singola probe</text>
+<line x1="770" y1="401" x2="770" y2="421" stroke="#15803d" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="770" y1="421" x2="766.25" y2="415.09" stroke="#15803d" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="770" y1="421" x2="773.75" y2="415.09" stroke="#15803d" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="280" y1="300" x2="330" y2="300" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+<line x1="330" y1="300" x2="324.09" y2="303.75" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+<line x1="330" y1="300" x2="324.09" y2="296.25" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+<line x1="330" y1="300" x2="280" y2="300" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+<line x1="280" y1="300" x2="285.91" y2="296.25" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+<line x1="280" y1="300" x2="285.91" y2="303.75" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+<text x="305" y="288" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#111" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Bolle</text>
+<rect x="80.0" y="529.0" width="760" height="52" rx="9" fill="#ffedd5" stroke="#b45309" stroke-width="1.5"/>
+<text x="460" y="551.1" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#111827" font-weight="700">Le prestazioni sono ex-post: dipendono da dataset, ground truth, partizionamento probe/gallery e condizioni operative</text>
+<text x="460" y="567.3000000000001" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#111827">→ intervalli di confidenza, confronto a pari FAR/FRR, ri-valutazione sul campo, template update</text>
+<text x="460" y="610" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#555">ROC, CMC, FAR, FRR sono viste diverse della stessa informazione; Doddington Zoo e SRR ne spiegano le cause locali.</text>
+</svg>

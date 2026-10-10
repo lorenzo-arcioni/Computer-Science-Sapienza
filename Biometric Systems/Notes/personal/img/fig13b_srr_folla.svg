@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="560" viewBox="0 0 920 560">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#111827" font-weight="700">SRR: la nuvola attorno al soggetto restituito</text>
+<text x="460.0" y="53" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#4b5563">Più candidati sono vicini al primo, più la risposta è confondibile e quindi meno affidabile</text>
+<ellipse cx="250" cy="190" rx="170" ry="90" fill="#cfeaf0" stroke="#374151" stroke-width="1.6"/>
+<rect x="233" y="160" width="34" height="58" fill="#dc2626"/>
+<circle cx="155.0" cy="188.8" r="7.1" fill="#111827"/>
+<rect x="144.6" y="198.3" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="205.0" cy="208.8" r="7.1" fill="#111827"/>
+<rect x="194.6" y="218.3" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="320.0" cy="138.8" r="7.1" fill="#111827"/>
+<rect x="309.6" y="148.3" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="355.0" cy="178.8" r="7.1" fill="#111827"/>
+<rect x="344.6" y="188.3" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="250.0" cy="172.2" r="7.9" fill="#111827"/>
+<rect x="238.4" y="182.7" width="23.1" height="29.4" rx="7.4" fill="#111827"/>
+<ellipse cx="250" cy="430" rx="170" ry="90" fill="#cfeaf0" stroke="#374151" stroke-width="1.6"/>
+<rect x="233" y="400" width="34" height="58" fill="#dc2626"/>
+<circle cx="240.8" cy="398.1" r="7.1" fill="#111827"/>
+<rect x="230.3" y="407.6" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="159.6" cy="459.3" r="7.1" fill="#111827"/>
+<rect x="149.2" y="468.8" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="126.6" cy="414.2" r="7.1" fill="#111827"/>
+<rect x="116.2" y="423.7" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="349.6" cy="361.9" r="7.1" fill="#111827"/>
+<rect x="339.1" y="371.4" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="263.6" cy="428.3" r="7.1" fill="#111827"/>
+<rect x="253.1" y="437.8" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="135.2" cy="398.8" r="7.1" fill="#111827"/>
+<rect x="124.8" y="408.3" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="300.9" cy="407.9" r="7.1" fill="#111827"/>
+<rect x="290.4" y="417.4" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="306.3" cy="371.3" r="7.1" fill="#111827"/>
+<rect x="295.8" y="380.8" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="184.5" cy="365.6" r="7.1" fill="#111827"/>
+<rect x="174.1" y="375.1" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="251.6" cy="466.4" r="7.1" fill="#111827"/>
+<rect x="241.1" y="475.9" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="272.6" cy="447.9" r="7.1" fill="#111827"/>
+<rect x="262.2" y="457.4" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="220.9" cy="444.4" r="7.1" fill="#111827"/>
+<rect x="210.5" y="453.9" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="150.4" cy="388.0" r="7.1" fill="#111827"/>
+<rect x="140.0" y="397.5" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="293.6" cy="441.8" r="7.1" fill="#111827"/>
+<rect x="283.1" y="451.3" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="230.4" cy="362.7" r="7.1" fill="#111827"/>
+<rect x="220.0" y="372.2" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="191.7" cy="377.9" r="7.1" fill="#111827"/>
+<rect x="181.2" y="387.4" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="195.3" cy="452.2" r="7.1" fill="#111827"/>
+<rect x="184.8" y="461.7" width="20.9" height="26.6" rx="6.6" fill="#111827"/>
+<circle cx="250.0" cy="412.1" r="7.9" fill="#111827"/>
+<rect x="238.4" y="422.6" width="23.1" height="29.4" rx="7.4" fill="#111827"/>
+<rect x="460.0" y="135.0" width="380" height="80" rx="9" fill="#dcfce7" stroke="#166534" stroke-width="1.5"/>
+<text x="650" y="161.0" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#111827" font-weight="700">Nube «poco affollata»</text>
+<text x="650" y="179.9" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#111827">pochi candidati vicini al primo</text>
+<text x="650" y="198.8" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#111827">→ risposta più affidabile (φ alto)</text>
+<rect x="460.0" y="375.0" width="380" height="80" rx="9" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+<text x="650" y="401.0" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#111827" font-weight="700">Nube «molto affollata»</text>
+<text x="650" y="419.9" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#111827">molti candidati vicini al primo</text>
+<text x="650" y="438.8" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#111827">→ risposta meno affidabile (φ basso)</text>
+<rect x="596" y="300" width="22" height="22" rx="3" fill="#dc2626" stroke="#dc2626" stroke-width="1"/>
+<text x="628" y="317" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#333">= soggetto restituito (rango 1)</text>
+<text x="460.0" y="548" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#555">Relative Distance e Density Ratio misurano la stessa idea di «confusione tra i candidati» in due modi diversi.</text>
+</svg>

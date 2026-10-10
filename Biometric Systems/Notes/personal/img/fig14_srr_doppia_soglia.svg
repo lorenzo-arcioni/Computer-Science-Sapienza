@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="540" viewBox="0 0 920 540">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#111827" font-weight="700">Dal valore φ all&#x27;indice SRR e decisione a doppia soglia</text>
+<text x="460.0" y="53" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#4b5563">φ̄ = 0.8 (valore critico) · srr = (φ − φ̄) / S(φ, φ̄) ∈ [−1, 1] · srr &gt; 0 = risposta ritenuta affidabile</text>
+<text x="240.0" y="100" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#111" font-weight="700">A · normalizzazione SRR</text>
+<rect x="80" y="270.0" width="320" height="150.0" fill="#f59e0b" fill-opacity="0.12"/>
+<rect x="80" y="120" width="320" height="150.0" fill="#16a34a" fill-opacity="0.10"/>
+<line x1="80" y1="420.0" x2="400" y2="420.0" stroke="#e5e7eb"/>
+<text x="72" y="424.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">-1</text>
+<line x1="80" y1="345.0" x2="400" y2="345.0" stroke="#e5e7eb"/>
+<text x="72" y="349.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">-0.5</text>
+<line x1="80" y1="270.0" x2="400" y2="270.0" stroke="#111"/>
+<text x="72" y="274.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0</text>
+<line x1="80" y1="195.0" x2="400" y2="195.0" stroke="#e5e7eb"/>
+<text x="72" y="199.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.5</text>
+<line x1="80" y1="120.0" x2="400" y2="120.0" stroke="#e5e7eb"/>
+<text x="72" y="124.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">1</text>
+<text x="80" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.0</text>
+<text x="144.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.2</text>
+<text x="208.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.4</text>
+<text x="272.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.6</text>
+<text x="336.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.8</text>
+<text x="400.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">1.0</text>
+<path d="M 80.0,420.0 L 81.6,419.1 L 83.2,418.1 L 84.8,417.2 L 86.4,416.2 L 88.0,415.3 L 89.6,414.4 L 91.2,413.4 L 92.8,412.5 L 94.4,411.6 L 96.0,410.6 L 97.6,409.7 L 99.2,408.8 L 100.8,407.8 L 102.4,406.9 L 104.0,405.9 L 105.6,405.0 L 107.2,404.1 L 108.8,403.1 L 110.4,402.2 L 112.0,401.2 L 113.6,400.3 L 115.2,399.4 L 116.8,398.4 L 118.4,397.5 L 120.0,396.6 L 121.6,395.6 L 123.2,394.7 L 124.8,393.8 L 126.4,392.8 L 128.0,391.9 L 129.6,390.9 L 131.2,390.0 L 132.8,389.1 L 134.4,388.1 L 136.0,387.2 L 137.6,386.2 L 139.2,385.3 L 140.8,384.4 L 142.4,383.4 L 144.0,382.5 L 145.6,381.6 L 147.2,380.6 L 148.8,379.7 L 150.4,378.8 L 152.0,377.8 L 153.6,376.9 L 155.2,375.9 L 156.8,375.0 L 158.4,374.1 L 160.0,373.1 L 161.6,372.2 L 163.2,371.2 L 164.8,370.3 L 166.4,369.4 L 168.0,368.4 L 169.6,367.5 L 171.2,366.6 L 172.8,365.6 L 174.4,364.7 L 176.0,363.8 L 177.6,362.8 L 179.2,361.9 L 180.8,360.9 L 182.4,360.0 L 184.0,359.1 L 185.6,358.1 L 187.2,357.2 L 188.8,356.2 L 190.4,355.3 L 192.0,354.4 L 193.6,353.4 L 195.2,352.5 L 196.8,351.6 L 198.4,350.6 L 200.0,349.7 L 201.6,348.8 L 203.2,347.8 L 204.8,346.9 L 206.4,345.9 L 208.0,345.0 L 209.6,344.1 L 211.2,343.1 L 212.8,342.2 L 214.4,341.2 L 216.0,340.3 L 217.6,339.4 L 219.2,338.4 L 220.8,337.5 L 222.4,336.6 L 224.0,335.6 L 225.6,334.7 L 227.2,333.8 L 228.8,332.8 L 230.4,331.9 L 232.0,330.9 L 233.6,330.0 L 235.2,329.1 L 236.8,328.1 L 238.4,327.2 L 240.0,326.2 L 241.6,325.3 L 243.2,324.4 L 244.8,323.4 L 246.4,322.5 L 248.0,321.6 L 249.6,320.6 L 251.2,319.7 L 252.8,318.8 L 254.4,317.8 L 256.0,316.9 L 257.6,315.9 L 259.2,315.0 L 260.8,314.1 L 262.4,313.1 L 264.0,312.2 L 265.6,311.2 L 267.2,310.3 L 268.8,309.4 L 270.4,308.4 L 272.0,307.5 L 273.6,306.6 L 275.2,305.6 L 276.8,304.7 L 278.4,303.8 L 280.0,302.8 L 281.6,301.9 L 283.2,300.9 L 284.8,300.0 L 286.4,299.1 L 288.0,298.1 L 289.6,297.2 L 291.2,296.2 L 292.8,295.3 L 294.4,294.4 L 296.0,293.4 L 297.6,292.5 L 299.2,291.6 L 300.8,290.6 L 302.4,289.7 L 304.0,288.8 L 305.6,287.8 L 307.2,286.9 L 308.8,285.9 L 310.4,285.0 L 312.0,284.1 L 313.6,283.1 L 315.2,282.2 L 316.8,281.2 L 318.4,280.3 L 320.0,279.4 L 321.6,278.4 L 323.2,277.5 L 324.8,276.6 L 326.4,275.6 L 328.0,274.7 L 329.6,273.8 L 331.2,272.8 L 332.8,271.9 L 334.4,270.9 L 336.0,270.0 L 337.6,266.2 L 339.2,262.5 L 340.8,258.8 L 342.4,255.0 L 344.0,251.3 L 345.6,247.5 L 347.2,243.8 L 348.8,240.0 L 350.4,236.3 L 352.0,232.5 L 353.6,228.8 L 355.2,225.0 L 356.8,221.3 L 358.4,217.5 L 360.0,213.8 L 361.6,210.0 L 363.2,206.3 L 364.8,202.5 L 366.4,198.8 L 368.0,195.0 L 369.6,191.2 L 371.2,187.5 L 372.8,183.7 L 374.4,180.0 L 376.0,176.2 L 377.6,172.5 L 379.2,168.7 L 380.8,165.0 L 382.4,161.3 L 384.0,157.5 L 385.6,153.8 L 387.2,150.0 L 388.8,146.3 L 390.4,142.5 L 392.0,138.8 L 393.6,135.0 L 395.2,131.2 L 396.8,127.5 L 398.4,123.8 L 400.0,120.0" fill="none" stroke="#2563eb" stroke-width="3.2"/>
+<line x1="336.0" y1="120" x2="336.0" y2="420" stroke="#111" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="342.0" y="345.0" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#111" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">φ̄ = 0.8</text>
+<circle cx="400.0" cy="120.0" r="7" fill="#166534" stroke="#fff" stroke-width="2"/>
+<text x="328.0" y="116.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#166534" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">A: φ = 1.00</text>
+<text x="328.0" y="131.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#166534" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">srr = +1.00</text>
+<circle cx="301.5" cy="290.2" r="7" fill="#b45309" stroke="#fff" stroke-width="2"/>
+<text x="328.0" y="324.19230769230774" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#b45309" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">B: φ = 0.69</text>
+<text x="328.0" y="339.19230769230774" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#b45309" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">srr = -0.13</text>
+<text x="88" y="136" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#166534" font-weight="700">affidabile</text>
+<text x="392" y="410" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#b45309" font-weight="700">non affidabile</text>
+<line x1="80" y1="420" x2="400" y2="420" stroke="#222" stroke-width="1.5"/>
+<line x1="80" y1="120" x2="80" y2="420" stroke="#222" stroke-width="1.5"/>
+<text x="240.0" y="460" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#222">φ(p)</text>
+<text transform="translate(34,270.0) rotate(-90)" text-anchor="middle" font-size="13" fill="#222">srr</text>
+<text x="700.0" y="100" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#111" font-weight="700">B · due soglie: accettazione e reliability</text>
+<rect x="520" y="120" width="210.0" height="150.0" fill="#16a34a" fill-opacity="0.18"/>
+<rect x="520" y="270.0" width="210.0" height="150.0" fill="#f59e0b" fill-opacity="0.22"/>
+<rect x="730.0" y="120" width="150.0" height="300" fill="#9ca3af" fill-opacity="0.18"/>
+<line x1="730.0" y1="120" x2="730.0" y2="420" stroke="#111" stroke-width="2" stroke-dasharray="7,5"/>
+<line x1="520" y1="270.0" x2="880" y2="270.0" stroke="#111" stroke-width="2" stroke-dasharray="7,5"/>
+<text x="625.0" y="210.0" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#166534" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">accettato</text>
+<text x="625.0" y="226.0" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#333" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">e affidabile → output</text>
+<text x="625.0" y="386" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#b45309" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">accettato ma non affidabile</text>
+<text x="625.0" y="402" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#333" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">→ rifiutato dalla reliability</text>
+<text x="805.0" y="142" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#374151" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">rifiutato</text>
+<text x="805.0" y="158" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#333" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">dalla soglia t</text>
+<circle cx="628.0" cy="120.0" r="7" fill="#166534" stroke="#fff" stroke-width="2"/>
+<text x="639.0" y="124.0" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#166534" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">A</text>
+<circle cx="700.0" cy="290.2" r="7" fill="#b45309" stroke="#fff" stroke-width="2"/>
+<text x="711.0" y="294.19230769230774" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#b45309" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">B</text>
+<circle cx="808.0" cy="202.5" r="7" fill="#374151" stroke="#fff" stroke-width="2"/>
+<text x="819.0" y="206.5" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#374151" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">C</text>
+<text x="520.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.0</text>
+<text x="580.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.1</text>
+<text x="640.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.2</text>
+<text x="700.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.3</text>
+<text x="760.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.4</text>
+<text x="820.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.5</text>
+<text x="880.0" y="438" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.6</text>
+<text x="730.0" y="454" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#111" font-weight="700">t = 0.35</text>
+<text x="512" y="424.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">-1</text>
+<text x="512" y="274.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0</text>
+<text x="512" y="124.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">1</text>
+<line x1="520" y1="420" x2="880" y2="420" stroke="#222" stroke-width="1.5"/>
+<line x1="520" y1="120" x2="520" y2="420" stroke="#222" stroke-width="1.5"/>
+<text x="700.0" y="472" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#222">distanza del primo candidato d_1</text>
+<text x="460.0" y="510" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#444">A e B hanno d_1 sotto soglia, ma solo A è una risposta affidabile; C non supera nemmeno la soglia di accettazione.</text>
+</svg>

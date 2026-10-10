@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="600" viewBox="0 0 920 600">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#111827" font-weight="700">Stima automatica della soglia di reliability dalle M osservazioni</text>
+<text x="460.0" y="53" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#4b5563">th_i = | E[S_i]² − σ[S_i] | / E[S_i] · la soglia si adatta a media e stabilità del soggetto</text>
+<text x="80" y="97" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="14.5" fill="#111" font-weight="700">Soggetto stabile</text>
+<rect x="80" y="134.5" width="780" height="16.1" fill="#2563eb" fill-opacity="0.12"/>
+<line x1="80" y1="285.0" x2="860" y2="285.0" stroke="#e5e7eb"/>
+<text x="72" y="289" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0</text>
+<line x1="80" y1="195.0" x2="860" y2="195.0" stroke="#e5e7eb"/>
+<text x="72" y="199.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.5</text>
+<line x1="80" y1="105.0" x2="860" y2="105.0" stroke="#e5e7eb"/>
+<text x="72" y="109.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">1</text>
+<line x1="80" y1="142.6" x2="860" y2="142.6" stroke="#2563eb" stroke-width="1.8"/>
+<line x1="80" y1="152.7" x2="860" y2="152.7" stroke="#111" stroke-width="2.2" stroke-dasharray="7,5"/>
+<text x="862" y="146.5848736459368" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#2563eb" font-weight="700">E = 0.79</text>
+<text x="862" y="168.74372867527063" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#111" font-weight="700">th = 0.73</text>
+<path d="M 93.0,140.1 L 119.0,129.7 L 145.0,149.4 L 171.0,132.1 L 197.0,143.3 L 223.0,143.4 L 249.0,123.9 L 275.0,139.6 L 301.0,141.4 L 327.0,134.4 L 353.0,130.9 L 379.0,141.3 L 405.0,135.7 L 431.0,149.8 L 457.0,144.3 L 483.0,144.9 L 509.0,153.0 L 535.0,154.6 L 561.0,155.6 L 587.0,143.1 L 613.0,142.6 L 639.0,143.9 L 665.0,140.4 L 691.0,153.0 L 717.0,141.7 L 743.0,138.9 L 769.0,134.2 L 795.0,148.6 L 821.0,144.6 L 847.0,159.1" fill="none" stroke="#6b7280" stroke-width="1.4"/>
+<circle cx="93.0" cy="140.1" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="119.0" cy="129.7" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="145.0" cy="149.4" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="171.0" cy="132.1" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="197.0" cy="143.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="223.0" cy="143.4" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="249.0" cy="123.9" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="275.0" cy="139.6" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="301.0" cy="141.4" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="327.0" cy="134.4" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="353.0" cy="130.9" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="379.0" cy="141.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="405.0" cy="135.7" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="431.0" cy="149.8" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="457.0" cy="144.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="483.0" cy="144.9" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="509.0" cy="153.0" r="4.2" fill="#dc2626" stroke="#fff" stroke-width="1.2"/>
+<circle cx="535.0" cy="154.6" r="4.2" fill="#dc2626" stroke="#fff" stroke-width="1.2"/>
+<circle cx="561.0" cy="155.6" r="4.2" fill="#dc2626" stroke="#fff" stroke-width="1.2"/>
+<circle cx="587.0" cy="143.1" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="613.0" cy="142.6" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="639.0" cy="143.9" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="665.0" cy="140.4" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="691.0" cy="153.0" r="4.2" fill="#dc2626" stroke="#fff" stroke-width="1.2"/>
+<circle cx="717.0" cy="141.7" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="743.0" cy="138.9" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="769.0" cy="134.2" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="795.0" cy="148.6" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="821.0" cy="144.6" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="847.0" cy="159.1" r="4.2" fill="#dc2626" stroke="#fff" stroke-width="1.2"/>
+<line x1="80" y1="285" x2="860" y2="285" stroke="#222" stroke-width="1.5"/>
+<line x1="80" y1="105" x2="80" y2="285" stroke="#222" stroke-width="1.5"/>
+<text x="88" y="121" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#333" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">σ = 0.04  ·  25/30 osservazioni affidabili (≥ th)</text>
+<text x="80" y="337" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="14.5" fill="#111" font-weight="700">Soggetto instabile</text>
+<rect x="80" y="364.8" width="780" height="81.5" fill="#2563eb" fill-opacity="0.12"/>
+<line x1="80" y1="525.0" x2="860" y2="525.0" stroke="#e5e7eb"/>
+<text x="72" y="529" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0</text>
+<line x1="80" y1="435.0" x2="860" y2="435.0" stroke="#e5e7eb"/>
+<text x="72" y="439.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.5</text>
+<line x1="80" y1="345.0" x2="860" y2="345.0" stroke="#e5e7eb"/>
+<text x="72" y="349.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">1</text>
+<line x1="80" y1="405.5" x2="860" y2="405.5" stroke="#2563eb" stroke-width="1.8"/>
+<line x1="80" y1="466.9" x2="860" y2="466.9" stroke="#111" stroke-width="2.2" stroke-dasharray="7,5"/>
+<text x="862" y="409.5043316212959" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#2563eb" font-weight="700">E = 0.66</text>
+<text x="862" y="482.86017427151575" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#111" font-weight="700">th = 0.32</text>
+<path d="M 93.0,408.1 L 119.0,469.1 L 145.0,441.1 L 171.0,350.3 L 197.0,469.3 L 223.0,361.3 L 249.0,378.2 L 275.0,401.2 L 301.0,373.5 L 327.0,371.0 L 353.0,352.4 L 379.0,398.3 L 405.0,411.3 L 431.0,411.8 L 457.0,425.5 L 483.0,391.6 L 509.0,418.3 L 535.0,351.5 L 561.0,457.3 L 587.0,429.4 L 613.0,424.3 L 639.0,465.3 L 665.0,345.0 L 691.0,476.7 L 717.0,400.2 L 743.0,408.9 L 769.0,345.0 L 795.0,461.5 L 821.0,351.4 L 847.0,416.3" fill="none" stroke="#6b7280" stroke-width="1.4"/>
+<circle cx="93.0" cy="408.1" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="119.0" cy="469.1" r="4.2" fill="#dc2626" stroke="#fff" stroke-width="1.2"/>
+<circle cx="145.0" cy="441.1" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="171.0" cy="350.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="197.0" cy="469.3" r="4.2" fill="#dc2626" stroke="#fff" stroke-width="1.2"/>
+<circle cx="223.0" cy="361.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="249.0" cy="378.2" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="275.0" cy="401.2" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="301.0" cy="373.5" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="327.0" cy="371.0" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="353.0" cy="352.4" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="379.0" cy="398.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="405.0" cy="411.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="431.0" cy="411.8" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="457.0" cy="425.5" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="483.0" cy="391.6" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="509.0" cy="418.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="535.0" cy="351.5" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="561.0" cy="457.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="587.0" cy="429.4" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="613.0" cy="424.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="639.0" cy="465.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="665.0" cy="345.0" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="691.0" cy="476.7" r="4.2" fill="#dc2626" stroke="#fff" stroke-width="1.2"/>
+<circle cx="717.0" cy="400.2" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="743.0" cy="408.9" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="769.0" cy="345.0" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="795.0" cy="461.5" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="821.0" cy="351.4" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="847.0" cy="416.3" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<line x1="80" y1="525" x2="860" y2="525" stroke="#222" stroke-width="1.5"/>
+<line x1="80" y1="345" x2="80" y2="525" stroke="#222" stroke-width="1.5"/>
+<text x="88" y="361" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#333" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">σ = 0.23  ·  27/30 osservazioni affidabili (≥ th)</text>
+<text x="93.0" y="541" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#555">1</text>
+<text x="171.0" y="541" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#555">4</text>
+<text x="249.0" y="541" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#555">7</text>
+<text x="327.0" y="541" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#555">10</text>
+<text x="405.0" y="541" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#555">13</text>
+<text x="483.00000000000006" y="541" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#555">16</text>
+<text x="561.0" y="541" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#555">19</text>
+<text x="639.0" y="541" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#555">22</text>
+<text x="717.0" y="541" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#555">25</text>
+<text x="795.0" y="541" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#555">28</text>
+<text x="470.0" y="559" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#222">osservazione m (es. frame consecutivo)</text>
+<text x="460.0" y="590" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#555">Verde = sopra th, rosso = sotto th · banda azzurra = media ± σ · soggetto instabile → soglia più bassa, altrimenti rifiuterebbe troppe risposte</text>
+</svg>

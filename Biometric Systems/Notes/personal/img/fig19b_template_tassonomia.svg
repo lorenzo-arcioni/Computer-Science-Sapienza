@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="670" viewBox="0 0 920 670">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#111827" font-weight="700">Template updating: due scelte indipendenti</text>
+<text x="460.0" y="53" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#4b5563">Come si assegnano le etichette ai nuovi dati · quando si scelgono i template più rappresentativi</text>
+<text x="230" y="96" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#111" font-weight="700">Assegnazione delle etichette</text>
+<rect x="30.0" y="121.0" width="400" height="98" rx="9" fill="#dcfce7" stroke="#166534" stroke-width="1.5"/>
+<text x="230" y="149.0625" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">Supervised</text>
+<text x="230" y="165.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">serve un supervisore che assegna le identità ai nuovi dati</text>
+<text x="230" y="182.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">durante l&#x27;esercizio del sistema</text>
+<text x="230" y="199.6875" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">di solito lavora offline</text>
+<rect x="30.0" y="241.0" width="400" height="98" rx="9" fill="#ffedd5" stroke="#b45309" stroke-width="1.5"/>
+<text x="230" y="269.0625" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">Semi-supervised</text>
+<text x="230" y="285.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">usa l&#x27;unione di dati etichettati e non etichettati</text>
+<text x="230" y="302.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">lavora sia online sia offline</text>
+<text x="230" y="319.6875" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827"></text>
+<text x="690" y="96" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#111" font-weight="700">Selezione dei template più rappresentativi</text>
+<rect x="490.0" y="121.0" width="400" height="98" rx="9" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="690" y="149.0625" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">Online</text>
+<text x="690" y="165.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">la selezione avviene appena il sistema acquisisce</text>
+<text x="690" y="182.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">nuovi dati in ingresso</text>
+<text x="690" y="199.6875" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827"></text>
+<rect x="490.0" y="241.0" width="400" height="98" rx="9" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+<text x="690" y="269.0625" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">Offline</text>
+<text x="690" y="285.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">la selezione avviene dopo aver raccolto una certa quantità</text>
+<text x="690" y="302.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">di dati in un certo intervallo di tempo</text>
+<text x="690" y="319.6875" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827"></text>
+<text x="40" y="360" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="13.5" fill="#111" font-weight="700">Come cambia nel tempo</text>
+<text x="40" y="424" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#2563eb" font-weight="700">Online</text>
+<line x1="150" y1="420" x2="860" y2="420" stroke="#9ca3af" stroke-width="2"/>
+<line x1="854" y1="420" x2="870" y2="420" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+<line x1="870" y1="420" x2="863.25" y2="424.29" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+<line x1="870" y1="420" x2="863.25" y2="415.71" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+<circle cx="190" cy="420" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<line x1="190" y1="430" x2="190" y2="456" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="190" y1="456" x2="186.79" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="190" y1="456" x2="193.21" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="270" cy="420" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<line x1="270" y1="430" x2="270" y2="456" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="270" y1="456" x2="266.79" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="270" y1="456" x2="273.21" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="340" cy="420" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<line x1="340" y1="430" x2="340" y2="456" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="340" y1="456" x2="336.79" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="340" y1="456" x2="343.21" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="430" cy="420" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<line x1="430" y1="430" x2="430" y2="456" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="430" y1="456" x2="426.79" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="430" y1="456" x2="433.21" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="520" cy="420" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<line x1="520" y1="430" x2="520" y2="456" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="520" y1="456" x2="516.79" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="520" y1="456" x2="523.21" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="590" cy="420" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<line x1="590" y1="430" x2="590" y2="456" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="590" y1="456" x2="586.79" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="590" y1="456" x2="593.21" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="680" cy="420" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<line x1="680" y1="430" x2="680" y2="456" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="680" y1="456" x2="676.79" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="680" y1="456" x2="683.21" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="760" cy="420" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<line x1="760" y1="430" x2="760" y2="456" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="760" y1="456" x2="756.79" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="760" y1="456" x2="763.21" y2="450.93" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/>
+<text x="505.0" y="476" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">ogni nuova acquisizione può aggiornare subito la gallery</text>
+<text x="40" y="534" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#374151" font-weight="700">Offline</text>
+<rect x="170" y="512" width="300" height="36" rx="6" fill="#f59e0b" fill-opacity="0.15" stroke="#b45309" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="320.0" y="504" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#b45309" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">finestra di raccolta</text>
+<rect x="640" y="512" width="220" height="36" rx="6" fill="#f59e0b" fill-opacity="0.15" stroke="#b45309" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="750.0" y="504" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#b45309" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">finestra successiva</text>
+<line x1="150" y1="530" x2="860" y2="530" stroke="#9ca3af" stroke-width="2"/>
+<line x1="854" y1="530" x2="870" y2="530" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+<line x1="870" y1="530" x2="863.25" y2="534.29" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+<line x1="870" y1="530" x2="863.25" y2="525.71" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+<circle cx="190" cy="530" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<circle cx="270" cy="530" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<circle cx="340" cy="530" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<circle cx="430" cy="530" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<circle cx="520" cy="530" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<circle cx="590" cy="530" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<circle cx="680" cy="530" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<circle cx="760" cy="530" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+<line x1="470" y1="564" x2="470" y2="550" stroke="#374151" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="470" y1="550" x2="473.75" y2="555.91" stroke="#374151" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="470" y1="550" x2="466.25" y2="555.91" stroke="#374151" stroke-width="1.6" stroke-linecap="round"/>
+<text x="470" y="580" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">selezione dei template in blocco, alla fine di ogni finestra</text>
+<text x="40" y="640" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111" font-weight="700">Obiettivi:</text>
+<rect x="140.0" y="618.0" width="360" height="36" rx="9" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+<text x="320" y="640.025" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#111827" font-weight="700">Template ageing: il tratto cambia nel tempo</text>
+<rect x="530.0" y="618.0" width="360" height="36" rx="9" fill="#dcfce7" stroke="#166534" stroke-width="1.5"/>
+<text x="710" y="640.025" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#111827" font-weight="700">Template enhancing: più dati → template migliori</text>
+</svg>

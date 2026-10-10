@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="545" viewBox="0 0 920 545">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#111827" font-weight="700">Density Ratio: quanto è affollata la nube attorno al primo candidato</text>
+<text x="460.0" y="53" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#4b5563">Distanze d(p, g_i) ordinate in modo crescente · N_b = template con distanza &amp;lt; 2·d_1 · φ = 1 − |N_b|/|G| (primo escluso)</text>
+<text x="255.0" y="100" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.5" fill="#166534" font-weight="700">Probe A · risposta affidabile</text>
+<rect x="70" y="286.4" width="370" height="93.6" fill="#f59e0b" fill-opacity="0.12"/>
+<line x1="70" y1="286.4" x2="440" y2="286.4" stroke="#b45309" stroke-width="1.8" stroke-dasharray="6,4"/>
+<text x="436" y="280.4" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#b45309" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">2·d_1 = 0.36</text>
+<line x1="70" y1="380.0" x2="440" y2="380.0" stroke="#e5e7eb"/>
+<text x="62" y="384" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0</text>
+<line x1="70" y1="315.0" x2="440" y2="315.0" stroke="#e5e7eb"/>
+<text x="62" y="319.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.25</text>
+<line x1="70" y1="250.0" x2="440" y2="250.0" stroke="#e5e7eb"/>
+<text x="62" y="254.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.5</text>
+<line x1="70" y1="185.0" x2="440" y2="185.0" stroke="#e5e7eb"/>
+<text x="62" y="189.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.75</text>
+<line x1="70" y1="120.0" x2="440" y2="120.0" stroke="#e5e7eb"/>
+<text x="62" y="124.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">1</text>
+<circle cx="74.6" cy="333.2" r="6" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="83.9" cy="218.6" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="93.1" cy="217.7" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="102.4" cy="216.3" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="111.6" cy="209.1" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="120.9" cy="207.9" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="130.1" cy="206.9" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="139.4" cy="205.1" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="148.6" cy="201.2" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="157.9" cy="200.8" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="167.1" cy="200.3" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="176.4" cy="200.2" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="185.6" cy="197.6" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="194.9" cy="194.8" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="204.1" cy="194.0" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="213.4" cy="178.8" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="222.6" cy="178.6" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="231.9" cy="172.5" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="241.1" cy="172.1" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="250.4" cy="169.6" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="259.6" cy="165.8" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="268.9" cy="165.4" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="278.1" cy="163.1" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="287.4" cy="160.6" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="296.6" cy="159.5" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="305.9" cy="155.3" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="315.1" cy="155.2" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="324.4" cy="153.1" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="333.6" cy="150.6" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="342.9" cy="150.4" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="352.1" cy="144.0" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="361.4" cy="143.9" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="370.6" cy="141.5" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="379.9" cy="140.2" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="389.1" cy="139.7" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="398.4" cy="138.1" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="407.6" cy="137.9" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="416.9" cy="137.9" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="426.1" cy="136.3" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="435.4" cy="134.5" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="74.6" cy="333.2" r="10" fill="none" stroke="#166534" stroke-width="2"/>
+<text x="90.625" y="355.2" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#166534" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">d_1</text>
+<line x1="70" y1="380" x2="440" y2="380" stroke="#222" stroke-width="1.5"/>
+<line x1="70" y1="120" x2="70" y2="380" stroke="#222" stroke-width="1.5"/>
+<text x="255.0" y="414" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#222">rango k nella lista ordinata</text>
+<rect x="75.0" y="435.0" width="360" height="54" rx="9" fill="#dcfce7" stroke="#166534" stroke-width="1.5"/>
+<text x="255.0" y="457.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">|N_b| = 0 su |G| = 39 (primo escluso)  →  φ = 1.000</text>
+<text x="255.0" y="474.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">Relative Distance (d_2 − d_1)/d_max = 0.467</text>
+<text x="695.0" y="100" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.5" fill="#b45309" font-weight="700">Probe B · risposta ambigua</text>
+<rect x="510" y="224.0" width="370" height="156.0" fill="#f59e0b" fill-opacity="0.12"/>
+<line x1="510" y1="224.0" x2="880" y2="224.0" stroke="#b45309" stroke-width="1.8" stroke-dasharray="6,4"/>
+<text x="876" y="218.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#b45309" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">2·d_1 = 0.60</text>
+<line x1="510" y1="380.0" x2="880" y2="380.0" stroke="#e5e7eb"/>
+<text x="502" y="384" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0</text>
+<line x1="510" y1="315.0" x2="880" y2="315.0" stroke="#e5e7eb"/>
+<text x="502" y="319.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.25</text>
+<line x1="510" y1="250.0" x2="880" y2="250.0" stroke="#e5e7eb"/>
+<text x="502" y="254.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.5</text>
+<line x1="510" y1="185.0" x2="880" y2="185.0" stroke="#e5e7eb"/>
+<text x="502" y="189.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">0.75</text>
+<line x1="510" y1="120.0" x2="880" y2="120.0" stroke="#e5e7eb"/>
+<text x="502" y="124.0" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#333">1</text>
+<circle cx="514.6" cy="302.0" r="6" fill="#16a34a" stroke="#fff" stroke-width="1.2"/>
+<circle cx="523.9" cy="296.6" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="533.1" cy="292.4" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="542.4" cy="287.0" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="551.6" cy="285.6" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="560.9" cy="276.6" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="570.1" cy="276.4" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="579.4" cy="274.0" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="588.6" cy="272.4" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="597.9" cy="256.0" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="607.1" cy="251.0" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="616.4" cy="236.4" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="625.6" cy="231.5" r="4" fill="#f59e0b" stroke="#fff" stroke-width="1.2"/>
+<circle cx="634.9" cy="218.0" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="644.1" cy="217.2" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="653.4" cy="216.8" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="662.6" cy="214.8" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="671.9" cy="213.9" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="681.1" cy="203.3" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="690.4" cy="201.9" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="699.6" cy="192.2" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="708.9" cy="191.7" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="718.1" cy="189.3" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="727.4" cy="188.4" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="736.6" cy="187.4" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="745.9" cy="177.6" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="755.1" cy="177.5" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="764.4" cy="173.8" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="773.6" cy="169.2" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="782.9" cy="158.3" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="792.1" cy="154.5" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="801.4" cy="154.0" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="810.6" cy="152.3" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="819.9" cy="151.2" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="829.1" cy="148.6" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="838.4" cy="146.3" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="847.6" cy="139.0" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="856.9" cy="138.0" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="866.1" cy="136.8" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="875.4" cy="135.1" r="4" fill="#9ca3af" stroke="#fff" stroke-width="1.2"/>
+<circle cx="514.6" cy="302.0" r="10" fill="none" stroke="#166534" stroke-width="2"/>
+<text x="530.625" y="324.0" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#166534" font-weight="700" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">d_1</text>
+<line x1="510" y1="380" x2="880" y2="380" stroke="#222" stroke-width="1.5"/>
+<line x1="510" y1="120" x2="510" y2="380" stroke="#222" stroke-width="1.5"/>
+<text x="695.0" y="414" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#222">rango k nella lista ordinata</text>
+<rect x="515.0" y="435.0" width="360" height="54" rx="9" fill="#ffedd5" stroke="#b45309" stroke-width="1.5"/>
+<text x="695.0" y="457.9375" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827" font-weight="700">|N_b| = 12 su |G| = 39 (primo escluso)  →  φ = 0.692</text>
+<text x="695.0" y="474.8125" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12.5" fill="#111827">Relative Distance (d_2 − d_1)/d_max = 0.022</text>
+<text x="460.0" y="531" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11.5" fill="#555">arancione = template nella nube (contano in N_b) · grigio = lontani · verde = primo candidato (escluso) · φ alto = nube poco affollata</text>
+</svg>
