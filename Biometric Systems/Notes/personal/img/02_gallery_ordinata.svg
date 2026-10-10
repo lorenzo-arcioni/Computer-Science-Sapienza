@@ -1,39 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 450" width="100%" role="img" font-family="Helvetica, Arial, sans-serif" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTphMmU0ZjA2ZS01YjE5LTQyYzgtYWY2MC1kODE1YjkyYmUyMzIAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaAJpOyURwcROe1nmXDA644oAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDo1YzQ2MDg4OC0xNWQ5LTQ3OTktODY2Yi1hNTBjMGI3NWM1YzdscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNo3XWLyJ2P+7kxvpJ6GO34nwAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggFAowWfIDEDUssxXes31MiAClloNVWEbVGq4i+JLlKgekZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaCm4xVvnJH0DQSJMs1ef56sAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCCAdA+lQxqTkrEI9D43zSLgGHG0blJjZxgkmnuD0ABV42RuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBjAZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmEyZTRmMDZlLTViMTktNDJjOC1hZjYwLWQ4MTViOTJiZTIzMi9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjlkZWYzNWFmLTM4YjYtNDQzNC1iZWZmLTgxODhkNDdkMjU1MHJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCAUCjBZ8gMQNSyzFd6zfUyIAKWWg1VYRtUariL4kuUqB6JjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggIWxYLijGDkTQxnFzuz+MXJbn7jzvfusUpkZboubkKg6iY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggke+RzUCoAuJobgoUAOpb2eVk1TpPP6mT6egHlwe2Bth0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQDDu0ZTM5nPM+Zk3MabwDCTn9pIkpWUnPlvooorEE2Ylv1WsicP/YkXCX8PQ2pJwMHuDgWj3wYb10FbJWuIk+uI=</c2pa:manifest></metadata>
-<title>Template della gallery ordinati per punteggio rispetto alla soglia</title>
-<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
-<rect x="0.5" y="0.5" width="679" height="449" rx="8" fill="#FFFFFF" stroke="#D3D1C7"/>
-<rect x="477.0" y="62" width="163.0" height="246" fill="#E1F5EE" opacity="0.6"/>
-<text x="558.5" y="50" dy=".35em" font-size="12" font-weight="500" fill="#085041" text-anchor="middle">sopra soglia</text>
-<text x="377.0" y="50" dy=".35em" font-size="12" font-weight="500" fill="#444441" text-anchor="middle">sotto soglia</text>
-<rect x="16" y="164" width="134" height="60" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1"/>
-<text x="83.0" y="185.6" dy=".35em" font-size="14" font-weight="500" fill="#444441" text-anchor="middle">Probe p_j</text>
-<text x="83.0" y="207.2" dy=".35em" font-size="12" font-weight="400" fill="#5F5E5A" text-anchor="middle">s_ij = sim(p_j, g_i)</text>
-<line x1="150" y1="194" x2="198" y2="194" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#ar)"/>
-<text x="272" y="94" dy=".35em" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="end">rank 1 · g₃</text>
-<rect x="285" y="80" width="275.2" height="28" rx="4" fill="#5DCAA5" stroke="#0F6E56"/>
-<text x="566.2" y="94" dy=".35em" font-size="12" font-weight="400" fill="#444441" text-anchor="start">0.86</text>
-<text x="272" y="134" dy=".35em" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="end">rank 2 · g₇</text>
-<rect x="285" y="120" width="227.2" height="28" rx="4" fill="#5DCAA5" stroke="#0F6E56"/>
-<text x="518.2" y="134" dy=".35em" font-size="12" font-weight="400" fill="#444441" text-anchor="start">0.71</text>
-<text x="272" y="174" dy=".35em" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="end">rank 3 · g₁</text>
-<rect x="285" y="160" width="204.8" height="28" rx="4" fill="#5DCAA5" stroke="#0F6E56"/>
-<text x="495.8" y="174" dy=".35em" font-size="12" font-weight="400" fill="#444441" text-anchor="start">0.64</text>
-<text x="272" y="214" dy=".35em" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="end">rank 4 · g₉</text>
-<rect x="285" y="200" width="166.4" height="28" rx="4" fill="#D3D1C7" stroke="#888780"/>
-<text x="457.4" y="214" dy=".35em" font-size="12" font-weight="400" fill="#444441" text-anchor="start">0.52</text>
-<text x="272" y="254" dy=".35em" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="end">rank 5 · g₄</text>
-<rect x="285" y="240" width="131.2" height="28" rx="4" fill="#D3D1C7" stroke="#888780"/>
-<text x="422.2" y="254" dy=".35em" font-size="12" font-weight="400" fill="#444441" text-anchor="start">0.41</text>
-<text x="272" y="294" dy=".35em" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="end">rank 6 · g₂</text>
-<rect x="285" y="280" width="105.6" height="28" rx="4" fill="#D3D1C7" stroke="#888780"/>
-<text x="396.6" y="294" dy=".35em" font-size="12" font-weight="400" fill="#444441" text-anchor="start">0.33</text>
-<line x1="477.0" y1="58" x2="477.0" y2="314" stroke="#2C2C2A" stroke-width="1.5" stroke-dasharray="5 4"/>
-<text x="477.0" y="328" dy=".35em" font-size="12" font-weight="500" fill="#2C2C2A" text-anchor="middle">soglia t = 0.60</text>
-<rect x="204" y="76" width="436" height="36" rx="6" fill="none" stroke="#534AB7" stroke-width="2"/>
-<rect x="204" y="346" width="436" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
-<text x="422.0" y="366.16" dy=".35em" font-size="14" font-weight="500" fill="#3C3489" text-anchor="middle">Decisione: identità assegnata = g₃</text>
-<text x="422.0" y="386.32" dy=".35em" font-size="12" font-weight="400" fill="#534AB7" text-anchor="middle">rank 1 con s = 0.86 ≥ t, quindi probe accettato e identificato</text>
-<rect x="40" y="420" width="14" height="14" rx="3" fill="#5DCAA5" stroke="#0F6E56"/><text x="62" y="427" dy=".35em" font-size="12" font-weight="400" fill="#444441" text-anchor="start">s ≥ t (candidato)</text>
-<rect x="200" y="420" width="14" height="14" rx="3" fill="#D3D1C7" stroke="#888780"/><text x="222" y="427" dy=".35em" font-size="12" font-weight="400" fill="#444441" text-anchor="start">s &lt; t (scartato)</text>
-<rect x="350" y="420" width="14" height="14" rx="3" fill="none" stroke="#534AB7" stroke-width="2"/><text x="372" y="427" dy=".35em" font-size="12" font-weight="400" fill="#444441" text-anchor="start">rank 1 = unico template restituito</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 610" width="920" height="610" font-family="Helvetica, Arial, sans-serif">
+<rect width="920" height="610" fill="#ffffff"/>
+<text x="460.0" y="32.0" text-anchor="middle" font-size="20" font-weight="700" fill="#111">Template ordinati per punteggio, soglia e identità assegnata</text>
+<text x="460.0" y="54.0" text-anchor="middle" font-size="13" fill="#444">Un probe p_j confrontato con N = 8 template · soglia t = 0.7</text>
+<rect x="20" y="111" width="880" height="140" fill="#dcfce7" fill-opacity="0.6"/>
+<rect x="20" y="251" width="880" height="220" fill="#f3f4f6"/>
+<line x1="20" y1="251" x2="900" y2="251" stroke="#111" stroke-width="1.5" stroke-dasharray="7,5"/>
+<rect x="190" y="131" width="336.7" height="28" rx="3" fill="#16a34a"/>
+<text x="178.0" y="150.0" text-anchor="end" font-size="13" font-weight="700" fill="#222">rank 1 · g3</text>
+<text x="534.7" y="150.0" text-anchor="start" font-size="12" fill="#333">0.91</text>
+<text x="640.0" y="150.0" text-anchor="start" font-size="12.5" font-weight="700" fill="#15803d">restituito: id(g3)</text>
+<rect x="190" y="175" width="310.8" height="28" rx="3" fill="#16a34a"/>
+<text x="178.0" y="194.0" text-anchor="end" font-size="13" fill="#7c3aed">rank 2 · g7 ★</text>
+<text x="508.8" y="194.0" text-anchor="start" font-size="12" fill="#333">0.84</text>
+<text x="640.0" y="194.0" text-anchor="start" font-size="12.5" font-weight="700" fill="#7c3aed">candidato scartato  ★ template vero</text>
+<rect x="190" y="219" width="284.9" height="28" rx="3" fill="#16a34a"/>
+<text x="178.0" y="238.0" text-anchor="end" font-size="13" fill="#222">rank 3 · g1</text>
+<text x="482.9" y="238.0" text-anchor="start" font-size="12" fill="#333">0.77</text>
+<text x="640.0" y="238.0" text-anchor="start" font-size="12.5" fill="#555">candidato scartato</text>
+<rect x="190" y="263" width="214.6" height="28" rx="3" fill="#9ca3af"/>
+<text x="178.0" y="282.0" text-anchor="end" font-size="13" fill="#222">rank 4 · g5</text>
+<text x="412.6" y="282.0" text-anchor="start" font-size="12" fill="#333">0.58</text>
+<text x="640.0" y="282.0" text-anchor="start" font-size="12.5" fill="#777">sotto soglia</text>
+<rect x="190" y="307" width="181.3" height="28" rx="3" fill="#9ca3af"/>
+<text x="178.0" y="326.0" text-anchor="end" font-size="13" fill="#222">rank 5 · g2</text>
+<text x="379.3" y="326.0" text-anchor="start" font-size="12" fill="#333">0.49</text>
+<text x="640.0" y="326.0" text-anchor="start" font-size="12.5" fill="#777">sotto soglia</text>
+<rect x="190" y="351" width="151.7" height="28" rx="3" fill="#9ca3af"/>
+<text x="178.0" y="370.0" text-anchor="end" font-size="13" fill="#222">rank 6 · g8</text>
+<text x="349.7" y="370.0" text-anchor="start" font-size="12" fill="#333">0.41</text>
+<text x="640.0" y="370.0" text-anchor="start" font-size="12.5" fill="#777">sotto soglia</text>
+<rect x="190" y="395" width="122.1" height="28" rx="3" fill="#9ca3af"/>
+<text x="178.0" y="414.0" text-anchor="end" font-size="13" fill="#222">rank 7 · g6</text>
+<text x="320.1" y="414.0" text-anchor="start" font-size="12" fill="#333">0.33</text>
+<text x="640.0" y="414.0" text-anchor="start" font-size="12.5" fill="#777">sotto soglia</text>
+<rect x="190" y="439" width="81.4" height="28" rx="3" fill="#9ca3af"/>
+<text x="178.0" y="458.0" text-anchor="end" font-size="13" fill="#222">rank 8 · g4</text>
+<text x="279.4" y="458.0" text-anchor="start" font-size="12" fill="#333">0.22</text>
+<text x="640.0" y="458.0" text-anchor="start" font-size="12.5" fill="#777">sotto soglia</text>
+<line x1="449.0" y1="111" x2="449.0" y2="471" stroke="#111" stroke-width="2" stroke-dasharray="7,5"/>
+<text x="449.0" y="103.0" text-anchor="middle" font-size="14" font-weight="700" fill="#111">t = 0.7</text>
+<text x="30.0" y="243.0" text-anchor="start" font-size="11.5" font-weight="700" fill="#15803d">sopra soglia</text>
+<text x="30.0" y="267.0" text-anchor="start" font-size="11.5" font-weight="700" fill="#555">sotto soglia</text>
+<rect x="80.0" y="492.0" width="760.0" height="62.0" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+<text x="460.0" y="519.3" text-anchor="middle" font-size="13" font-weight="700" fill="#222">Output: id(g3) ✗ non è la vera identità</text>
+<text x="460.0" y="535.8" text-anchor="middle" font-size="13" fill="#222">il template vero è al rank 2: caso B (falso rifiuto per la persona vera)</text>
+<text x="460.0" y="598.0" text-anchor="middle" font-size="11.5" fill="#555">★ = template della vera identità: il rank lo calcola chi valuta (ground truth), il sistema vede solo l'ordinamento</text>
 </svg>

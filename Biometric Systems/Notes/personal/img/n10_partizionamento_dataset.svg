@@ -1,0 +1,390 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 890" width="920" height="890" font-family="Helvetica, Arial, sans-serif" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo3OWZiNTU5OC1kNTczLTQ0NWMtOGIzYy04ZjIxZDMyMDg4YzEAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaCTmDPItyPdhNjlqkOQ2XmoAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDplZjg3M2RmYS03NzVkLTRhOTQtOTVmOS0yMDViMTY5YzEwZTNscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNowGE9KIMb3t8qrTfz8L9CMwAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggShIhx3x9OxgLroZ1/4fobUrKAbt2JRWbBNUb7KIGet+kZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaOlqGxmipHWMOCQx/PKGtnYAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCAUObyeAKKAZ8peXIGLppgLHZlgEUDSATvgARNWrYDkQWRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBjBZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjc5ZmI1NTk4LWQ1NzMtNDQ1Yy04YjNjLThmMjFkMzIwODhjMS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjBlZGZhZGY4LWU3NWYtNDZiNi1hZTk1LWVmODcwNDc4NWIwNXJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCBKEiHHfH07GAuuhnX/h+htSsoBu3YlFZsE1RvsogZ636JjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFgg24wLPVtnG0AqApZGCIdx08ddsSbTizie1tCMZjM4bvyiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggNbn2Qsr5upKDfwRzXyFbPo2u3KmkCrHfbe0/xfEyMCR0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQEMjy4OArVFcyZjoMuIdNwzV3TeerOJo+BlZyp1oqgdyvd3+X8aUIJSNhgmBNBa6fnf7HGz4SJufhsxfVtvufEI=</c2pa:manifest></metadata>
+<rect width="920" height="890" fill="#ffffff"/>
+<text x="460.0" y="32.0" text-anchor="middle" font-size="20" font-weight="700" fill="#111">Progettazione sperimentale: le tre scelte di partizionamento</text>
+<text x="460.0" y="54.0" text-anchor="middle" font-size="13" fill="#444">Ogni cella = un campione (riga = soggetto, colonna = campione) · nessuna sovrapposizione tra insiemi</text>
+<text x="30.0" y="90.0" text-anchor="start" font-size="15" font-weight="700" fill="#111">1 · Training vs Testing</text>
+<text x="150.0" y="118.0" text-anchor="start" font-size="12.5" font-weight="700" fill="#1d4ed8">per SOGGETTI</text>
+<text x="102.0" y="147.0" text-anchor="end" font-size="11" fill="#444">S1</text>
+<rect x="110.0" y="130.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="136.0" y="130.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="162.0" y="130.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="188.0" y="130.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="214.0" y="130.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="240.0" y="130.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="102.0" y="173.0" text-anchor="end" font-size="11" fill="#444">S2</text>
+<rect x="110.0" y="156.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="136.0" y="156.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="162.0" y="156.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="188.0" y="156.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="214.0" y="156.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="240.0" y="156.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="102.0" y="199.0" text-anchor="end" font-size="11" fill="#444">S3</text>
+<rect x="110.0" y="182.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="136.0" y="182.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="162.0" y="182.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="188.0" y="182.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="214.0" y="182.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="240.0" y="182.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="102.0" y="225.0" text-anchor="end" font-size="11" fill="#444">S4</text>
+<rect x="110.0" y="208.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="136.0" y="208.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="162.0" y="208.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="188.0" y="208.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="214.0" y="208.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="240.0" y="208.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="102.0" y="251.0" text-anchor="end" font-size="11" fill="#444">S5</text>
+<rect x="110.0" y="234.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="136.0" y="234.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="162.0" y="234.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="188.0" y="234.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="214.0" y="234.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="240.0" y="234.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<text x="102.0" y="277.0" text-anchor="end" font-size="11" fill="#444">S6</text>
+<rect x="110.0" y="260.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="136.0" y="260.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="162.0" y="260.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="188.0" y="260.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="214.0" y="260.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="240.0" y="260.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<text x="110.0" y="306.0" text-anchor="start" font-size="11.5" fill="#555">soggetti del TS mai visti in training</text>
+<text x="480.0" y="118.0" text-anchor="start" font-size="12.5" font-weight="700" fill="#1d4ed8">per CAMPIONI</text>
+<text x="432.0" y="147.0" text-anchor="end" font-size="11" fill="#444">S1</text>
+<rect x="440.0" y="130.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="466.0" y="130.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="492.0" y="130.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="518.0" y="130.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="544.0" y="130.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="570.0" y="130.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<text x="432.0" y="173.0" text-anchor="end" font-size="11" fill="#444">S2</text>
+<rect x="440.0" y="156.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="466.0" y="156.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="492.0" y="156.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="518.0" y="156.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="544.0" y="156.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="570.0" y="156.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<text x="432.0" y="199.0" text-anchor="end" font-size="11" fill="#444">S3</text>
+<rect x="440.0" y="182.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="466.0" y="182.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="492.0" y="182.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="518.0" y="182.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="544.0" y="182.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="570.0" y="182.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<text x="432.0" y="225.0" text-anchor="end" font-size="11" fill="#444">S4</text>
+<rect x="440.0" y="208.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="466.0" y="208.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="492.0" y="208.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="518.0" y="208.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="544.0" y="208.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="570.0" y="208.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<text x="432.0" y="251.0" text-anchor="end" font-size="11" fill="#444">S5</text>
+<rect x="440.0" y="234.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="466.0" y="234.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="492.0" y="234.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="518.0" y="234.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="544.0" y="234.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="570.0" y="234.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<text x="432.0" y="277.0" text-anchor="end" font-size="11" fill="#444">S6</text>
+<rect x="440.0" y="260.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="466.0" y="260.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="492.0" y="260.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="518.0" y="260.0" width="26.0" height="26.0" fill="#93c5fd" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="544.0" y="260.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="570.0" y="260.0" width="26.0" height="26.0" fill="#fdba74" stroke="#ffffff" stroke-width="1.5"/>
+<text x="440.0" y="306.0" text-anchor="start" font-size="11.5" fill="#555">stessi soggetti, campioni diversi</text>
+<rect x="690" y="149" width="16" height="16" rx="3" fill="#93c5fd"/>
+<text x="714.0" y="162.0" text-anchor="start" font-size="12" fill="#222">Training (TR)</text>
+<rect x="690" y="173" width="16" height="16" rx="3" fill="#fdba74"/>
+<text x="714.0" y="186.0" text-anchor="start" font-size="12" fill="#222">Testing (TS)</text>
+<text x="690.0" y="225.0" text-anchor="start" font-size="11.5" fill="#555">per il ML: TR vario per</text>
+<text x="690.0" y="241.0" text-anchor="start" font-size="11.5" fill="#555">qualità e condizioni</text>
+<text x="30.0" y="350.0" text-anchor="start" font-size="15" font-weight="700" fill="#111">2 · Probe vs Gallery</text>
+<text x="150.0" y="378.0" text-anchor="start" font-size="12.5" font-weight="700" fill="#1d4ed8">Scelta 1: gallery = campione migliore</text>
+<text x="102.0" y="421.0" text-anchor="end" font-size="11" fill="#444">S1</text>
+<rect x="110.0" y="402.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="125.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="140.0" y="402.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="155.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="170.0" y="402.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="185.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="200.0" y="402.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="215.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="230.0" y="402.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="245.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="260.0" y="402.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="275.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="102.0" y="451.0" text-anchor="end" font-size="11" fill="#444">S2</text>
+<rect x="110.0" y="432.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="125.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="140.0" y="432.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="155.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="170.0" y="432.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="185.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="200.0" y="432.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="215.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="230.0" y="432.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="245.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="260.0" y="432.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="275.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="102.0" y="481.0" text-anchor="end" font-size="11" fill="#444">S3</text>
+<rect x="110.0" y="462.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="125.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="140.0" y="462.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="155.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="170.0" y="462.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="185.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="200.0" y="462.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="215.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="230.0" y="462.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="245.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="260.0" y="462.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="275.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="102.0" y="511.0" text-anchor="end" font-size="11" fill="#444">S4</text>
+<rect x="110.0" y="492.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="125.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="140.0" y="492.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="155.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="170.0" y="492.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="185.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="200.0" y="492.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="215.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="230.0" y="492.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="245.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="260.0" y="492.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="275.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="102.0" y="541.0" text-anchor="end" font-size="11" fill="#444">S5</text>
+<rect x="110.0" y="522.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="125.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="140.0" y="522.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="155.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="170.0" y="522.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="185.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="200.0" y="522.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="215.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="230.0" y="522.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="245.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="260.0" y="522.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="275.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="102.0" y="571.0" text-anchor="end" font-size="11" fill="#444">S6</text>
+<rect x="110.0" y="552.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="125.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="140.0" y="552.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="155.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="170.0" y="552.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="185.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="200.0" y="552.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="215.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="230.0" y="552.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="245.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="260.0" y="552.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="275.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="125.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">ideale</text>
+<text x="155.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">luce</text>
+<text x="185.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">posa</text>
+<text x="215.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">espr.</text>
+<text x="245.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">occh.</text>
+<text x="275.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">rumore</text>
+<text x="110.0" y="598.0" text-anchor="start" font-size="11.5" fill="#555">probe in condizioni variabili</text>
+<text x="500.0" y="378.0" text-anchor="start" font-size="12.5" font-weight="700" fill="#1d4ed8">Scelta 2: gallery varia</text>
+<text x="432.0" y="421.0" text-anchor="end" font-size="11" fill="#444">S1</text>
+<rect x="440.0" y="402.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="455.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="470.0" y="402.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="485.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="500.0" y="402.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="515.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="530.0" y="402.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="545.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="560.0" y="402.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="575.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="590.0" y="402.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="605.0" y="420.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="432.0" y="451.0" text-anchor="end" font-size="11" fill="#444">S2</text>
+<rect x="440.0" y="432.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="455.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="470.0" y="432.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="485.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="500.0" y="432.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="515.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="530.0" y="432.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="545.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="560.0" y="432.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="575.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="590.0" y="432.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="605.0" y="450.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="432.0" y="481.0" text-anchor="end" font-size="11" fill="#444">S3</text>
+<rect x="440.0" y="462.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="455.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="470.0" y="462.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="485.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="500.0" y="462.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="515.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="530.0" y="462.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="545.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="560.0" y="462.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="575.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="590.0" y="462.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="605.0" y="480.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="432.0" y="511.0" text-anchor="end" font-size="11" fill="#444">S4</text>
+<rect x="440.0" y="492.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="455.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="470.0" y="492.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="485.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="500.0" y="492.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="515.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="530.0" y="492.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="545.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="560.0" y="492.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="575.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="590.0" y="492.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="605.0" y="510.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="432.0" y="541.0" text-anchor="end" font-size="11" fill="#444">S5</text>
+<rect x="440.0" y="522.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="455.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="470.0" y="522.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="485.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="500.0" y="522.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="515.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="530.0" y="522.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="545.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="560.0" y="522.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="575.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="590.0" y="522.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="605.0" y="540.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="432.0" y="571.0" text-anchor="end" font-size="11" fill="#444">S6</text>
+<rect x="440.0" y="552.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="455.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="470.0" y="552.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="485.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="500.0" y="552.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="515.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="530.0" y="552.0" width="30.0" height="30.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="545.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">G</text>
+<rect x="560.0" y="552.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="575.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<rect x="590.0" y="552.0" width="30.0" height="30.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="605.0" y="570.6" text-anchor="middle" font-size="10" fill="#111">P</text>
+<text x="455.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">ideale</text>
+<text x="485.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">luce</text>
+<text x="515.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">posa</text>
+<text x="545.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">espr.</text>
+<text x="575.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">occh.</text>
+<text x="605.0" y="396.0" text-anchor="middle" font-size="10" fill="#444">rumore</text>
+<text x="440.0" y="598.0" text-anchor="start" font-size="11.5" fill="#555">riconosce meglio in condizioni diverse</text>
+<rect x="690" y="429" width="16" height="16" rx="3" fill="#86efac"/>
+<text x="714.0" y="442.0" text-anchor="start" font-size="12" fill="#222">G · gallery</text>
+<rect x="690" y="453" width="16" height="16" rx="3" fill="#c4b5fd"/>
+<text x="714.0" y="466.0" text-anchor="start" font-size="12" fill="#222">P · probe</text>
+<text x="690.0" y="505.0" text-anchor="start" font-size="11.5" fill="#555">mai lo stesso campione</text>
+<text x="690.0" y="521.0" text-anchor="start" font-size="11.5" fill="#555">in probe e gallery</text>
+<text x="30.0" y="640.0" text-anchor="start" font-size="15" font-weight="700" fill="#111">3 · Closed set vs Open set</text>
+<text x="150.0" y="656.0" text-anchor="start" font-size="12.5" font-weight="700" fill="#1d4ed8">CLOSED: tutti i probe in gallery</text>
+<text x="102.0" y="711.0" text-anchor="end" font-size="11" fill="#444">A</text>
+<rect x="110.0" y="694.0" width="26.0" height="26.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="123.0" y="710.6" text-anchor="middle" font-size="10" fill="#111">g</text>
+<rect x="136.0" y="694.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="149.0" y="710.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="162.0" y="694.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="175.0" y="710.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="188.0" y="694.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="201.0" y="710.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<text x="102.0" y="737.0" text-anchor="end" font-size="11" fill="#444">B</text>
+<rect x="110.0" y="720.0" width="26.0" height="26.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="123.0" y="736.6" text-anchor="middle" font-size="10" fill="#111">g</text>
+<rect x="136.0" y="720.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="149.0" y="736.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="162.0" y="720.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="175.0" y="736.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="188.0" y="720.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="201.0" y="736.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<text x="102.0" y="763.0" text-anchor="end" font-size="11" fill="#444">C</text>
+<rect x="110.0" y="746.0" width="26.0" height="26.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="123.0" y="762.6" text-anchor="middle" font-size="10" fill="#111">g</text>
+<rect x="136.0" y="746.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="149.0" y="762.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="162.0" y="746.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="175.0" y="762.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="188.0" y="746.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="201.0" y="762.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<text x="102.0" y="789.0" text-anchor="end" font-size="11" fill="#444">D</text>
+<rect x="110.0" y="772.0" width="26.0" height="26.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="123.0" y="788.6" text-anchor="middle" font-size="10" fill="#111">g</text>
+<rect x="136.0" y="772.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="149.0" y="788.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="162.0" y="772.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="175.0" y="788.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="188.0" y="772.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="201.0" y="788.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<text x="123.0" y="688.0" text-anchor="middle" font-size="10" fill="#444">gall.</text>
+<text x="149.0" y="688.0" text-anchor="middle" font-size="10" fill="#444">p1</text>
+<text x="175.0" y="688.0" text-anchor="middle" font-size="10" fill="#444">p2</text>
+<text x="201.0" y="688.0" text-anchor="middle" font-size="10" fill="#444">p3</text>
+<text x="110.0" y="818.0" text-anchor="start" font-size="11.5" font-weight="700" fill="#15803d">P = P_G</text>
+<text x="470.0" y="656.0" text-anchor="start" font-size="12.5" font-weight="700" fill="#1d4ed8">OPEN: P = P_G ∪ P_N</text>
+<text x="432.0" y="711.0" text-anchor="end" font-size="11" fill="#444">A</text>
+<rect x="440.0" y="694.0" width="26.0" height="26.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="453.0" y="710.6" text-anchor="middle" font-size="10" fill="#111">g</text>
+<rect x="466.0" y="694.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="479.0" y="710.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="492.0" y="694.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="505.0" y="710.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="518.0" y="694.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="531.0" y="710.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<text x="432.0" y="737.0" text-anchor="end" font-size="11" fill="#444">B</text>
+<rect x="440.0" y="720.0" width="26.0" height="26.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="453.0" y="736.6" text-anchor="middle" font-size="10" fill="#111">g</text>
+<rect x="466.0" y="720.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="479.0" y="736.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="492.0" y="720.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="505.0" y="736.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="518.0" y="720.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="531.0" y="736.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<text x="432.0" y="763.0" text-anchor="end" font-size="11" fill="#444">C</text>
+<rect x="440.0" y="746.0" width="26.0" height="26.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="453.0" y="762.6" text-anchor="middle" font-size="10" fill="#111">g</text>
+<rect x="466.0" y="746.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="479.0" y="762.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="492.0" y="746.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="505.0" y="762.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="518.0" y="746.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="531.0" y="762.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<text x="432.0" y="789.0" text-anchor="end" font-size="11" fill="#444">D</text>
+<rect x="440.0" y="772.0" width="26.0" height="26.0" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="453.0" y="788.6" text-anchor="middle" font-size="10" fill="#111">g</text>
+<rect x="466.0" y="772.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="479.0" y="788.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="492.0" y="772.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="505.0" y="788.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="518.0" y="772.0" width="26.0" height="26.0" fill="#c4b5fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="531.0" y="788.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<text x="432.0" y="815.0" text-anchor="end" font-size="11" fill="#444">E</text>
+<rect x="440.0" y="798.0" width="26.0" height="26.0" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="453.0" y="814.6" text-anchor="middle" font-size="10" fill="#111">—</text>
+<rect x="466.0" y="798.0" width="26.0" height="26.0" fill="#fca5a5" stroke="#ffffff" stroke-width="1.5"/>
+<text x="479.0" y="814.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="492.0" y="798.0" width="26.0" height="26.0" fill="#fca5a5" stroke="#ffffff" stroke-width="1.5"/>
+<text x="505.0" y="814.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="518.0" y="798.0" width="26.0" height="26.0" fill="#fca5a5" stroke="#ffffff" stroke-width="1.5"/>
+<text x="531.0" y="814.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<text x="432.0" y="841.0" text-anchor="end" font-size="11" fill="#444">F</text>
+<rect x="440.0" y="824.0" width="26.0" height="26.0" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="453.0" y="840.6" text-anchor="middle" font-size="10" fill="#111">—</text>
+<rect x="466.0" y="824.0" width="26.0" height="26.0" fill="#fca5a5" stroke="#ffffff" stroke-width="1.5"/>
+<text x="479.0" y="840.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="492.0" y="824.0" width="26.0" height="26.0" fill="#fca5a5" stroke="#ffffff" stroke-width="1.5"/>
+<text x="505.0" y="840.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<rect x="518.0" y="824.0" width="26.0" height="26.0" fill="#fca5a5" stroke="#ffffff" stroke-width="1.5"/>
+<text x="531.0" y="840.6" text-anchor="middle" font-size="10" fill="#111">p</text>
+<text x="453.0" y="688.0" text-anchor="middle" font-size="10" fill="#444">gall.</text>
+<text x="479.0" y="688.0" text-anchor="middle" font-size="10" fill="#444">p1</text>
+<text x="505.0" y="688.0" text-anchor="middle" font-size="10" fill="#444">p2</text>
+<text x="531.0" y="688.0" text-anchor="middle" font-size="10" fill="#444">p3</text>
+<text x="440.0" y="868.0" text-anchor="start" font-size="11.5" font-weight="700" fill="#b91c1c">E, F non sono in gallery: impostori (P_N)</text>
+<rect x="690" y="701" width="16" height="16" rx="3" fill="#86efac"/>
+<text x="714.0" y="714.0" text-anchor="start" font-size="12" fill="#222">g · in gallery</text>
+<rect x="690" y="725" width="16" height="16" rx="3" fill="#c4b5fd"/>
+<text x="714.0" y="738.0" text-anchor="start" font-size="12" fill="#222">p · probe di un iscritto (P_G)</text>
+<rect x="690" y="749" width="16" height="16" rx="3" fill="#fca5a5"/>
+<text x="714.0" y="762.0" text-anchor="start" font-size="12" fill="#222">p · probe di un ignoto (P_N)</text>
+<text x="690.0" y="802.0" text-anchor="start" font-size="11.5" fill="#555">non incide sulla verifica,</text>
+<text x="690.0" y="818.0" text-anchor="start" font-size="11.5" fill="#555">è cruciale nell'open set</text>
+</svg>
