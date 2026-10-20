@@ -5,6 +5,7 @@
 
 > Le parti marcate con **[Aggiunta]** non sono nelle slide ma servono a completare il ragionamento.
 > Le parti marcate con **[Nota]** segnalano imprecisioni o convenzioni delle slide.
+> Le figure sono generate da `generate_figures.py` (cartella `figures/`).
 
 ---
 
@@ -63,6 +64,8 @@ $$
 
 Un'immagine a colori è quindi un **tensore** di ordine 3 (altezza × larghezza × canali). Per CIFAR-like $32\times32\times3$: $32\cdot32\cdot3 = 3072$ numeri.
 
+<p align="center"><img src="figures/fig01_image_tensor.svg" alt="Immagine come tensore HxWx3 e vettore srotolato" width="92%"></p>
+
 ## 3. Classificazione di immagini
 
 Dato un insieme finito di etichette $\mathcal{Y}=\{\text{dog},\text{cat},\text{truck},\text{plane},\dots\}$, si cerca una funzione
@@ -88,6 +91,8 @@ $$
 **Numero di parametri:** $10\cdot3072+10=30\,730$.
 
 **Interpretazione.** La riga $k$ di $W$, $w_k^\top$, è un *template* per la classe $k$: lo score è $s_k=w_k^\top x+b_k$, un prodotto scalare fra immagine e template.
+
+<p align="center"><img src="figures/fig02_linear_classifier.svg" alt="Classificatore lineare Wx+b con dimensioni" width="92%"></p>
 
 ## 5. Classificatore Softmax (regressione logistica multinomiale)
 
@@ -116,6 +121,8 @@ Classi (cat, car, frog), logit $s=(3.2,\;5.1,\;-1.7)$.
 
 L'immagine è un gatto ma il modello dà 0.13 al gatto e 0.87 all'auto: la loss sarà alta.
 
+<p align="center"><img src="figures/fig03_softmax_pipeline.svg" alt="Pipeline softmax: logit, exp, probabilità, target" width="95%"></p>
+
 ### 5.3 Loss di cross-entropy
 
 Per l'esempio $i$ con classe corretta $y_i$:
@@ -127,6 +134,8 @@ $$
 **Perché.** Minimizzare $L_i$ equivale a massimizzare la log-verosimiglianza della classe corretta (*maximum likelihood*).
 
 Nell'esempio: $L_i=-\ln(0.13)\approx 2.04$.
+
+<p align="center"><img src="figures/fig04_cross_entropy_curve.svg" alt="Curva della cross-entropy -log p" width="80%"></p>
 
 **Legame con la cross-entropy fra distribuzioni.** Sia $Q$ la distribuzione "vera" (one-hot su $y_i$) e $P$ quella predetta (come nella slide: "compare"):
 
@@ -185,6 +194,8 @@ Metodi più complessi (citati): Dropout, Batch Normalization, stochastic depth, 
 
 **[Aggiunta] Esempio: perché L2 preferisce pesi distribuiti.** Sia $x=(1,1,1,1)$, $w_1=(1,0,0,0)$, $w_2=(\tfrac14,\tfrac14,\tfrac14,\tfrac14)$. Entrambi danno $w^\top x=1$ (stessa data loss), ma $R_{L2}(w_1)=1$ e $R_{L2}(w_2)=4\cdot\tfrac1{16}=0.25$: L2 sceglie $w_2$, che usa *tutte* le feature. L1 (con $\|w_1\|_1=\|w_2\|_1=1$) è indifferente, e tende in generale a soluzioni sparse.
 
+<p align="center"><img src="figures/fig05_regularization.svg" alt="Confronto L2 e L1 su due vettori di pesi" width="92%"></p>
+
 ## 7. Stochastic Gradient Descent (SGD)
 
 Loss e gradiente completi:
@@ -211,6 +222,8 @@ W\leftarrow W-\eta\,\widehat{\nabla}_W L ,
 $$
 
 con $\eta$ = *step size* / learning rate. (Il codice della slide campiona 256 esempi; il testo indica 32/64/128 come valori comuni: è solo un esempio.)
+
+<p align="center"><img src="figures/fig06_sgd_vs_gd.svg" alt="Percorso di gradient descent e SGD su curve di livello" width="85%"></p>
 
 ## 8. Grafi computazionali
 
@@ -258,6 +271,8 @@ $$
 $$
 \boxed{\ \frac{\partial f}{\partial y}=\underbrace{\frac{\partial f}{\partial q}}_{\text{gradiente upstream}}\ \underbrace{\frac{\partial q}{\partial y}}_{\text{gradiente locale}}\ }
 $$
+
+<p align="center"><img src="figures/fig07_backprop_graph.svg" alt="Grafo computazionale con forward e backward per (x+y)z" width="92%"></p>
 
 ### 9.2 Forma generale di un nodo
 
@@ -314,6 +329,8 @@ $$
 $\frac{\partial L}{\partial a}=\frac{\partial L}{\partial g_1}\frac{\partial g_1}{\partial a}+\frac{\partial L}{\partial g_2}\frac{\partial g_2}{\partial a}$.
 
 **Perché il max fa da router.** $\max(a,b)=a$ se $a>b$, quindi $\partial z/\partial a=\mathbb{1}[a>b]$, $\partial z/\partial b=\mathbb{1}[b>a]$.
+
+<p align="center"><img src="figures/fig08_gradient_gates.svg" alt="Add, mul, copy e max gate nel backward pass" width="92%"></p>
 
 ### 9.5 Implementazione modulare
 
@@ -421,6 +438,8 @@ Dimensioni: $x\in\mathbb{R}^D,\ W_1\in\mathbb{R}^{H_1\times D},\ W_2\in\mathbb{R
 
 **[Aggiunta] Parametri** (con bias, ad es. $D=3072$, $H=100$, $C=10$): $100\cdot3072+100+10\cdot100+10=308\,310$.
 
+<p align="center"><img src="figures/fig18_two_layer_network.svg" alt="Rete neurale a 2 strati fully connected" width="85%"></p>
+
 ## 11. Funzioni di attivazione
 
 | Nome | Formula | Derivata | Note |
@@ -436,6 +455,8 @@ Dimensioni: $x\in\mathbb{R}^D,\ W_1\in\mathbb{R}^{H_1\times D},\ W_2\in\mathbb{R
 $\tanh x=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}=\frac{1-e^{-2x}}{1+e^{-2x}}=\frac{2}{1+e^{-2x}}-1=2\sigma(2x)-1.$
 
 **Vanishing gradient con sigmoide [Aggiunta].** In una catena di $L$ strati sigmoidali il gradiente contiene un prodotto di $L$ fattori $\sigma'\le0.25$, quindi decade come $0.25^L$.
+
+<p align="center"><img src="figures/fig09_activation_functions.svg" alt="Grafici delle funzioni di attivazione" width="95%"></p>
 
 ## 12. Rete a 2 strati in ~20 righe di NumPy
 
@@ -473,6 +494,8 @@ Esempio: immagine $1000\times1000$ (in scala di grigi), $10^6$ unità nascoste.
 | **Fully connected** | $10^6$ (tutti i pixel) | $10^6\cdot10^6=\mathbf{10^{12}}$ |
 | **Localmente connessa** (filtro $10\times10$) | $10\cdot10=100$ | $10^6\cdot100=\mathbf{10^{8}}$ (100M) |
 | **Convoluzionale** (100 filtri $10\times10$, pesi condivisi) | — | $100\cdot(10\cdot10)=\mathbf{10^4}$ (10K) |
+
+<p align="center"><img src="figures/fig10_parameter_count.svg" alt="Numero di parametri: fully connected, locale, convoluzionale" width="85%"></p>
 
 **Due ipotesi sulle immagini:**
 
@@ -517,6 +540,8 @@ $$
 *Verifica di due elementi:* $f[0,0]$: colonna sinistra $=0+0+0$, colonna destra $=0+5+5$ → $-10$. $f[1,2]$: sinistra $=5+5+4=14$, destra $=0$ → $14$.
 
 Il kernel $(−1,0,1)$ per riga è un rilevatore di **bordi verticali** (derivata orizzontale): valori grandi in modulo dove l'intensità cambia da sinistra a destra.
+
+<p align="center"><img src="figures/fig11_convolution_2d.svg" alt="Convoluzione 2D: immagine, kernel e output" width="92%"></p>
 
 ## 15. Sistemi lineari
 
@@ -606,6 +631,8 @@ Il numero di canali dei filtri deve coincidere con la profondità dell'input (3,
 | CONV1 (6 filtri $5\times5\times3$) | $6\,(75+1)=456$ |
 | CONV2 (10 filtri $5\times5\times6$) | $10\,(150+1)=1\,510$ |
 
+<p align="center"><img src="figures/fig12_conv_volumes.svg" alt="Volumi 32x32x3, 28x28x6, 24x24x10 con CONV+ReLU" width="95%"></p>
+
 ### 16.5 Esercizi delle slide
 
 **Dimensione dell'output.** Input $32\times32\times3$, 10 filtri $5\times5$, stride 1, pad 2:
@@ -630,6 +657,8 @@ Flusso: INPUT $32\times32$ → C1: $6@28\times28$ → S2: $6@14\times14$ → C3:
 
 *Parametri:* C1 $=6(25+1)=156$; C5 $=120(400+1)=48\,120$; F6 $=84(120+1)=10\,164$.
 
+<p align="center"><img src="figures/fig16_lenet5.svg" alt="Architettura LeNet-5" width="95%"></p>
+
 **Caratteristiche di LeNet** (slide): feed-forward con la sequenza *convoluzione (appresa) → non linearità (ReLU) → pooling (massimo locale = sotto-campionamento) → feature map*; **supervisionata**; i filtri sono addestrati **retropropagando l'errore di classificazione**.
 
 ## 18. Pooling
@@ -648,6 +677,8 @@ $$
 $$
 
 *Calcolo:* $\max(1,1,5,6)=6$; $\max(2,4,7,8)=8$; $\max(3,2,1,2)=3$; $\max(1,0,3,4)=4$.
+
+<p align="center"><img src="figures/fig13_max_pooling.svg" alt="Max pooling 2x2 con stride 2" width="90%"></p>
 
 **Proprietà [Aggiunta].**
 
@@ -698,6 +729,8 @@ con $\gamma,\beta$ appresi.
 
 **Connessione residua [Aggiunta].** $y=F(x)+x$. Il gradiente è $\dfrac{\partial L}{\partial x}=\dfrac{\partial L}{\partial y}\Big(\dfrac{\partial F}{\partial x}+I\Big)$: il termine $I$ garantisce un cammino diretto per il gradiente attraverso decine o centinaia di strati.
 
+<p align="center"><img src="figures/fig17_residual_block.svg" alt="Blocco residuo y = F(x) + x" width="85%"></p>
+
 **Attention [Aggiunta].** Dati punteggi $e_j$ per gli ingressi $v_j$: $\alpha_j=\dfrac{e^{e_j}}{\sum_k e^{e_k}}$, uscita $c=\sum_j\alpha_jv_j$ (media pesata con pesi softmax).
 
 **Figura della slide (rete di LeCun 1989):** 256 ingressi ($16\times16$); H1 $=12\times64=768$ unità (12 mappe $8\times8$, kernel $5\times5$); H2 $=12\times16=192$ unità (12 mappe $4\times4$, kernel $5\times5\times8$); H3 30 unità; 10 uscite.
@@ -718,6 +751,8 @@ $$
 - Se un elemento dello strato $L-1$ vede $r_{L-1}$ pixel per lato, l'elemento dello strato $L$ combina $K$ elementi adiacenti del livello $L-1$: il loro insieme copre $r_{L-1}+(K-1)$ pixel (i $K$ campi si sovrappongono e si spostano di 1 ciascuno). Quindi $r_L=r_{L-1}+K-1$, da cui la formula.
 
 Esempi con $K=3$: $L=1\to3$, $L=2\to5$, $L=3\to7$.
+
+<p align="center"><img src="figures/fig14_receptive_field.svg" alt="Receptive field con convoluzioni 3x3 successive" width="85%"></p>
 
 **[Aggiunta] Formula generale con stride.** Con $j_0=1$ (salto fra elementi adiacenti in unità di pixel di input) e $r_0=1$:
 
@@ -748,6 +783,8 @@ Le ConvNet impilano strati di convoluzione, non linearità e pooling. La tendenz
 | 2015 | ResNet | 152 | **3.57** |
 
 L'errore cala mentre la profondità cresce da 8 a 152 strati.
+
+<p align="center"><img src="figures/fig15_imagenet_error.svg" alt="Errore top-5 ImageNet dal 2010 al 2015" width="92%"></p>
 
 ## 23. Letture consigliate (metodi di spiegabilità)
 
