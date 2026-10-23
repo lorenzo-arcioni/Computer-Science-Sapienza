@@ -5,11 +5,14 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "d2l>=0.17.0",
+    "datasets>=5.1.0",
     "ipykernel>=7.1.0",
     "jupyter>=1.1.1",
     "matplotlib>=3.10.7",
     "pandas>=2.3.3",
     "plotly>=6.5.0",
+    "pytorch-lightning>=2.6.6",
     "scikit-learn>=1.8.0",
     "scipy>=1.16.3",
     "seaborn>=0.13.2",
@@ -26,6 +29,12 @@ dependencies = [
 [[tool.uv.index]]
 name = "pytorch-cpu"
 url = "https://download.pytorch.org/whl/cpu"
+
+[tool.uv.workspace]
+members = [
+    "Advanced Machine Learning/personal notes/challenge",
+    "Advanced Machine Learning/personal notes/detection and segmentation",
+]
 
 [tool.uv]
 index-strategy = "unsafe-best-match"

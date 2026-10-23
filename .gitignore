@@ -29,3 +29,5 @@ env
 hailo_env
 *.onnx
 *.zip
+Advanced Machine Learning/self-study/data/*
+d2l-en
