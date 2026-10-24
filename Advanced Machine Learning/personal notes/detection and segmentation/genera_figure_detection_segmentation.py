@@ -303,7 +303,7 @@ def fig_convmatrix():
                       f'  C^T y        = {xr.astype(int).tolist()}', 'C^T NON e l\'inversa di C: riporta le dimensioni',
                       'originali (3 -> 6) ma non i valori. E un operatore di', 'upsampling con kernel APPRESO.'], 11.5)
     s.rect(500, 330, 440, 55, LGREEN, '#38a169')
-    s.lines(512, 350, ['Nel backward di una convoluzione si moltiplica per C^T:', 'la conv trasposta e quindi il "gradiente della convoluzione".'], 11.5)
+    s.lines(512, 350, ['Nel backward di una convoluzione si moltiplica per C^T:', 'la conv trasposta è quindi il "gradiente della convoluzione".'], 11.5)
     s.save('fig_convmatrix.svg')
 
 

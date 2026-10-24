@@ -56,37 +56,6 @@ Detection and Segmentation
 
 <img src="./fig_tasks.svg" alt="I quattro compiti" width="100%"/>
 
-**Copertura delle slide.**
-
-| Slide | Contenuto | Sezione |
-|---|---|---|
-| 2, 4, 52, 146, 157 | richiamo dei quattro compiti | 1 |
-| 3, 5, 50 | outline | 0 |
-| 7–9 | segmentazione semantica, *things vs stuff* | 1, 2 |
-| 10–14 | sliding window | 2.1 |
-| 15–18, 42 | rete completamente convoluzionale | 2.2 |
-| 19–20 | unpooling, max unpooling | 3.1 |
-| 21–32 | convoluzione trasposta | 3.2 |
-| 33–41 | convoluzione come matrice | 3.3 |
-| 43–46 | U-Net | 4 |
-| 47–49 | metriche, dati | 5, 6 |
-| 54–57 | single object: classificazione + localizzazione | 7 |
-| 58–64 | multi-object, crop | 8.1 |
-| 65 | region proposals | 8.2 |
-| 79–86 | R-CNN | 8.3 |
-| (slide senza numero) | sliding window con ConvNet | 8.4 |
-| 99–105, 117–118 | Fast R-CNN | 8.5 |
-| 106–116 | RoI Pool, RoI Align | 8.6 |
-| 119–130 | Faster R-CNN, RPN | 9 |
-| 131–138 | YOLO/SSD/RetinaNet | 10 |
-| 139 | confronto, «lots of variables» | 10.4 |
-| 140–145 | DETR | 11 |
-| 147–156 | Mask R-CNN, framework | 12 |
-| 158–161 | valutazione | 13 |
-| 163–173 | captioning denso, scene graph, 3D | 14 |
-
----
-
 ## 1. I quattro compiti (slide 2, 4, 7, 52, 146, 157)
 
 Data un'immagine $I$:
@@ -139,14 +108,17 @@ cioè la rete elabora **circa 2400 volte** il numero di pixel dell'immagine.
 $$
 \hat y_{h,w}=\arg\max_{c}\,S_{c,h,w}.
 $$
+
+<img src="./fully-convolutional.png" alt="Rete completamente convoluzionale" width="100%"/>
+
 L'addestramento usa la **cross-entropy per pixel**, mediata sui pixel:
 $$
 \mathcal L=-\frac1{HW}\sum_{h,w}\log\mathrm{softmax}(S_{\cdot,h,w})_{y^\star_{h,w}} .
 $$
 
-**Problema (slide 16):** *le convoluzioni a risoluzione originale sono molto costose.* Per uno strato $3\times3$ con $D$ canali in ingresso e uscita, a risoluzione $H\times W$:
+**Problema (slide 16):** *le convoluzioni a risoluzione originale sono molto costose.* Per uno strato $3\times3$ (dimensione del kernel, quindi $k = 3$) con $D$ canali in ingresso e uscita, a risoluzione $H\times W$, e dato che per ogni numero del kernel abbiamo almeno una somma e una moltplicazione (2 operazioni), abbiamo:
 $$
-\mathrm{FLOPs}\approx2\cdot k^2\cdot D\cdot D\cdot H\cdot W.
+\mathrm{FLOPs}\approx 2 \cdot k^2\cdot D\cdot D\cdot H\cdot W.
 $$
 **Numeri [calcolati].** Con $D=64$ e $224\times224$: **3.70 GFLOPs** a risoluzione piena, **0.93** a metà ($4\times$ meno), **0.23** a un quarto ($16\times$ meno).
 
@@ -154,7 +126,7 @@ $$
 
 - Alta risoluzione: $D_1\times H/2\times W/2$; media: $D_2\times H/4\times W/4$; bassa: $D_3\times H/4\times W/4$ (nelle slide).
 - **Downsampling:** pooling, convoluzione con stride (nota 1).
-- **Upsampling:** *???* nella slide 18, risolto poi con **unpooling** o **convoluzione trasposta con stride** (slide 42).
+- **Upsampling:** come si fa? risolto poi con **unpooling** o **convoluzione trasposta con stride**.
 
 **Perché funziona [Aggiunta].** (i) Il costo cala con il quadrato del fattore di downsampling; (ii) il **campo recettivo** cresce (ogni pixel a bassa risoluzione «vede» una regione ampia), quindi si ottiene il contesto che la sliding window cercava, ma una sola volta per tutta l'immagine; (iii) l'upsampling riporta l'uscita a $H\times W$.
 
@@ -185,6 +157,9 @@ $$
 **Formalmente.** Se $m:\{\text{blocchi}\}\to\{\text{posizioni}\}$ è l'«interruttore» (*switch*) del pooling, $\mathrm{unpool}(x)_{m(i,j)}=x_{i,j}$ e 0 altrove. Gli strati di downsampling e upsampling vanno **a coppie** (slide). **[Aggiunta]** Il max unpooling ricorda *dove* erano le attivazioni forti: preserva la struttura dei bordi meglio di NN. Nessuno di questi tre ha parametri appresi.
 
 <img src="./fig_unpool.svg" alt="Unpooling" width="100%"/>
+<img src="./max-unpooling-view.png" alt="Unpooling" width="50%" style="display: block; margin-left: auto; margin-right: auto;"/>
+
+*Descrizione.* Gli strati in rosso corrispondono al maxpooling e la freccia indica il passaggio dall'unpooling al maxpooling corrispondente. In particolare, nel maxpooling vengono memorizzate le posizioni dei massimi trovati e vengono ripristinate nel max unpooling.
 
 ### 3.2 Convoluzione trasposta (slide 21–32)
 
@@ -201,8 +176,35 @@ Con $n=4,k=3,p=1$: $s=1\Rightarrow4$; $s=2\Rightarrow\lfloor3/2\rfloor+1=2$, com
 **Altri nomi (slide 31):** *deconvolution* (**errato**: non è l'inversa della convoluzione), *upconvolution*, *fractionally strided convolution*, *backward strided convolution*.
 
 **Esempio 1D (slide 32).** Ingresso $(a,b)$, filtro $(x,y,z)$, stride 2:
+**1. Moltiplichiamo ogni valore d'ingresso per il filtro:**
+
 $$
-\text{uscita}=(ax,\ ay,\ az+bx,\ by,\ bz).
+a(x,y,z)=(ax,ay,az)
+$$
+
+$$
+b(x,y,z)=(bx,by,bz)
+$$
+
+**2. Posizioniamo i risultati con stride \(s=2\):**
+
+$$
+\begin{aligned}
+a &: \quad (ax,\ ay,\ az,\ 0,\ 0)\\
+b &: \quad (0,\ 0,\ bx,\ by,\ bz)
+\end{aligned}
+$$
+
+**3. Sommiamo i valori nelle posizioni sovrapposte:**
+
+$$
+\boxed{
+\underbrace{(ax,\ ay,\ az,\ 0,\ 0)}_{\text{contributo di }a}
++
+\underbrace{(0,\ 0,\ bx,\ by,\ bz)}_{\text{contributo di }b}
+=
+(ax,\ ay,\ az+bx,\ by,\ bz)
+}
 $$
 Con $(a,b)=(1,2)$ e $(x,y,z)=(1,2,3)$ si ottiene $(1,2,5,4,6)$ (lunghezza $(n-1)s+k=5$). Per avere esattamente $2n=4$ elementi **si taglia un pixel** (slide). In forma generale, con $y\in\mathbb R^n$, filtro $w\in\mathbb R^k$:
 $$
@@ -237,8 +239,6 @@ $$
 
 <img src="./fig_convmatrix.svg" alt="Convoluzione come matrice" width="100%"/>
 
-**Riassunto dell'architettura (slide 42).** Downsampling con pooling o conv a stride; upsampling con unpooling o conv trasposta a stride; l'uscita è $C\times H\times W$ e si prende l'argmax.
-
 ---
 
 ## 4. U-Net (slide 43–46)
@@ -258,6 +258,8 @@ dove $[\cdot;\cdot]$ concatena lungo i canali ($\mathrm{ch}+\mathrm{ch}\to$ conv
 **Perché concatenare [Aggiunta].** Le feature profonde sanno *che cosa* c'è ma sono grossolane; quelle superficiali sanno *dove* sono i bordi ma non il significato. Concatenarle dà al decoder entrambe. A differenza di ResNet (che *somma*, nota 1) qui si concatena, quindi i canali raddoppiano e i pesi imparano come combinarle. **Calcolo:** con $H=W=256$ e $C=21$ classi la mappa finale ha $21\cdot256\cdot256=1\,376\,256$ punteggi.
 
 <img src="./fig_arch.svg" alt="Encoder-decoder e U-Net" width="100%"/>
+<img src="./u-net.png" alt="U-Net" width="60%" style="display: block; margin: auto"/>
+<img src="./unet.jpeg" alt="U-Net" width="60%" style="display: block; margin: auto"/>
 
 ---
 
