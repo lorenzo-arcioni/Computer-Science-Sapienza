@@ -31,3 +31,5 @@ hailo_env
 *.zip
 Advanced Machine Learning/self-study/data/*
 d2l-en
+Advanced Machine Learning/Challenge/datasets
+.tex_cache

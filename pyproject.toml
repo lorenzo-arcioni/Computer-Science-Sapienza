@@ -7,21 +7,27 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "d2l>=0.17.0",
     "datasets>=5.1.0",
+    "huggingface-hub>=2.2.0",
+    "imagehash>=4.3.2",
     "ipykernel>=7.1.0",
     "jupyter>=1.1.1",
+    "jupytext>=1.19.6",
     "matplotlib>=3.10.7",
     "pandas>=2.3.3",
+    "pillow>=12.0.0",
     "plotly>=6.5.0",
     "pytorch-lightning>=2.6.6",
+    "pyyaml>=6.0.3",
+    "safetensors>=0.8.0",
     "scikit-learn>=1.8.0",
     "scipy>=1.16.3",
     "seaborn>=0.13.2",
     "shap>=0.50.0",
-    "torch==2.5.1",
-    "torchaudio==2.5.1",
+    "torch>=2.6",
     "torchmetrics[detection]>=1.8.2",
-    "torchvision==0.20.1",
+    "torchvision>=0.21",
     "tqdm>=4.67.1",
+    "transformers>=5.21.0",
     "ultralytics>=8.3.235",
     "wandb>=0.23.1",
 ]
@@ -29,6 +35,11 @@ dependencies = [
 [[tool.uv.index]]
 name = "pytorch-cpu"
 url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
 
 [tool.uv.workspace]
 members = [
