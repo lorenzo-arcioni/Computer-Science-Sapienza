@@ -91,7 +91,7 @@ La soglia ufficiale è $\alpha=0.10$. Si riportano anche $\alpha=0.05$ (precisio
 | val-split | 695 | 102 | seed 0, 25% del train |
 | test | 577 | 98 | senza etichette |
 
-Il 52.5% delle query ha più di un target accettato. Lo split di validazione è **per componenti connesse di immagini** (union-find sul grafo immagine-coppia), quindi nessuna immagine compare sia in train sia in val: si evita il leakage. Lo stesso seed produce lo stesso val-split in tutti i notebook, quindi i numeri sono confrontabili.
+Il 52.5% delle query ha più di un target accettato. Lo split di validazione è **per componenti connesse di immagini** (immagini che hanno almeno una query in comune), quindi nessuna immagine compare sia in train sia in val: si evita il leakage. Lo stesso seed produce lo stesso val-split in tutti i notebook, quindi i numeri sono confrontabili.
 
 ![Split per componenti e unità di training](figs/F01_split_unita.svg)
 
@@ -808,39 +808,166 @@ Combinazione prudente: partendo da 0.604, uno scenario ottimistico porterebbe a 
 | $\theta'$, $\beta$ | pesi EMA; coefficiente dell'EMA |
 | $\rho$ | scala relativa dell'oggetto $L/\max(W_t,H_t)$ |
 
-## Appendice C: figure e come rigenerarle
 
-Tutte le figure sono SVG generate da `make_figures.py` (Python, nessuna installazione di LaTeX necessaria). Le formule sono scritte in sintassi LaTeX e composte dal motore *mathtext* di matplotlib con font Computer Modern; con `svg.fonttype = "path"` ogni glifo diventa un tracciato vettoriale, quindi gli SVG appaiono uguali ovunque.
+## 10. Piano sperimentale: cosa provare e in che ordine
 
-```bash
-pip install numpy scipy matplotlib
-python make_figures.py                 # scrive figs/F00_*.svg ... figs/F24_*.svg
-python make_figures.py --png preview/  # in più, anteprime PNG
-```
+Questa sezione sostituisce la tabella di priorità della sezione 8, ora che è chiaro il vincolo delle regole e l'idea da riprendere da MARCO. Tutte le voci sono **proposte** (non testate) e le stime di guadagno sono mie.
 
-| Figura | Contenuto | Dati |
+### 10.1 Vincoli e principi
+
+**Regole della challenge (regola 2).** Si usano solo immagini e annotazioni fornite; i modelli preaddestrati sono permessi. Quindi:
+
+- **Lecito:** DINOv3, DINOv2 e altri backbone preaddestrati in modo generico; reimplementare idee da paper (anche MARCO) e addestrarle solo sui dati forniti.
+- **Da evitare:** dataset esterni (SPair-71k, AP-10k, PF-Pascal, MP-100) e checkpoint già addestrati su semantic correspondence (`marco_spair.pth`, `marco_ap_spair.pth`). Prima di usarli serve conferma scritta dell'host. Il piano non li usa.
+
+**Principi di metodo.**
+
+1. **Una modifica alla volta**, a parità di tutto il resto (stesso split, seed, ricetta). Il confronto B contro L del nb5 cambia sei variabili insieme (sezione 9, punto 3): non va ripetuto.
+2. **Si decide sulla differenza appaiata**, non sul punteggio assoluto. Con IC di ±5 punti (sezione 2.4), due configurazioni a 1–3 punti di distanza non sono distinguibili.
+3. **Si salvano le predizioni per query** di ogni esperimento, così ogni confronto successivo è un bootstrap appaiato gratuito.
+4. **Si registrano anche i risultati negativi**, con la spiegazione probabile (come nella sezione 7).
+
+**Regola di accettazione.** Una modifica entra nella pipeline solo se, in K-fold per componenti, la differenza media rispetto alla baseline è positiva e l'IC bootstrap appaiato (per coppia) non include 0. Altrimenti è **scartato**, anche se il valore sul singolo val-split è più alto.
+
+### 10.2 Ordine di lavoro
+
+| Fase | Obiettivo | Costo | Dipende da |
+|---|---|---|---|
+| 0 | valutazione affidabile | basso | |
+| 1 | esperimenti a sola inferenza | basso | 0 |
+| 2 | isolare il backbone | medio | 0 |
+| 3 | ridurre il gap di generalizzazione | medio | 0 |
+| 4 | idee da MARCO | medio-alto | 0, 3 |
+| 5 | candidati e secondo backbone | alto | 0 |
+| 6 | modello finale e submission | alto | tutte |
+
+Le fasi 2 e 3 possono procedere in parallelo; la fase 4 conviene dopo la 3 per non confondere gli effetti.
+
+### 10.3 Fase 0: valutazione affidabile
+
+**F0.1 K-fold per componenti.** $K=5$ sulle componenti connesse (stesse regole dello split attuale, sezione 2.3), seed fissati. Ogni esperimento riporta media e deviazione standard tra fold, oltre al PCK sul val-split storico, per continuità con i numeri già in nota.
+
+**F0.2 Bootstrap appaiato.** Per ogni coppia di configurazioni $(A,B)$: $\Delta_q=\mathbb 1[e^B_q\leq0.10]-\mathbb 1[e^A_q\leq0.10]$, ricampionamento *per coppia*, IC 95% su $\overline{\Delta}$. Si riesegue subito su B contro L (nb3 contro nb5) per sapere se il +6.9 è significativo.
+
+**F0.3 Calibrazione sul leaderboard.** Una submission della baseline attuale (testa F2) per misurare quanto il val sia ottimistico rispetto al test (sezione 9, punti 2 e 5). Il numero va annotato in nota: oggi non compare da nessuna parte.
+
+**Criterio di uscita.** Esiste uno script che, data una configurazione, produce le predizioni per query su tutti i fold e il confronto appaiato con la baseline.
+
+### 10.4 Fase 1: esperimenti a sola inferenza
+
+Nessun nuovo addestramento, quindi si fanno subito.
+
+| ID | Esperimento | Cosa si misura |
 |---|---|---|
-| F00 | panoramica della pipeline | schema |
-| F01 | split e unità di training | schema |
-| F02 | augmentation | schema |
-| F03 | architettura | schema |
-| F04 | descrittore e logit | sintetici |
-| F05 | etichette gaussiane e annealing | schema + formule |
-| F06 | curve di training | **letti dai notebook** |
-| F07 | multiscala e griglia canonica | sintetici |
-| F08 | soft-argmax | sintetici |
-| F09 | geometria dello zoom | sintetici |
-| F10 | effetto per gruppo, B contro L | **letti** |
-| F11 | ensemble di backbone | sintetici |
-| F12 | re-ranker (sinistra) e oracolo top-$K$ (destra) | sintetici / **letti** |
-| F13 | output | schema (riga reale del nb2) |
-| F14 | scala dei risultati | **letti** |
-| F15 | budget d'errore | **letti** |
-| F16 | matrice tecnica per notebook | **letti** |
-| F17 | K-fold e modello finale | schema |
-| F18–F19 | esperimenti del nb1 | **letti** |
-| F20 | esperimenti del nb2 | **letti** |
-| F21 | esperimenti del nb3 | **letti** |
-| F22 | esperimenti del nb5 | **letti** |
-| F23 | gap train/val | **letti** |
-| F24 | miglior metodo per notebook, tre soglie | **letti** |
+| 1a | zoom a 2 giri con la testa L (nel nb3, con B, il secondo giro valeva +2.0 e il terzo era negativo) | se uno stadio 1 migliore rende utile il secondo giro |
+| 1b | `max_frac` e margine dello zoom, griglia piccola (0.7/0.9, 0.18/0.3) | sensibilità, e se spiega gli oggetti di scala media |
+| 1c | diagnosi degli **oggetti di scala media** (0.453, +1.0 sul B): per query, stadio 1 contro zoom, punto di vista, clutter, numero di punti nella coppia | perché non migliorano |
+
+**Criterio.** 1a e 1b si accettano con la regola di 10.1. 1c produce una tabella, non una modifica.
+
+### 10.5 Fase 2: isolare il backbone
+
+Il confronto attuale non dice se il guadagno viene dal backbone o dalla ricetta. Si tiene la **ricetta del nb5 invariata** e si cambia solo il backbone.
+
+| ID | Backbone | Note |
+|---|---|---|
+| 2a | DINOv3 ViT-B/16 (ricetta nb5) | isola il +6.9 |
+| 2b | DINOv2 ViT-L/14 | patch 14: griglia ~36 celle a 512 px invece di 32, cache nuova |
+| 2c | DINOv2 ViT-L/14 con registri | verifica se i registri riducono gli artefatti nei match |
+
+Per DINOv2 si adatta il numero di blocchi addestrabili (stessi 4 su 24) e si ricontrolla lo scarto dei token speciali.
+
+**Criterio.** Si tiene DINOv3-L come default salvo che 2b o 2c lo battano con IC appaiato. Una vittoria di DINOv2 sarebbe un risultato da riportare, non un fallimento.
+
+### 10.6 Fase 3: ridurre il gap di generalizzazione
+
+Il collo di bottiglia è il gap (train 0.973, val 0.604): la schedule lunga non aiuta e la LoRA ha peggiorato. Restano due leve.
+
+**3a. Augmentation fotometrica e di scala.** Variazioni di colore, luminosità, contrasto e blur; jitter di scala e di rapporto d'aspetto dei ritagli; più di 2 varianti di ritaglio per coppia. Le feature sono in cache per immagine, quindi le augmentation fotometriche richiedono di ricalcolare la cache (oppure di generare alcune varianti fisse, per esempio 2–3 per immagine).
+
+**3b. Più capacità addestrabile.** $K=6$ e $K=8$ blocchi invece di 4. Ipotesi: la LoRA sotto-addestrava (1.4M contro 50.7M), quindi più capacità non necessariamente peggiora il gap. Va controllato con early stopping, perché il rischio è l'opposto.
+
+**Criterio.** Per ogni voce: PCK@0.10 sui fold *e* gap train/val. Una modifica che alza il val ma anche il gap va guardata con sospetto.
+
+### 10.7 Fase 4: idee riprese da MARCO
+
+**Premessa.** Non ho letto il pseudo-codice dell'algoritmo (Sec. F del materiale supplementare di MARCO). Le descrizioni sotto sono una mia interpretazione del paper e del README; il primo passo è leggerle e correggere questa sezione.
+
+Il vincolo è che si usano **solo i dati della challenge** e il backbone preaddestrato: niente pesi MARCO, niente dataset esterni, niente SAM senza verifica delle regole (i bounding box già disponibili fanno da maschera grezza).
+
+**4a. Dense self-distillation con flow anchoring.**
+
+*Idea.* Dai keypoint annotati si ricavano corrispondenze dense affidabili sui punti non annotati dell'oggetto, e si usano come supervisione extra.
+
+*Adattamento proposto.*
+1. Teacher = pesi EMA (già disponibili), congelati durante il passo.
+2. Per ogni coppia, si campionano punti sorgente dentro il riquadro dell'oggetto (non annotati) e si calcolano i loro match col teacher.
+3. **Ancoraggio ai keypoint:** si tengono i match coerenti con il flusso locale definito dai keypoint annotati vicini (idea: un punto vicino a un keypoint deve finire vicino al suo target). La definizione esatta va presa dal paper.
+4. **Filtro di confidenza:** consistenza ciclica e accordo tra le scale 512/768. Senza filtro, il 25% di errori semantici dello stadio 1 verrebbe propagato.
+5. Loss extra: $\mathcal L=\mathcal L_{kp}+\lambda\,\mathcal L_{pseudo}$, con $\lambda$ scelto in K-fold.
+
+*Aspettative.* Nel supplementare di MARCO il guadagno è piccolo sui keypoint visti e grande su quelli non visti. Qui il gap è su immagini nuove, quindi l'effetto atteso è incerto: stima prudente +0–3 punti, non verificata.
+
+*Varianti da separare.* (i) Solo le coppie del train; (ii) anche le immagini di test **senza etichette**. La seconda usa solo immagini fornite, ma è una scelta di protocollo da dichiarare nel report e da verificare con l'host: non usa risposte del test, ma si addestra su immagini di test.
+
+**4b. Loss coarse-to-fine.**
+
+*Idea.* Portare nel training la supervisione a più risoluzioni, oggi solo in inferenza (zoom).
+
+*Adattamento proposto.* Termine di loss aggiuntivo sulla griglia ×1 (32 celle) oltre a quella ×2 (64), oppure su due scale di input. La forma esatta della loro loss è ignota: è una variante mia, non una copia.
+
+*Aspettative.* Guadagno di precisione (@0.05), possibile sovrapposizione con lo zoom. Si prova dopo 4a.
+
+**Criterio.** Per 4a e 4b: stesso K-fold, un solo cambiamento alla volta, $\lambda$ scelto sui fold interni. Si riportano anche il numero di pseudo-label tenuti e la loro precisione (misurabile sul train, dove le etichette ci sono).
+
+### 10.8 Fase 5: candidati e secondo backbone
+
+L'oracolo top-$K$ dice che circa il 22% delle query non ha la posizione corretta tra i primi 10 candidati (sezione 6.4): il re-ranker non può recuperarle, il secondo backbone forse sì.
+
+**5a. Re-ranker appreso** (sezione 4, B5), con feature del candidato (punteggio, rango, accordo tra scale, distanza dal giro precedente, consistenza ciclica). Va addestrato su predizioni **out-of-fold**, quindi dipende dalla fase 0. Il margine dell'oracolo top-1 → top-5 è 16.4 punti, ma è un tetto ottimistico.
+
+**5b. Secondo backbone di famiglia diversa** (per esempio feature di un modello di diffusione preaddestrato), con testa fine-tuned come per DINO, combinato sulla griglia canonica: $\bar S=\sum_m\alpha_m\bar S_m$, con $\alpha_m$ scelti in CV. Un ensemble ha senso solo se gli errori sono diversi: va misurata prima la correlazione degli errori per query (overlap delle query corrette).
+
+**Criterio.** 5a si accetta solo con predizioni out-of-fold; 5b solo se l'overlap degli errori è basso e il guadagno appaiato è significativo. Il costo di 5b è alto (memoria e tempo), quindi si decide dopo le fasi 2–4.
+
+### 10.9 Fase 6: modello finale
+
+1. **Configurazione finale** = baseline + le sole modifiche accettate dalla regola di 10.1.
+2. **Numero di epoche** dal K-fold (mediana degli snapshot migliori).
+3. **Riaddestramento su train+val** con quel numero di epoche, senza early stopping (non validabile con un val separato). Il rischio è non avere un controllo: si mitiga con almeno 2 seed e controllando che la loss di train sia paragonabile a quella dei fold.
+4. **Selezione delle submission:** poche e motivate, non una ricerca sul leaderboard pubblico. Il leaderboard privato decide il risultato (regola 7), quindi il val locale resta il criterio principale.
+5. **Controlli di formato:** 577 righe, ID identici al campione, coordinate nell'immagine originale e dentro i bordi.
+
+### 10.10 Cosa non si prova
+
+Per i motivi già misurati nella sezione 7: flip-TTA, ensemble di seed con lo stesso backbone e la stessa ricetta, ri-ranking geometrico a mano, LoRA, mix appreso dei layer, schedule lunghe, zoom a 3 giri.
+
+### 10.11 Tabella di tracciamento
+
+Da compilare man mano; lo stato iniziale è **proposto**.
+
+| ID | Esperimento | Stato | Δ medio (fold) | IC appaiato | Decisione |
+|---|---|---|---|---|---|
+| 0.1 | K-fold + bootstrap appaiato | proposto | | | |
+| 0.3 | submission baseline | proposto | | | |
+| 1a | zoom 2 giri con L | proposto | | | |
+| 1b | `max_frac` e margine | proposto | | | |
+| 1c | diagnosi scala media | proposto | | | |
+| 2a | ViT-B con ricetta nb5 | proposto | | | |
+| 2b | DINOv2-L | proposto | | | |
+| 2c | DINOv2-L con registri | proposto | | | |
+| 3a | augmentation fotometrica e scala | proposto | | | |
+| 3b | $K=6$ e $K=8$ blocchi | proposto | | | |
+| 4a | self-distillation densa | proposto | | | |
+| 4b | loss coarse-to-fine | proposto | | | |
+| 5a | re-ranker out-of-fold | proposto | | | |
+| 5b | secondo backbone | proposto | | | |
+| 6 | riaddestramento su train+val | proposto | | | |
+
+### 10.12 Rischi e punti aperti
+
+1. **Tempo.** La competizione chiude fra circa un mese. Le fasi 0–3 sono realistiche; 4 e 5 vanno scelte in base ai risultati, non fatte tutte.
+2. **Pseudo-label rumorosi** (4a): se la precisione dei pseudo-label sul train è bassa, la fase si ferma.
+3. **Interpretazione di MARCO.** Le sezioni 4a e 4b dipendono dalla lettura del pseudo-codice; potrebbero cambiare.
+4. **Uso delle immagini di test non etichettate** (4a, variante ii): da chiarire con l'host prima di usarla.
+5. **Bias di selezione.** Anche con K-fold, scegliere la configurazione migliore tra molte gonfia leggermente il risultato: va dichiarato nel report finale.
