@@ -32,4 +32,6 @@ hailo_env
 Advanced Machine Learning/self-study/data/*
 d2l-en
 Advanced Machine Learning/Challenge/datasets
+Advanced Machine Learning/Challenge/aml-challenge-2026-27
 .tex_cache
+*.safetensor*
