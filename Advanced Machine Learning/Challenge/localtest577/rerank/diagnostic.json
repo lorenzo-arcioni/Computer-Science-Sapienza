@@ -1,0 +1,29 @@
+{
+  "dv6": {
+    "channel": "dv6",
+    "n_s17_misses": 160,
+    "argmax_in_top8_hits_on_s17_misses": 40,
+    "same_restricted_B_margin_lt_0.35": 32,
+    "n_s17_misses_B_margin_lt_0.35": 103,
+    "ungated_would_break_s17_hits": 72,
+    "ungated_csv": "ungated_dv6"
+  },
+  "ap": {
+    "channel": "ap",
+    "n_s17_misses": 160,
+    "argmax_in_top8_hits_on_s17_misses": 28,
+    "same_restricted_B_margin_lt_0.35": 20,
+    "n_s17_misses_B_margin_lt_0.35": 103,
+    "ungated_would_break_s17_hits": 94,
+    "ungated_csv": "ungated_ap"
+  },
+  "vitup": {
+    "channel": "vitup",
+    "n_s17_misses": 160,
+    "argmax_in_top8_hits_on_s17_misses": 54,
+    "same_restricted_B_margin_lt_0.35": 48,
+    "n_s17_misses_B_margin_lt_0.35": 103,
+    "ungated_would_break_s17_hits": 87,
+    "ungated_csv": "ungated_vitup"
+  }
+}

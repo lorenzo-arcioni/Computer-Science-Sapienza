@@ -1,0 +1,88 @@
+{
+  "protocol": {
+    "anchor": "results/kaggle_improvement/nearmiss3_20261114/s17_contrast_gated.csv",
+    "s17_hits": 417,
+    "top8_npz": "results/kaggle_improvement/test_choice_diagnosis_20261113/b_test_top8.npz",
+    "B_margin_gate": 0.35,
+    "dist_gate_frac_L": 0.04,
+    "channels": [
+      "dv6",
+      "ap",
+      "vitup"
+    ]
+  },
+  "variants": {
+    "ungated_dv6": {
+      "csv": "ungated_dv6",
+      "hits": 385,
+      "delta_vs_s17": -32,
+      "fixed": 40,
+      "broke": 72,
+      "ci95_pair_boot_delta": [
+        -56.0,
+        -9.0
+      ]
+    },
+    "gated_dv6": {
+      "csv": "gated_dv6",
+      "hits": 409,
+      "delta_vs_s17": -8,
+      "fixed": 27,
+      "broke": 35,
+      "ci95_pair_boot_delta": [
+        -26.0,
+        10.0
+      ]
+    },
+    "ungated_ap": {
+      "csv": "ungated_ap",
+      "hits": 351,
+      "delta_vs_s17": -66,
+      "fixed": 28,
+      "broke": 94,
+      "ci95_pair_boot_delta": [
+        -86.0,
+        -46.0
+      ]
+    },
+    "gated_ap": {
+      "csv": "gated_ap",
+      "hits": 378,
+      "delta_vs_s17": -39,
+      "fixed": 18,
+      "broke": 57,
+      "ci95_pair_boot_delta": [
+        -57.0,
+        -21.0
+      ]
+    },
+    "ungated_vitup": {
+      "csv": "ungated_vitup",
+      "hits": 384,
+      "delta_vs_s17": -33,
+      "fixed": 54,
+      "broke": 87,
+      "ci95_pair_boot_delta": [
+        -57.0,
+        -10.0
+      ]
+    },
+    "gated_vitup": {
+      "csv": "gated_vitup",
+      "hits": 428,
+      "delta_vs_s17": 11,
+      "fixed": 45,
+      "broke": 34,
+      "ci95_pair_boot_delta": [
+        -8.0,
+        31.0
+      ]
+    }
+  },
+  "n_gated_switches": {
+    "dv6": 126,
+    "ap": 148,
+    "vitup": 145
+  },
+  "diagnostic_ref": "diagnostic.json"
+}

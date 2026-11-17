@@ -1,0 +1,51 @@
+{
+  "cohort": "SOCO test577 local proxy",
+  "total_queries": 577,
+  "metric": "fraction of queries with min Euclidean distance to an accepted target <= 0.1 * target scale",
+  "labels": {
+    "path": "labels/test_labels.json",
+    "sha256": "31445f9761ead0264e3f584d5bd6e1b38870996336dd744ff94fe9d05e69e067",
+    "bytes": 51247,
+    "provenance": "SOCO-recovered annotations for the course release; a derived proxy, not the official Kaggle private ground truth",
+    "origin": "/opt/soco_scorer/private/test_labels.json (host mitozoa, mode 0600, owner socoscore)"
+  },
+  "canonical_receipts": [
+    {
+      "exp_id": "channel_rerank_58429041_verify",
+      "file": "predictions/gated_vitup.csv",
+      "sha256": "b3529b905da0263d29065fa96fbc2c9535b782d61725de5382ab7be02ca76ef5",
+      "correct": 428,
+      "total": 577,
+      "pck": 0.74177,
+      "note": "independent recheck of the B550 channel-rerank claim",
+      "source": "host scorer via /home/opc/soco_loop/bin/score.sh, 2026-11-16T12:04:56Z"
+    },
+    {
+      "exp_id": "s17_anchor_recheck",
+      "file": "predictions/s17_contrast_gated.csv",
+      "sha256": "3e513a86d036f579a18927b90326ee28a47fae5c1723a755e4834f303fc3fc3e",
+      "correct": 417,
+      "total": 577,
+      "pck": 0.7227,
+      "note": "independent recheck of the s17 anchor",
+      "source": "host scorer via /home/opc/soco_loop/bin/score.sh, 2026-11-16T12:05:13Z"
+    }
+  ],
+  "reported_variant_scores": {
+    "gated_vitup": 428,
+    "gated_dv6": 409,
+    "gated_ap": 378,
+    "ungated_vitup": 384,
+    "ungated_dv6": 385,
+    "ungated_ap": 351,
+    "s17_anchor": 417
+  },
+  "leaderboard": {
+    "s17_public": 0.68811,
+    "gated_vitup_public": 0.62376,
+    "gated_vitup_submission_ref": "58429041",
+    "note": "public figures are not k/577; the leaderboard is scored on a subset, so they are small-sample statistics. 0.68811 fits 353/513 exactly; 0.62376 fits no k/577 or k/513 form."
+  },
+  "switches_vs_s17": 145,
+  "warning": "This archive contains the answer key. It must never sit on a path that training, fitting, pseudo-labelling or hyperparameter search can read. Injecting per-query labels back into a model is out of bounds; aggregate scores from a frozen file are the only intended use."
+}
