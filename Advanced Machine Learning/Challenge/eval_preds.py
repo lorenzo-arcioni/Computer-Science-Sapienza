@@ -8,6 +8,8 @@ Uso:
     python eval_preds.py submission.csv --root datasets --alpha 0.1 --top 15
     python eval_preds.py submission.csv --vs altra_submission.csv
     python eval_preds.py submission.csv --save-details dettagli.csv
+    python eval_preds.py submission.csv --public 0.6123            # stima la LB privata (pubblica = 35% delle query)
+    python eval_preds.py submission.csv --public 61.23 --public-frac 0.35
 
 Richiede (relativi a --root, default "datasets"):
     SOCO/Images, SOCO/PairAnnotations/{intra,cross}
@@ -248,6 +250,28 @@ def compare(e1, e2, alpha, name1, name2):
     print(f"distanza tra predizioni A e B (px): mediana {d.median():.2f} | media {d.mean():.2f} | max {d.max():.1f}")
 
 
+def private_lb(e, alpha, pub, frac):
+    """Stima la PCK della leaderboard privata dalla PCK totale (calcolata qui) e da quella pubblica.
+    totale = frac*pub + (1-frac)*priv  =>  priv = (totale - frac*pub) / (1 - frac)"""
+    if pub > 1:                     # accetta sia 0.62 che 62
+        pub /= 100
+    tot = float((e.nerr <= alpha).mean())
+    priv = (tot - frac * pub) / (1 - frac)
+    n = len(e)
+    n_pub = round(frac * n)
+    sec("Stima leaderboard privata")
+    print(f"PCK@{alpha:.2f} totale (calcolata sul testset totale) : {tot:.4f}  ({n} query)")
+    print(f"PCK@{alpha:.2f} leaderboard pubblica (input)   : {pub:.4f}  (~{n_pub} query, frac={frac:.2f})")
+    print(f"PCK@{alpha:.2f} leaderboard privata (stimata)  : {priv:.4f}  (~{n - n_pub} query, frac={1 - frac:.2f})")
+    print(f"differenza privata - pubblica                  : {priv - pub:+.4f}")
+    # sensibilita': la pubblica e' di solito arrotondata, l'errore si amplifica di frac/(1-frac)
+    print(f"nota: un errore di arrotondamento di ±0.0005 sulla pubblica sposta la privata di "
+          f"±{0.0005 * frac / (1 - frac):.4f}")
+    if not 0 <= priv <= 1:
+        print("ATTENZIONE: valore fuori da [0,1] -> la PCK pubblica inserita non e' coerente con questo CSV/alpha/bbox "
+              "(controlla --alpha, --clip e che la submission sia la stessa).")
+
+
 # ----------------------------------------------------------------------------------------
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -260,6 +284,8 @@ def main():
     ap.add_argument("--vs", help="seconda submission da confrontare (test dei segni sulle query)")
     ap.add_argument("--save-details", help="salva il dettaglio per-query in CSV")
     ap.add_argument("--rebuild-gt", action="store_true", help="ricostruisce la cache della ground truth")
+    ap.add_argument("--public", type=float, help="PCK ottenuta sulla leaderboard pubblica (0.62 oppure 62)")
+    ap.add_argument("--public-frac", type=float, default=0.35, help="frazione di query della LB pubblica (default 0.35)")
     args = ap.parse_args()
 
     pd.set_option("display.width", 200, "display.max_columns", 50)
@@ -271,6 +297,8 @@ def main():
     if args.save_details:
         e.drop(columns=["cands", "bbox", "named", "nearest"]).to_csv(args.save_details, index=False)
         print(f"\n[info] dettaglio per-query salvato in {args.save_details}")
+    if args.public is not None:
+        private_lb(e, args.alpha, args.public, args.public_frac)
 
 
 if __name__ == "__main__":
